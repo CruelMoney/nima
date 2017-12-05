@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import Logo from '../../components/Logo'
-import './index.css'
+import Logo from '../../components/Logo';
+import { Link } from 'react-router-dom';
+
+import './index.css';
 
 class Landing extends Component {
   state={
@@ -28,8 +30,8 @@ class Landing extends Component {
           <h1 className="mb-6 text-white text-shadow">
             NIMA COPENHAGEN
           </h1>
-          <a 
-          href="/shop"
+          <Link
+          to="/shop"
           onMouseEnter={()=>this.setState({hover:true})}
           onMouseLeave={()=>this.setState({hover:false})}
           class={`
@@ -45,7 +47,7 @@ class Landing extends Component {
             hover:border-transparent
             `}>
             WEBSHOP
-          </a>
+          </Link>
         </div>
       </div>
     );
