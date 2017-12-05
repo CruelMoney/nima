@@ -1,0 +1,13 @@
+.landingVideo{
+ height: 100vh;
+ width: 100vw;
+ box-sizing: border-box;
+}
+
+.landingVideo video{
+  transition: all 1000ms ease;
+  filter: grayscale(100%);
+}
+.landingVideo.hover video{
+  filter: grayscale(0%);
+}
