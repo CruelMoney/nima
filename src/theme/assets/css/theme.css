@@ -5,3 +5,14 @@ a{
 .object-fit-cover{
   object-fit: cover;
 }
+
+
+.my-active-enter{
+  display: none;
+}
+.my-active-enter:only-child{
+  display: block;
+}
+.my-active-enter ~ .my-active-exit{
+  display: block;
+}
