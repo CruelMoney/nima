@@ -4,7 +4,7 @@
   "private": true,
   "main": "./dist/build/bundle.js",
   "dependencies": {
-    "cude-cms": "^0.2.0",
+    "cude-cms": "^0.2.2",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
     "react-loadable": "^5.3.1",

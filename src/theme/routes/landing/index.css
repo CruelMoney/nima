@@ -11,3 +11,13 @@
 .landingVideo.hover video{
   filter: grayscale(0%);
 }
+
+.header-menu{
+  opacity: 1;
+  transition: opacity 10ms;
+  transition-delay: 500ms;
+}
+
+.home .header-menu{
+  opacity: 0;
+}

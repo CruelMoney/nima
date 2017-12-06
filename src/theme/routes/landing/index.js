@@ -26,7 +26,7 @@ class Landing extends Component {
           </video>
         </div>
         <div className="absolute pin flex justify-center items-center flex-col">
-          <Logo />
+          <Logo shadow />
           <h1 className="mb-6 text-white text-shadow">
             NIMA COPENHAGEN
           </h1>

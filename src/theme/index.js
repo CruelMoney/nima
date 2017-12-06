@@ -4,6 +4,7 @@ import Landing from './routes/Landing'
 import Shop from './routes/Shop'
 import NotFound from './routes/NotFound'
 import Footer from './components/Footer'
+import Menu from './components/Menu'
 import LoadingPage from './routes/Loading';
 import { connect } from 'react-redux';
 import { withRouter, Route, Switch} from 'react-router-dom'
@@ -62,12 +63,12 @@ class Index extends Component {
     }
 
     const { location, loading } = this.props;
-    const currentKey = location.pathname.split('/')[1] || '/';
+    const currentKey = location.pathname.split('/')[1] || 'home';
 
     return (
-      <div className={this.state.loadingScreen ? "loading" : ""}>
+      <div className={`${currentKey} ${this.state.loadingScreen ? "loading" : ''}`}>
+        <Menu />
         <TransitionGroup 
-        
         className="page-main">
           <CSSTransition 
           key={currentKey} 
