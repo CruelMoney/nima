@@ -1,14 +1,11 @@
 const keystone = require('keystone');
 import * as middleware from './middleware';
+import * as api from './api';
 
 // Bind Routes
 const controllers = (app) => {
   app.use('/', middleware.initLocals);
-
-  app.get('/hey', (req, res, next)=>{
-    res.send('hey');
-  });
-
+  app.get('/api/pages', api.pages);
 };
 
 exports = module.exports = controllers;

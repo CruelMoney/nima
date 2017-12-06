@@ -1,4 +1,5 @@
-require('dotenv').config()
+require('dotenv').config();
+require('isomorphic-fetch');
 const {setupUniversal} = require('./app');
 const keystone = require('keystone');
 const PORT = process.env.PORT || 3001;

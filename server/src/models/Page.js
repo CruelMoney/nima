@@ -26,3 +26,7 @@ var Homepage = new keystone.List('Homepage', {
 Homepage.add({ });
 
 Homepage.register();
+
+exports = module.exports = {
+    BasePage
+}

@@ -31,22 +31,11 @@ class Landing extends Component {
             NIMA COPENHAGEN
           </h1>
           <Link
-          to="/shop"
-          onMouseEnter={()=>this.setState({hover:true})}
-          onMouseLeave={()=>this.setState({hover:false})}
-          class={`
-            bg-transparent 
-            hover:bg-white 
-            text-white 
-            font-medium 
-            hover:text-black 
-            py-4 
-            px-10 
-            border-2
-            border-white 
-            hover:border-transparent
-            `}>
-            WEBSHOP
+            to="/shop"
+            onMouseEnter={()=>this.setState({hover:true})}
+            onMouseLeave={()=>this.setState({hover:false})}
+            className={`bg-transparent hover:bg-white  text-white font-medium hover:text-black py-4 px-10 border-2 border-white hover:border-transparent`}>
+              WEBSHOP
           </Link>
         </div>
       </div>

@@ -5,17 +5,14 @@ import {
   combineReducers } from 'redux'
 import { reducers } from 'cude-cms';
 import theme from './theme/reducers';
-//import createLogger from 'redux-logger'
-//import createSagaMiddleware from 'redux-saga'
-
-//const logger = createLogger()
-//const sagaMiddleware = createSagaMiddleware()
+import thunkMiddleware from 'redux-thunk'
+import logger from 'redux-logger'
 
 export default function configureStore(initialState = {}) {
   // Create the store with two middlewares
   const middlewares = [
-  //  sagaMiddleware
-  //, logger
+    thunkMiddleware,
+    logger
   ]
 
   const enhancers = [

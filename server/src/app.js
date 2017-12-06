@@ -1,7 +1,7 @@
 const path = require('path');
 const { Provider } = require("react-redux");
 const React = require('react');
-const { renderToNodeStream } = require("react-dom/server");
+const { renderToNodeStream, renderToString } = require("react-dom/server");
 const {default: staticLoader} = require('@cra-express/static-loader');
 const {default: universalLoader} = require('@cra-express/universal-loader');
 const express = require('express');
@@ -30,25 +30,47 @@ const getStoreFromRequest = (req, res) =>{
   return configureStore(initialState);
 }
 
-function handleUniversalRender(req, res) {
-  const context = {};
-  const stream = renderToNodeStream(
-    <Provider store={getStoreFromRequest(req, res)}>
-      <StaticRouter
-          location={req.url}
-          context={context}
-        >
-        <App />
-      </StaticRouter>
-    </Provider>
-  );
+const getApp = (req, store, context) => {
+  return( 
+  <Provider store={store}>
+    <StaticRouter
+        location={req.url}
+        context={context}
+      >
+      <App />
+    </StaticRouter>
+  </Provider>)
+  }
+
+const handleUniversalRender = async (req, res) => {
+  const store = getStoreFromRequest(req, res);
+  let context = {
+    store, 
+    resolved: false,
+    promises:[]
+  }
+
+  // Render one time to populate promises
+  renderToString(getApp(req, store, context));
+  
+  // Await the fetching of the data
+  const result = await Promise.all(context.promises);
+  
+  context.resolved = true 
+  res.locals.context = context;
+  res.locals.store = store;
+
+  console.log('last store:', JSON.stringify(store.getState()));
+
+  const stream = renderToNodeStream(getApp(req, store, context));
+  
   return stream;
+
 }
 
 const renderer = (req, res, stream, htmlData, options) => {
-  // adding state to initial render
-  const preloadedState = getStoreFromRequest(req, res).getState();
-  
+  const preloadedState = res.locals.store.getState();
+
   htmlData = htmlData.replace(
     `"%PRELOADED_STATE%"`, 
     JSON.stringify(preloadedState).replace(/</g, '\\u003c')
@@ -64,6 +86,8 @@ const renderer = (req, res, stream, htmlData, options) => {
     res.write(segments[1]);
     res.end();
   });
+
+   
 }
 
 
