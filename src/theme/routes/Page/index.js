@@ -15,7 +15,7 @@ class Page extends Component {
       )
     }
     return (
-      <div className="container">
+      <div className="container mx-auto ">
         <h1>
         {page.title}
         </h1>

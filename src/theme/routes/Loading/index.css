@@ -1,0 +1,10 @@
+.loading-screen{
+  background: white;
+  transition: transform 500ms ease;
+  transform: translateY(-100vh);
+}
+
+.loading-screen.active{
+  transform: none;
+}
+

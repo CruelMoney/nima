@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import Logo from '../../components/Logo'
+import './index.css'
 
 class Loading extends Component {
   render() {
     return (
-      <div>
-        Loading...
+      <div className={`fixed justify-center items-center flex pin loading-screen ${this.props.active && 'active'}`}>
+       <Logo />
       </div>
     );
   }

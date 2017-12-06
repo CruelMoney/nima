@@ -34,6 +34,7 @@ const pages = (req, res, next) => {
 }
 
 const setup = (app) => {
+
   restful.expose({
     BasePage : {
       path : "pages",

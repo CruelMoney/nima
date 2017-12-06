@@ -1,32 +1,100 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './assets/css/theme.css'
 import Landing from './routes/Landing'
 import Shop from './routes/Shop'
 import NotFound from './routes/NotFound'
 import Footer from './components/Footer'
 import LoadingPage from './routes/Loading';
-import { Route, Switch } from 'react-router-dom'
+import { connect } from 'react-redux';
+import { withRouter, Route, Switch} from 'react-router-dom'
 import Loadable from 'react-loadable';
-
-const AsyncPage = Loadable({
-  loader: () => import('./routes/Page'),
-  loading: LoadingPage
-});
+import {TransitionGroup, CSSTransition} from 'react-transition-group'
 
 class Index extends Component {
+  
+  onTransitionDone = null;
+  state={
+    loadingCode : false,
+    loadingScreen: false
+  }
+
+  AsyncPage = Loadable({
+    loader: () => {
+      this.setState({
+        loadingCode: true
+      });
+      return (
+        import ('./routes/Page'))
+        .then((page) =>{
+          this.setState({
+            loadingCode: false
+          });
+          return page
+      })
+    },
+    loading: LoadingPage
+  });
+
+  handleTransitionLogic = (node, done) => {    
+    this.onTransitionDone = done;
+    
+    this.setState({
+      loadingScreen: true
+    }, ()=>{
+        // Minimum 1s loading screen
+        // Check if stuff fetched after 1 sec
+        setTimeout(() => {
+          const interval = setInterval(() => {
+            if(!this.props.isFetchingData){
+              this.setState({
+                loadingScreen:false
+              });
+              clearInterval(interval);
+            }
+          }, 100);
+        }, 1000);
+    });
+  }
+
   render() {
+    if(this.onTransitionDone && !this.state.loadingScreen){
+      this.onTransitionDone();
+    }
+
+    const { location, loading } = this.props;
+    const currentKey = location.pathname.split('/')[1] || '/';
+
     return (
-      <div>
-        <Switch>
-          <Route exact path="/" component={Landing} />
-          <Route path="/shop" component={Shop} />
-          <Route path="/not-found" component={NotFound} />
-          <Route component={AsyncPage} />
-        </Switch>
-        <Footer />
+      <div className={this.state.loadingScreen ? "loading" : ""}>
+        <TransitionGroup component="main" className="page-main">
+          <CSSTransition key={currentKey} classNames="fade" addEndListener={this.handleTransitionLogic}>
+            <section className="page-main-inner">
+              <Switch location={location}>
+                <Route exact path="/" component={Landing}/>
+                <Route path="/shop" component={Shop}/>
+                <Route path="/not-found" component={NotFound}/>
+                <Route component={this.AsyncPage}/>
+              </Switch>
+            </section>
+          </CSSTransition>
+        </TransitionGroup>
+        <Footer/>
+        <LoadingPage active={this.state.loadingScreen} />
       </div>
     );
   }
 }
 
-export default Index;
+const mapStateToProps = (state) => {
+  const isFetchingData = Object.keys(state.apiData).some(
+    key => state.apiData[key].fetching === true
+  ); 
+
+  return{
+    isFetchingData: isFetchingData
+  }
+}
+
+export default withRouter(
+  connect(mapStateToProps)(Index)
+);
