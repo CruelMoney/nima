@@ -8,6 +8,7 @@ import theme from './theme/reducers';
 import thunkMiddleware from 'redux-thunk'
 import logger from 'redux-logger'
 
+
 export default function configureStore(initialState = {}) {
   // Create the store with two middlewares
   const middlewares = [

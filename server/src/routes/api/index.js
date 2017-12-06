@@ -36,12 +36,16 @@ const pages = (req, res, next) => {
 const setup = (app) => {
   restful.expose({
     BasePage : {
-      path : "page",
+      path : "pages",
       envelop: false,
       // filter : {
       //   state: "published"
       // },
       // populate : ["categories", "skills", "images"],
+    },
+    Menu: {
+      populate : ["pages"],
+      envelop: false,
     },
     Text : true,
     CudeImage: true

@@ -5,7 +5,7 @@ import * as api from './api';
 // Bind Routes
 const controllers = (app) => {
   app.use('/', middleware.initLocals);
-  app.get('/api/pages', api.pages);
+  api.setup(app);
 };
 
 exports = module.exports = controllers;
