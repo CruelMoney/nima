@@ -20,7 +20,7 @@ class Loading extends Component {
   }
 
   startAnimation = () => {
-      const manipulator = (val) => {          
+      const manipulator = (val) => {             
         this.bg.style.transform = `translateY(${val}vh)`;
         this.logoOverflow.style.transform = `translateY(${val}vh)`;
         this.logo.style.transform = `translateY(-${val}vh) translateX(-50%)`;        
