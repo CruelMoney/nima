@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Logo from '../../components/Logo';
 import { Link } from 'react-router-dom';
-
 import './index.css';
 
 class Landing extends Component {
@@ -26,7 +25,9 @@ class Landing extends Component {
           </video>
         </div>
         <div className="absolute pin flex justify-center items-center flex-col">
-          <Logo shadow />
+          <Logo 
+          color={'white'} 
+          shadow />
           <h1 className="mb-6 text-white text-shadow">
             NIMA COPENHAGEN
           </h1>

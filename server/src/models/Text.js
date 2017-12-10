@@ -2,7 +2,7 @@ var keystone = require('keystone'),
 Types = keystone.Field.Types;
 
 var Text = new keystone.List('Text', {
-hidden: true
+hidden: false
 });
 
 Text.add({

@@ -1,10 +1,24 @@
-.loading-screen{
-  background: white;
-  transition: transform 500ms ease;
+.loading-bg{
+  background: white;  
+  transform: translateY(-100vh);
+  z-index: -1;
+}
+
+#loading-screen{
+  pointer-events:  none;
+}
+
+#loading-screen svg{
+  position: absolute;
+  top: 32.8%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+#loading-logo-wrapper{
+  transform: translateY(100vh);
+  overflow: hidden;
+}
+#loading-logo{
   transform: translateY(-100vh);
 }
-
-.loading-screen.active{
-  transform: none;
-}
-

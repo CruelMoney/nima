@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { withRouter, Redirect } from 'react-router'
 import LoadingPage from '../Loading';
-import { fetcher } from 'cude-cms'
+import { fetcher, DBWysiwyg } from 'cude-cms'
+import { Editor } from 'react-draft-wysiwyg';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+
 
 class Page extends Component {
   render() {
@@ -16,10 +19,18 @@ class Page extends Component {
     }
     return (
       <div className="container mx-auto  mt-16">
-        <h1>
-        {page.title}
-        </h1>
-      You are now at {location.pathname}
+        <hr/>
+        <article className="mt-10 mb-16">
+          <h1 className="text-6xl">
+          {page.title}  
+          </h1>
+          <DBWysiwyg 
+            dbKey={`${page.slug}-wysiwyg-content`}
+            wrapperClassName="wrapper-class"
+            editorClassName="editor-class"
+            toolbarClassName="toolbar-class"
+          />
+        </article>
       </div>
     );
   }

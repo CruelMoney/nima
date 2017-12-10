@@ -514,6 +514,12 @@ button,
   width: 100%;
 }
 
+@media (min-width: 462px) {
+  .container {
+    max-width: 462px;
+  }
+}
+
 @media (min-width: 576px) {
   .container {
     max-width: 576px;
@@ -529,12 +535,6 @@ button,
 @media (min-width: 992px) {
   .container {
     max-width: 992px;
-  }
-}
-
-@media (min-width: 1200px) {
-  .container {
-    max-width: 1200px;
   }
 }
 
@@ -4517,6 +4517,10 @@ button,
   font-size: 3rem;
 }
 
+.text-6xl {
+  font-size: 4rem;
+}
+
 .italic {
   font-style: italic;
 }
@@ -4850,7 +4854,7 @@ button,
   * @import "utilities/skew-transforms";
   */
 
-@media (min-width: 576px) {
+@media (min-width: 462px) {
   .sm\:list-reset {
     list-style: none;
     padding: 0;
@@ -8822,6 +8826,10 @@ button,
     font-size: 3rem;
   }
 
+  .sm\:text-6xl {
+    font-size: 4rem;
+  }
+
   .sm\:italic {
     font-style: italic;
   }
@@ -9141,7 +9149,7 @@ button,
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 576px) {
   .md\:list-reset {
     list-style: none;
     padding: 0;
@@ -13113,6 +13121,10 @@ button,
     font-size: 3rem;
   }
 
+  .md\:text-6xl {
+    font-size: 4rem;
+  }
+
   .md\:italic {
     font-style: italic;
   }
@@ -13432,7 +13444,7 @@ button,
   }
 }
 
-@media (min-width: 992px) {
+@media (min-width: 768px) {
   .lg\:list-reset {
     list-style: none;
     padding: 0;
@@ -17404,6 +17416,10 @@ button,
     font-size: 3rem;
   }
 
+  .lg\:text-6xl {
+    font-size: 4rem;
+  }
+
   .lg\:italic {
     font-style: italic;
   }
@@ -17723,7 +17739,7 @@ button,
   }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 992px) {
   .xl\:list-reset {
     list-style: none;
     padding: 0;
@@ -21693,6 +21709,10 @@ button,
 
   .xl\:text-5xl {
     font-size: 3rem;
+  }
+
+  .xl\:text-6xl {
+    font-size: 4rem;
   }
 
   .xl\:italic {

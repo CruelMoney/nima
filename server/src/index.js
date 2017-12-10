@@ -1,9 +1,11 @@
 require('dotenv').config();
 require('isomorphic-fetch');
-const {setupUniversal} = require('./app');
 const keystone = require('keystone');
 const PORT = process.env.PORT || 3001;
 const cookieSecret = process.env.cookieSecret || 'secretCookie';
+keystone.import('models');
+const {setupUniversal} = require('./app');
+
 
 keystone.init({
   'name': 'Cude cms',
@@ -15,6 +17,7 @@ keystone.init({
   'user model': 'User',
   'signin redirect': '/',
   'signout redirect': '/',
+  'static': 'public',
   'cookie secret': process.env.COOKIE_SECRET || cookieSecret,
   'wysiwyg images': true,
   //'wysiwyg cloudinary images' : true, Does not seem to work
@@ -35,8 +38,6 @@ keystone.init({
     }
   }
 });
-
-keystone.import('models');
 
 keystone.set('pre:routes', (app) => {
   setupUniversal(app);

@@ -16,7 +16,7 @@ class Menu extends Component {
            <div className="w-16 h-full logo">
            <Link to="/">
               <Logo 
-              color={"#11111"}
+              color={"#111111"}
               className="h-full w-full" />
             </Link>
            </div>

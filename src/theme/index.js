@@ -53,7 +53,7 @@ class Index extends Component {
               clearInterval(interval);
             }
           }, 100);
-        }, 1000);
+        }, 600);
     });
   }
 
@@ -66,10 +66,11 @@ class Index extends Component {
     const currentKey = location.pathname.split('/')[1] || 'home';
 
     return (
-      <div className={`${currentKey} ${this.state.loadingScreen ? "loading" : ''}`}>
+      <div className={`${currentKey} ${this.state.loadingScreen ? "loading" : ''} page-wrapper`}>
         <Menu />
         <TransitionGroup 
-        className="page-main">
+        component={'main'}
+        >
           <CSSTransition 
           key={currentKey} 
           addEndListener={this.handleTransitionLogic}

@@ -6,6 +6,9 @@ a{
   object-fit: cover;
 }
 
+div[class^=adminOverlay]{
+  min-height: 100vh;
+}
 
 .my-active-enter{
   display: none;
@@ -15,4 +18,23 @@ a{
 }
 .my-active-enter ~ .my-active-exit{
   display: block;
+}
+
+hr{
+  border: 0.5px solid rgba(17,17,17,0.33);
+}
+
+.edit-mode div[class^=content_]{
+  min-height: 90vh;
+}
+
+.editor-class{
+  border-width: 1px;
+}
+
+main{
+  overflow: auto;
+}
+.page-wrapper{
+  position: relative;
 }
