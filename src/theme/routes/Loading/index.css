@@ -22,3 +22,9 @@
 #loading-logo{
   transform: translateY(-100vh);
 }
+
+#loading-logo, 
+#loading-logo-wrapper,
+#loading-bg{
+  will-change: transform;
+}

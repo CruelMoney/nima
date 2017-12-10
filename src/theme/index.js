@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import './assets/css/theme.css'
 import Landing from './routes/Landing'
 import Shop from './routes/Shop'
 import NotFound from './routes/NotFound'

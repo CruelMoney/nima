@@ -3,6 +3,7 @@ import { withRouter, Redirect } from 'react-router'
 import LoadingPage from '../Loading';
 import { fetcher, DBWysiwyg } from 'cude-cms'
 import { Editor } from 'react-draft-wysiwyg';
+import './index.css'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 
@@ -18,10 +19,11 @@ class Page extends Component {
       )
     }
     return (
+      <div className="post-page">
       <div className="container mx-auto  mt-16">
         <hr/>
         <article className="mt-10 mb-16">
-          <h1 className="text-6xl">
+          <h1>
           {page.title}  
           </h1>
           <DBWysiwyg 
@@ -31,6 +33,7 @@ class Page extends Component {
             toolbarClassName="toolbar-class"
           />
         </article>
+      </div>
       </div>
     );
   }

@@ -1,6 +1,32 @@
+/* TYPOGRAPHY START */
+
 a{
   text-decoration: none;
 }
+
+body{
+  font-family: PierSans-Regular, sans-serif;
+  font-size: 1em;
+  color: #111111;
+  letter-spacing: 0;
+  line-height: 1.5em;
+}
+
+p{
+  margin-bottom: 1.5em;
+}
+
+h1{
+  font-family: PierSans-Black, sans-serif;
+  font-size: 4em;
+  color: #000000;
+  letter-spacing: 2px;
+  line-height: 1em;
+  margin-bottom: 0.4em;
+}
+
+/* TYPOGRAPHY END */
+
 
 .object-fit-cover{
   object-fit: cover;

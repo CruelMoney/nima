@@ -46,14 +46,13 @@ class Loading extends Component {
   endAnimation = () => {
     this.setState({
       logoAnimate:false
-    })
+    });
 
     const manipulator = (val) => {          
       this.bg.style.transform = `translateY(${val}vh)`;
       this.logoOverflow.style.transform = `translateY(${val}vh)`;
       this.logo.style.transform = `translateY(${-val}vh) translateX(-50%)`;        
     }
-
 
     const options = {
       manipulator: manipulator,
@@ -62,7 +61,7 @@ class Loading extends Component {
       duration: 1000
     }
     
-    const animation = new Animate(options)
+    const animation = new Animate(options);
     animation.start();
   }
 
@@ -74,10 +73,7 @@ class Loading extends Component {
     }
   }
 
-
   render() {
-   
-
     return (
       <div 
       id="loading-screen"
@@ -90,7 +86,7 @@ class Loading extends Component {
             id="loading-logo"
             className="absolute pin"
             color="#111111"
-          />
+            />
        </div>
        <div 
         id={'loading-bg'}
