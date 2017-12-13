@@ -60,8 +60,6 @@ const handleUniversalRender = async (req, res) => {
   res.locals.context = context;
   res.locals.store = store;
 
-  console.log('last store:', JSON.stringify(store.getState()));
-
   const stream = renderToNodeStream(getApp(req, store, context));
   
   return stream;
@@ -89,7 +87,6 @@ const renderer = (req, res, stream, htmlData, options) => {
 
    
 }
-
 
 const setupUniversal = (app) => {
   createRoutes(app);
