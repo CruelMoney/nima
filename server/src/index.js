@@ -1,25 +1,23 @@
 require('dotenv').config();
 require('isomorphic-fetch');
 const keystone = require('keystone');
-const PORT = process.env.PORT || 3001;
-const cookieSecret = process.env.cookieSecret || 'secretCookie';
 keystone.import('models');
 const {setupUniversal} = require('./app');
-
 
 keystone.init({
   'name': 'Cude cms',
   'brand': 'Cude cms',
   'auto update': true,
   'mongo': process.env.MONGO_URL || 'mongodb://localhost/database',
-  'session': true,
+ // 'session': true,
   'session store' : 'mongo',
   'auth': true,
   'user model': 'User',
   'signin redirect': '/',
   'signout redirect': '/',
-  'static': 'public',
-  'cookie secret': process.env.COOKIE_SECRET || cookieSecret,
+ // 'static': 'public',
+  'port': process.env.PORT || 3001,
+  'cookie secret': process.env.COOKIE_SECRET || "cookieSecret",
   'wysiwyg images': true,
   //'wysiwyg cloudinary images' : true, Does not seem to work
   'wysiwyg menubar': true,
@@ -44,7 +42,25 @@ keystone.set('pre:routes', (app) => {
   setupUniversal(app);
 });
 
-keystone.start();
+keystone.start(()=>{
+  // var route, routes = [];
+  
+  // keystone.app._router.stack.forEach(function(middleware){
+  //     if(middleware.route){ // routes registered directly on the app
+  //         routes.push(middleware.route);
+  //     } else if(middleware.name === 'router'){ // router middleware 
+  //         middleware.handle.stack.forEach(function(handler){
+  //             route = handler.route;
+  //             route && routes.push(route);
+  //         });
+  //     }
+  // });
+  
+  // console.log(routes);
+
+});
+
+
 
 
 

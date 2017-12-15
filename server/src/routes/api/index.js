@@ -35,7 +35,7 @@ const pages = (req, res, next) => {
 }
 
 const setup = (app) => {
-  app.all('/api*', keystone.middleware.api);
+  //app.all('/api*', keystone.middleware.api);
   
   restful.expose({
     BasePage : {
@@ -47,6 +47,7 @@ const setup = (app) => {
       // populate : ["categories", "skills", "images"],
     },
     Menu: {
+      path : "menus",
       populate : ["pages"],
       envelop: false,
     },

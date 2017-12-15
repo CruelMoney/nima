@@ -51,7 +51,7 @@ const handleUniversalRender = async (req, res) => {
   }
 
   // Render one time to populate promises
-  renderToString(getApp(req, store, context));
+  //renderToString(getApp(req, store, context));
   
   // Await the fetching of the data
   const result = await Promise.all(context.promises);
@@ -67,12 +67,15 @@ const handleUniversalRender = async (req, res) => {
 }
 
 const renderer = (req, res, stream, htmlData, options) => {
+  console.log('render');
+  console.log('');
+
   const preloadedState = res.locals.store.getState();
 
   htmlData = htmlData.replace(
     `"%PRELOADED_STATE%"`, 
     JSON.stringify(preloadedState).replace(/</g, '\\u003c')
-  );  
+  );
 
   var segments = htmlData.split('<div id="root">');
   res.write(segments[0] + '<div id="root">');
