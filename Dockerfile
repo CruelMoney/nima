@@ -23,7 +23,7 @@ RUN cp -R server/src/updates/ dist/build/updates/
 
 # Go to dist and install packages
 WORKDIR /app/dist
-RUN yarn install
+RUN yarn install --production
 
-WORKDIR /app/dist/build
-ENTRYPOINT ["node", "bundle.js"]
+WORKDIR /app
+ENTRYPOINT ["node", "dist/build/bundle.js"]
