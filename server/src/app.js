@@ -23,7 +23,7 @@ const getStoreFromRequest = (req, res) =>{
   var initialState = {
     adminOverlay: {
       user: res.locals.user,
-      publicURL: process.env.PUBLIC_URL,
+      publicURL: process.env.PUBLIC_URL || "http://0.0.0.0:3001",
     }
   }
 
