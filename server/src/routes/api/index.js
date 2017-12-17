@@ -30,6 +30,11 @@ const setup = (app) => {
   app.get('/api/pages', pages.list);  
 
   restful.expose({
+    BasePage : {
+      path: 'pages',
+      envelop: false,
+      populate : ["tags", 'thumbnail'],
+    },
     Overview : {
       envelop: false,
       populate : ["filters"],

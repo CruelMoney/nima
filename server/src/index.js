@@ -5,8 +5,8 @@ keystone.import('models');
 const {setupUniversal} = require('./app');
 
 keystone.init({
-  'name': 'Cude cms',
-  'brand': 'Cude cms',
+  'name': 'NIMA CPH',
+  'brand': 'NIMA CPH',
   'auto update': true,
   'mongo': process.env.MONGO_URL || 'mongodb://localhost/database',
   'session': true,
