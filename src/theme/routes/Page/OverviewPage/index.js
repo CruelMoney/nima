@@ -9,7 +9,6 @@ class Overview extends Component {
   render() {
     const { page, data } = this.props;
     const { children } = data;
-    console.log(children)
     return (
       <div className="overview-page">
       <div className="container mx-auto  mt-16">

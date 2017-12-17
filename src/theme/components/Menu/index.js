@@ -23,11 +23,11 @@ class Menu extends Component {
           </div>
           <nav className="w-full h-full">
             <ul
-              className="list-reset flex items-center justify-around flex-wrap w-full h-full">
+              className="list-reset flex items-center justify-center flex-wrap w-full h-full">
               {!!menuItems && !!menuItems.map
                 ? menuItems.map(link => {
                   return (
-                    <li key={`menu-link-${link.slug}`}>
+                    <li key={`menu-link-${link.slug}`} className="mx-4">
                       <Link to={`/${link.slug}`} className="text-black hover:text-grey-dark">
                         {link.title}
                       </Link>

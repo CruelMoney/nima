@@ -3,6 +3,7 @@ import { withRouter, Redirect } from 'react-router'
 import { fetcher } from 'cude-cms'
 import Post from './Post';
 import Overview from './OverviewPage';
+import Product from './Product';
 
 class Page extends Component {
   render() {
@@ -19,6 +20,10 @@ class Page extends Component {
     if(page.__t === 'Overview'){
       return(
         <Overview page={page} />
+      );
+    }else if(page.__t === 'Product'){
+      return(
+        <Product page={page} />
       );
     }else{
       return(

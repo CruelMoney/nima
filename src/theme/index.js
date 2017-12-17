@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import Landing from './routes/Landing'
-import Shop from './routes/Shop'
 import NotFound from './routes/NotFound'
 import Footer from './components/Footer'
 import Menu from './components/Menu'
@@ -85,7 +84,6 @@ class Index extends Component {
             <section className="transition-page my-active-enter">
               <Switch location={location}>
                 <Route exact path="/" component={Landing}/>
-                <Route path="/shop" component={Shop}/>
                 <Route path="/not-found" component={NotFound}/>
                 <Route component={this.AsyncPage}/>
               </Switch>
