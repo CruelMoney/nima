@@ -42,4 +42,4 @@ FileUpload.add({
 FileUpload.defaultColumns = 'name';
 FileUpload.register();
 
-exports = module.export = { FileUpload }
+exports = module.export = { FileUpload, myStorage }

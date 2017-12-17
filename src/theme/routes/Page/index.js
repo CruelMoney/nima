@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter, Redirect } from 'react-router'
-import LoadingPage from '../Loading';
-import { fetcher, DBWysiwyg } from 'cude-cms'
-import { Editor } from 'react-draft-wysiwyg';
-import './index.css'
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-
+import { fetcher } from 'cude-cms'
+import Post from './Post';
+import Overview from './OverviewPage';
 
 class Page extends Component {
   render() {
@@ -18,24 +15,16 @@ class Page extends Component {
         <Redirect to="/not-found"/>
       )
     }
-    return (
-      <div className="post-page">
-      <div className="container mx-auto  mt-16">
-        <hr/>
-        <article className="mt-10 mb-16">
-          <h1>
-          {page.title}  
-          </h1>
-          <DBWysiwyg 
-            dbKey={`${page.slug}-wysiwyg-content`}
-            wrapperClassName="wrapper-class"
-            editorClassName="editor-class"
-            toolbarClassName="toolbar-class"
-          />
-        </article>
-      </div>
-      </div>
-    );
+
+    if(page.__t === 'Overview'){
+      return(
+        <Overview page={page} />
+      );
+    }else{
+      return(
+        <Post page={page} />
+      );
+    }
   }
 }
 

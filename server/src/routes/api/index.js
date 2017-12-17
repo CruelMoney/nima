@@ -1,6 +1,7 @@
 var keystone = require('keystone');
 var restful = require('restful-keystone-onode')(keystone);
 import * as fileupload from './fileUpload';
+import * as pages from './pages';
 
 const configurations = (req, res, next) => {
 	SocialConfiguration.model.findOne({}, (err, social)=>{
@@ -21,30 +22,17 @@ const configurations = (req, res, next) => {
     });
 }
 
-const pages = (req, res, next) => {
-  const Page = keystone.list('BasePage');
-  
-	Page.model.find({}, (err, pages)=>{
-        if (err) return next(err)
-        return res.send(JSON.stringify(
-          {
-            data: pages
-          }
-        ));
-  })        
-}
 
 const setup = (app) => {
   app.all('/api*', keystone.middleware.api);
   
+  app.get('/api/overviews/:id', pages.get);  
+  app.get('/api/pages', pages.list);  
+
   restful.expose({
-    BasePage : {
-      path : "pages",
+    Overview : {
       envelop: false,
-      // filter : {
-      //   state: "published"
-      // },
-      // populate : ["categories", "skills", "images"],
+      populate : ["filters"],
     },
     Menu: {
       path : "menus",
@@ -55,8 +43,8 @@ const setup = (app) => {
       envelop: false,
     },
     CudeImage: true
-  }).start();
-
+  })
+  .start();
 
   //File Upload Route
   app.get('/api/fileupload/list', fileupload.list);
@@ -64,12 +52,11 @@ const setup = (app) => {
   app.all('/api/fileupload/:id/update', fileupload.update);
   app.all('/api/fileupload/create', fileupload.create);
   app.get('/api/fileupload/:id/remove', fileupload.remove);
-  
+
 }
 
 
 export {
   setup,
-  configurations,
-  pages
+  configurations
 }
