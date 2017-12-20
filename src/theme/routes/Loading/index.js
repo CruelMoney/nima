@@ -20,7 +20,11 @@ class Loading extends Component {
   }
 
   startAnimation = () => {
-      const manipulator = (val) => {             
+      const manipulator = (val) => {
+        if(val < 100){
+          this.bg.style.opacity = 1;
+          this.logoOverflow.style.opacity = 1;
+        } 
         this.bg.style.transform = `translateY(${val}vh)`;
         this.logoOverflow.style.transform = `translateY(${val}vh)`;
         this.logo.style.transform = `translateY(-${val}vh) translateX(-50%)`;        
@@ -51,7 +55,11 @@ class Loading extends Component {
     const manipulator = (val) => {          
       this.bg.style.transform = `translateY(${val}vh)`;
       this.logoOverflow.style.transform = `translateY(${val}vh)`;
-      this.logo.style.transform = `translateY(${-val}vh) translateX(-50%)`;        
+      this.logo.style.transform = `translateY(${-val}vh) translateX(-50%)`;
+      if(val <= -99){
+        this.bg.style.opacity = 0;
+        this.logoOverflow.style.opacity = 0;
+      }
     }
 
     const options = {

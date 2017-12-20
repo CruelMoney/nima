@@ -12,12 +12,11 @@ exports.list = function(req, res) {
 
     if (err) return res.apiError('database error', err);
 
-    res.apiResponse({
-      collections: items.map(item=>{
+    res.apiResponse(items.map(item=>{
         item.url =  ('/uploads/files/'+item.file.filename)
         return item
       })
-    });
+    );
   });
 }
 
@@ -72,9 +71,9 @@ exports.update = function(req, res) {
  */
 exports.create = function(req, res) {
 
-    const theFile = req.files.file_upload
-    var name = theFile.originalname.split(".")
-    name.pop()
+    const theFile = req.files.file_upload;
+    var name = theFile.originalname.split(".");
+    name.pop();
 
     var item = new FileData.model({
         name: name,
@@ -83,7 +82,10 @@ exports.create = function(req, res) {
     })
     
     item.getUpdateHandler(req).process(req.files, function(err) {
-        if (err) return res.apiError('error', err);
+        if (err){
+          console.log(err)
+          return res.apiError('error', err);
+        }
         item.url =  ('/uploads/files/'+item.file.filename)
         res.apiResponse(item);
     });

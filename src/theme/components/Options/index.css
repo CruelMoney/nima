@@ -1,0 +1,21 @@
+.option-button{
+  position: relative;
+}
+
+.delete-option{
+  position: absolute;
+  top: -0.6em;
+  right: -0.3em;
+  background: red;
+  font-size: 1em;
+  color: white;
+  border-radius: 50%;
+  width: 1.3em;
+  height: 1.3em;
+  line-height: 1.1em;
+  opacity: 0.5;
+}
+
+.delete-option:hover{
+  opacity: 1;
+}

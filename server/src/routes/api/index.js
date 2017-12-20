@@ -46,8 +46,7 @@ const setup = (app) => {
     },
     Text :{
       envelop: false,
-    },
-    CudeImage: true
+    }
   })
   .start();
 

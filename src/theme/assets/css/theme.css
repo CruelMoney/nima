@@ -69,7 +69,21 @@ main{
 .page-wrapper{
   position: relative;
 }
-
+.fixed-ratio{
+  position: relative;
+}
+.fixed-ratio-content{
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+.fixed-ratio-content img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 .fixed-ratio::before {
   content: "";
   width: 1px;
@@ -82,4 +96,7 @@ main{
   content: "";
   display: table;
   clear: both;
+}
+.fixed-ratio.ratio-2::before{
+  padding-top: 50%;
 }
