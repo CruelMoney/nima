@@ -11,11 +11,15 @@ class Page extends Component {
     const pages  = data.results;
     const page = !!pages ? pages.find(page => '/'+page.slug === location.pathname) : false;
 
+    console.log(page, location.pathname)
+
     if(!page){
       return (
         <Redirect to="/not-found"/>
       )
     }
+
+    console.log("not found false")
 
     if(page.__t === 'Overview'){
       return(

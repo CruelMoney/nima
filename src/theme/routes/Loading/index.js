@@ -34,7 +34,7 @@ class Loading extends Component {
         manipulator: manipulator,
         start: 100,
         end: 0,
-        duration: 1000
+        duration: 750
       }
       
       const animation = new Animate(options)
@@ -66,7 +66,7 @@ class Loading extends Component {
       manipulator: manipulator,
       start: 0,
       end: -100,
-      duration: 1000
+      duration: 750
     }
     
     const animation = new Animate(options);

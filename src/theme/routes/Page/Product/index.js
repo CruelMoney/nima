@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { DBWysiwyg, fetcher } from 'cude-cms'
 import ImageMosaic from '../../../components/ImageMosaic';
 import ProductAdder from './productAdder';
+import {Link} from 'react-router-dom';
 import './index.css'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
@@ -27,6 +28,9 @@ class Product extends Component {
                 }
               }
             />
+            <Link to={`/checkout`} className="text-2xl text-black hover:text-grey-dark text-center">
+              Checkout
+            </Link>
           </div>
           <div className="w-1/2">
             <div className="fixed-ratio">

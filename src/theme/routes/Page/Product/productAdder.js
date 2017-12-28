@@ -23,7 +23,7 @@ class ProductAdder extends Component {
     const { product, editMode } = this.props;
 
     return (
-      <div>
+      <React.Fragment>
         <h1>
         {product.title}
         </h1>
@@ -43,7 +43,7 @@ class ProductAdder extends Component {
           className={"bg-transparent border hover:border-transparent hover:text-white font-bold py-4 px-12 mt-6"}>
           ADD TO BAG
         </button>
-      </div>
+      </React.Fragment>
     );
   }
 }

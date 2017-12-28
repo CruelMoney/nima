@@ -1,0 +1,29 @@
+.bag-wrapper{
+  outline: none !important;
+}
+
+.bag-dropdown{
+  background: white;
+  padding: 2em;
+  border: 1px solid #CDCDCD;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 100%;
+  width: 18rem;
+  z-index: 2;
+  margin-top: 1rem;
+}
+
+
+.bag-dropdown:before{
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  border-left: 1px solid #CDCDCD;
+  border-top: 1px solid #CDCDCD;
+  background: white;
+  height: 1em;
+  width: 1em;
+  transform: translateX(-50%) translateY(-50%) rotate(45deg);
+}
