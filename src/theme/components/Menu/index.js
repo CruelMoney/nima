@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {fetcher} from 'cude-cms'
 import {Link} from 'react-router-dom';
 import Logo from '../Logo';
+import Bag from '../Bag'
 import './index.css';
 
 class Menu extends Component {
@@ -38,7 +39,9 @@ class Menu extends Component {
 
             </ul>
           </nav>
-          <div className="w-16 bag-button"></div>
+          <div className="w-16 flex items-center">
+            <Bag />
+          </div>
         </div>
       </div>
     );

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { DBWysiwyg, fetcher } from 'cude-cms'
-import ButtonOptions from '../../../components/Options';
 import ImageMosaic from '../../../components/ImageMosaic';
+import ProductAdder from './productAdder';
 import './index.css'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 class Product extends Component {
   render() {
-    const { page, editMOde } = this.props;
+    const { page, editMode } = this.props;
     const { thumbnail } = this.props.data
     let { stock } = page
     stock = !!stock ? JSON.parse(stock) : [];
@@ -18,22 +18,15 @@ class Product extends Component {
         <div className="container mx-auto">
           <div className="flex">
           <div className="w-1/2">
-            <h1>
-            {page.title}
-            </h1>
-            <p>
-              {page.description}
-            </p>
-            <p>
-              Price: { page.price } DKK
-            </p>
-            <ButtonOptions
-              editMode={editMOde}
-              options={stock}
+            <ProductAdder 
+              editMode={editMode}
+              product={
+                {
+                  ...page,
+                  stock: stock
+                }
+              }
             />
-            <button className={"bg-transparent border hover:border-transparent hover:text-white font-bold py-4 px-12 mt-6"}>
-              ADD TO BAG
-            </button>
           </div>
           <div className="w-1/2">
             <div className="fixed-ratio">

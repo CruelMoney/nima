@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "cra-universal": "^1.2.1",
-    "svgr": "^1.4.0",
+    "svgr": "^1.5.0",
     "tailwindcss": "^0.3.0"
   }
 }
