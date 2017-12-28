@@ -4,6 +4,8 @@ import { fetcher } from 'cude-cms'
 import Post from './Post';
 import Overview from './OverviewPage';
 import Product from './Product';
+import NotFound from '../NotFound'
+
 
 class Page extends Component {
   render() {
@@ -11,15 +13,11 @@ class Page extends Component {
     const pages  = data.results;
     const page = !!pages ? pages.find(page => '/'+page.slug === location.pathname) : false;
 
-    console.log(page, location.pathname)
-
     if(!page){
       return (
-        <Redirect to="/not-found"/>
+        <NotFound />
       )
-    }
-
-    console.log("not found false")
+    } 
 
     if(page.__t === 'Overview'){
       return(
