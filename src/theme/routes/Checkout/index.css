@@ -1,0 +1,38 @@
+.checkout-progress span{
+  z-index: 1;
+  font-size: 14px;
+  font-family: PierSans-Light;
+  letter-spacing: 1.91px;
+  line-height: 1em;
+}
+.checkout-progress span.active{
+  font-family: PierSans-Bold;
+}
+
+.checkout-bag h2{
+  font-size: 48px;
+  line-height: 1em;
+  margin-bottom: 20px;
+  margin-top: 25px;
+}
+.checkout-bag > div{
+  background: rgba(238,238,238,0.33);
+}
+
+
+.checkout-bag-section{
+  display: inline-block;
+  width: 100%;
+}
+.checkout-bag-section p{
+  margin: 0;
+}
+.checkout-bag-section p,
+.bag-item p,
+.empty-message{
+  font-family: PierSans-Light;
+  letter-spacing: 2.18px;
+}
+.checkout-bag-section:last-of-type p{
+  font-family: PierSans-Bold;
+}

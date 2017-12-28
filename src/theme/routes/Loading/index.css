@@ -2,14 +2,16 @@
   opacity: 0;
   background: white;  
   transform: translateY(-100vh);
-  z-index: -1;
+  z-index: 2;
 }
 
 #loading-screen{
   pointer-events:  none;
+  z-index: 2;
 }
 
 #loading-screen svg{
+  z-index: 3;
   position: absolute;
   top: 32.8%;
   left: 50%;
@@ -17,6 +19,7 @@
 }
 
 #loading-logo-wrapper{
+  z-index: 3;
   opacity: 0;
   transform: translateY(100vh);
   overflow: hidden;

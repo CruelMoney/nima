@@ -3,6 +3,7 @@ import Landing from './routes/Landing'
 import Footer from './components/Footer'
 import Menu from './components/Menu'
 import LoadingPage from './routes/Loading';
+import Checkout from './routes/Checkout'
 import { connect } from 'react-redux';
 import { withRouter, Route, Switch} from 'react-router-dom'
 import Loadable from 'react-loadable';
@@ -83,6 +84,7 @@ class Index extends Component {
             <section className="transition-page my-active-enter">
               <Switch location={location}>
                 <Route exact path="/" component={Landing}/>
+                <Route path="/checkout" component={Checkout}/>
                 <Route component={this.AsyncPage}/>
               </Switch>
             </section>

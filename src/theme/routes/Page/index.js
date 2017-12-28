@@ -4,7 +4,7 @@ import { fetcher } from 'cude-cms'
 import Post from './Post';
 import Overview from './OverviewPage';
 import Product from './Product';
-import NotFound from '../NotFound'
+import NotFound from './NotFound'
 
 
 class Page extends Component {

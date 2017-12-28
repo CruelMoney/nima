@@ -26,8 +26,10 @@ class Bag extends Component{
     this.animateAddProduct(nextprops);
   }
 
-  toggleDropdown = () => {
-    this.setState({dropdown: !this.state.dropdown});
+  toggleDropdown = (state) => {
+    setTimeout(()=>{
+      this.setState({dropdown: state})
+    },100)
   }
 
   render(){
@@ -36,8 +38,8 @@ class Bag extends Component{
     return(
       <div
         className="relative bag-wrapper"
-        onBlur={() => setTimeout(()=>this.toggleDropdown(),100)}
-        onFocus={() => setTimeout(()=>this.toggleDropdown(),100)}
+        onBlur={() => this.toggleDropdown(false)}
+        onFocus={() => this.toggleDropdown(true)}
         tabIndex='0'
       >
         {this.state.dropdown  ? 
@@ -54,14 +56,14 @@ class Bag extends Component{
                 {
                   items.map((i, idx) => {
                     return(
-                      <div key={'bag-item-'+idx} className="bag-section">
+                      <Link to={`/${i.slug}`} key={'bag-item-'+idx} className="bag-section text-black hover:text-grey-dark">
                         <p className="inline float-left text-left">
                           {i.title} ({i.variation})
                         </p>
                         <p className="inline float-right text-right">
                         {i.price} DKK
                         </p>
-                      </div>
+                      </Link>
                     )
                   })
                 }
@@ -84,7 +86,9 @@ class Bag extends Component{
                   </p>
                 </div> 
                 <div className="flex justify-center w-full mt-4">
-                  <Link to={`/checkout`} className="text-2xl text-black hover:text-grey-dark text-center">
+                  <Link 
+                  onClick={()=>this.toggleDropdown(false)}
+                  to={`/checkout`} className="text-2xl text-black hover:text-grey-dark text-center">
                     Checkout
                   </Link>
                 </div>
