@@ -13,7 +13,6 @@ Menu.add(
 );
 Menu.register();
 
-
 exports = module.exports = {
     Menu
 }
