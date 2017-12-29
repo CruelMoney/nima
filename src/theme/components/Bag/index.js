@@ -70,7 +70,7 @@ class Bag extends Component{
                 <hr/>
                   <div className="bag-section">
                     <p className="inline float-left text-left">
-                      Shipping
+                      Delivery
                     </p>
                     <p className="inline float-right text-right">
                       0 DKK
