@@ -28,14 +28,14 @@ class Landing extends Component {
           <Logo 
           color={'white'} 
           shadow />
-          <h1 className="mb-6 text-white text-shadow">
+          <h1 className="mb-24 text-white text-shadow">
             NIMA COPENHAGEN
           </h1>
           <Link
             to="/shop"
             onMouseEnter={()=>this.setState({hover:true})}
             onMouseLeave={()=>this.setState({hover:false})}
-            className={`bg-transparent hover:bg-white  text-white font-medium hover:text-black py-4 px-10 border-2 border-white hover:border-transparent`}>
+            className={`landing-button bg-transparent hover:bg-white  text-white font-medium hover:text-black py-4 px-24 border-2 border-white hover:border-transparent`}>
               WEBSHOP
           </Link>
         </div>

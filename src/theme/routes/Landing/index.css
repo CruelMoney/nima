@@ -21,3 +21,20 @@
 .home .header-menu{
   opacity: 0;
 }
+
+.landingVideo h1{
+  font-family: PierSans-Bold;
+  font-size: 22px;
+  color: #FFFFFF;
+  letter-spacing: 1.83px;
+  text-shadow: 0 2px 15px rgba(0,0,0,0.10);
+}
+
+.landing-button{
+  text-shadow: 0 2px 15px rgba(0,0,0,0.10);
+  box-shadow:  0 2px 15px rgba(0,0,0,0.05);
+  font-family: AvenirNext-DemiBold;
+  font-size: 18px;
+  color: #FFFFFF;
+  letter-spacing: 1.5px;
+}
