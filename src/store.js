@@ -6,10 +6,45 @@ import {
 import { reducers } from 'cude-cms';
 import theme from './theme/reducers';
 import thunkMiddleware from 'redux-thunk'
+import { persistStore, persistCombineReducers } from 'redux-persist'
+import storage from 'redux-persist/es/storage' // default: localStorage if web, AsyncStorage if react-native
 import logger from 'redux-logger'
 
 
 export default function configureStore(initialState = {}) {
+
+  const persistConfig = {
+    key: 'root',
+    storage,
+  }
+
+  // Create the store with two middlewares
+  const middlewares = [
+    thunkMiddleware,
+    logger
+  ]
+
+  const enhancers = [
+    applyMiddleware(...middlewares)
+  ]
+
+  const store = createStore(
+    persistCombineReducers(persistConfig, {
+      ...reducers,
+      ...theme
+    }),
+    initialState,
+    compose(...enhancers)
+  );
+
+  let persistor = persistStore(store)
+
+  return { persistor, store }
+}
+
+
+export function configureStoreServer(initialState = {}) {
+
   // Create the store with two middlewares
   const middlewares = [
     thunkMiddleware,
@@ -27,11 +62,7 @@ export default function configureStore(initialState = {}) {
     }),
     initialState,
     compose(...enhancers)
-  )
+  );
 
-  // Extensions
-  //store.runSaga = sagaMiddleware.run
-  store.asyncReducers = {} // Async reducer registry
-
-  return store
+  return store 
 }

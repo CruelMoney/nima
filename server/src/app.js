@@ -7,7 +7,7 @@ const {default: universalLoader} = require('@cra-express/universal-loader');
 const express = require('express');
 const {default: App} = require('../../src/App');
 const clientBuildPath = path.resolve(__dirname, 'client');
-const {default: configureStore} = require('../../src/store');
+const {configureStoreServer} = require('../../src/store');
 const {StaticRouter} = require('react-router-dom')
 const serve = require('serve-static');
 const favicon = require('serve-favicon');
@@ -26,8 +26,8 @@ const getStoreFromRequest = (req, res) =>{
       publicURL: process.env.PUBLIC_URL || "http://0.0.0.0:3001",
     }
   }
-
-  return configureStore(initialState);
+  const  store = configureStoreServer(initialState);
+  return store;
 }
 
 const getApp = (req, store, context) => {
