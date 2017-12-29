@@ -12,7 +12,7 @@ class BagItems extends Component {
                     <div key={'bag-item-'+idx} className="bag-item">
                       <Link to={`/${item.slug}`} className="flex items-center justify-between text-black hover:text-grey-dark">
                           <div className="flex items-center ">
-                          <div className="fixed-ratio w-1/4">
+                          <div className="fixed-ratio w-1/3">
                             <img 
                             className={`object-fit-cover h-full w-full`}
                             src={`/uploads/files/${item.thumbnail.file.filename}`} 
@@ -25,7 +25,7 @@ class BagItems extends Component {
                             </span>
                           </p>
                         </div>
-                        <p className="text-right w-1/4 mb-0">
+                        <p className="text-right w-2/5 mb-0">
                         {item.price} DKK
                         </p>
                       </Link>
