@@ -20,7 +20,8 @@
     "react-validation": "^3.0.7",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "validator": "^9.2.0"
   },
   "scripts": {
     "start": "tailwind build ./src/index.tailwind.css -c ./tailwind.js -o ./src/index.css && react-scripts start",

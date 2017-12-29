@@ -35,3 +35,21 @@
 .checkout-bag-section:last-of-type p{
   font-family: PierSans-Bold;
 }
+
+.checkout-flow form{
+  visibility: hidden;
+  height: 0;
+}
+.checkout-flow form.active{
+  visibility: visible;
+  height: auto;
+}
+
+.checkout-flow .delivery-option{
+  line-height: 1.2em;
+  letter-spacing: 0.88px;
+  border-width: 3px;
+}
+.checkout-flow .delivery-option.active{
+  border-color: #8D0E20;
+}

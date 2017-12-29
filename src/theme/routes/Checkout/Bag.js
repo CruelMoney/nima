@@ -3,7 +3,7 @@ import BagItems from './BagItems'
 
 class Bag extends Component {
   render() {
-    const {items} = this.props;
+    const {items, shipping} = this.props;
 
     return (
       <React.Fragment>
@@ -31,10 +31,10 @@ class Bag extends Component {
               </div>
               <div className="checkout-bag-section">
                 <p className="inline float-left text-left">
-                  Shipping
+                  {shipping.name}
                 </p>
                 <p className="inline float-right text-right">
-                  0 DKK
+                  {shipping.price === 0 ? 'FREE' : shipping.price + " DKK"}
                 </p>
               </div>
               <hr/>
@@ -43,7 +43,7 @@ class Bag extends Component {
                   Total (incl. taxes)
                 </p>
                 <p className="inline float-right text-right">
-                  {items.reduce((acc, i)=>acc+i.price, 0)} DKK
+                  {items.reduce((acc, i)=>acc+i.price, shipping.price)} DKK
                 </p>
               </div>
           </React.Fragment>

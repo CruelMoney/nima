@@ -9,21 +9,49 @@ import Payment from './Steps/Payment';
 
 class Checkout extends Component {
   state={
-    step: 1
+    step: 1,
+    error: null,
+    shipping: {
+      price: 0,
+      name: "Delivery"
+    }
+  }
+  
+  continueStep = (values) => {
+    let error = null;
+
+    if(this.props.cart.items.length === 0){
+      error = "Your bag is empty";
+    }
+
+    this.setState({
+      step: error ? this.state.step : this.state.step+1,
+      error: error,
+      ...values
+    });
+  }
+
+  updateState = (values) => {
+    this.setState({
+      ...values
+    });
+  }
+
+  stepBack = () => {
+    this.setState({step: this.state.step-1});
   }
 
   render() {
-    const { step } =  this.state;
+    const { step, shipping, error} =  this.state;
     const { items } = this.props.cart;
     const disabled = items.length === 0
 
     return (
-      <div className="">
       <div className="container mx-auto  mt-16">
         <hr/>
         <div className="mt-10 mb-16 flex">
           
-          <article className="w-1/2">
+          <article className="w-1/2 checkout-flow">
             <h1 className="mb-4">
               Checkout
             </h1>
@@ -35,41 +63,29 @@ class Checkout extends Component {
             </div>
             <hr className="my-6" />
 
-            { step === 1 && <Information />}
-            { step === 2 && <Shipping />}
-            { step === 3 && <Payment />}
+            <Information active={step === 1} onSubmit={this.continueStep} />
+            <Shipping active={step === 2} stepBack={this.stepBack} onSubmit={this.continueStep} onChange={this.updateState}/>
+            <Payment active={step === 3}  stepBack={this.stepBack} />
 
 
-            <hr className="my-6" />
+            {error?
+            <span className="error">
+              {error}
+            </span>
+            : null}
 
-            <div className="flex">
-            {step > 1 ? 
-               <button 
-               onClick={()=>this.setState({step: step-1})}
-               className={`w-1/2 border-2 p-3 border-black mr-2`}>
-                 BACK
-               </button>
-              : null}
-
-            <button
-            disabled={disabled}
-            onClick={()=>this.setState({step: step+1})}
-            className={`${step === 1 ? "w-full" : 'w-1/2 ml-2'} border-2 p-3 border-black`}>
-              {step === 3 ? "PLACE ORDER" : "CONTINUE"}
-            </button>
-            </div>
           </article>
 
           <article className="w-1/2 ml-12 checkout-bag">
             <div className="p-12">
               <Bag 
+                shipping={shipping}
                 items={items}
               />
             </div>
           </article>
          
         </div>
-      </div>
       </div>
     );
   }
