@@ -4,10 +4,18 @@ import {Link} from 'react-router-dom';
 class BagItems extends Component {
   render() {
     const {items} = this.props;
+    let itemsView = {}
+
+    // Mapping items to render multiple items on same line
+    for (const item of items) {
+      const key = item.title+item.variation;
+      const viewItem = itemsView[key];
+      itemsView[key] = !!viewItem ? {...viewItem, amount: viewItem.amount + 1} : { ...item, amount: 1 };
+    }
 
     return (
       <div className="bag-items">
-                {items.map((item, idx)=>{
+                {Object.values(itemsView).map((item, idx)=>{
                   return(
                     <div key={'bag-item-'+idx} className="bag-item">
                       <Link to={`/${item.slug}`} className="flex items-center justify-between text-black hover:text-grey-dark">
@@ -19,14 +27,14 @@ class BagItems extends Component {
                             alt={item.thumbnail.alt1}/>
                           </div>
                           <p className="ml-3 mb-0">
-                            {item.title}
+                            {item.amount > 1 ? item.amount + "x" : ""} {item.title}
                             <span className="block text-xs">
                               Size: {item.variation}
                             </span>
                           </p>
                         </div>
                         <p className="text-right w-2/5 mb-0">
-                        {item.price} DKK
+                        {item.amount > 1 ? item.amount + "x" : ""} {item.price} DKK
                         </p>
                       </Link>
                     </div>

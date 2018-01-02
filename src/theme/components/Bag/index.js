@@ -34,6 +34,14 @@ class Bag extends Component{
 
   render(){
     const { items } = this.props.cart
+    let itemsView = {}
+
+    // Mapping items to render multiple items on same line
+    for (const item of items) {
+      const key = item.title+item.variation;
+      const viewItem = itemsView[key];
+      itemsView[key] = !!viewItem ? {...viewItem, amount: viewItem.amount + 1} : { ...item, amount: 1 };
+    }
 
     return(
       <div
@@ -54,14 +62,14 @@ class Bag extends Component{
                 <h4>BAG</h4>
                 <hr/>
                 {
-                  items.map((i, idx) => {
+                  Object.values(itemsView).map((i, idx) => {
                     return(
                       <Link to={`/${i.slug}`} key={'bag-item-'+idx} className="bag-section text-black hover:text-grey-dark">
                         <p className="inline float-left text-left">
-                          {i.title} ({i.variation})
+                        {i.amount > 1 ? i.amount + "x" : ""} {i.title} ({i.variation})
                         </p>
                         <p className="inline float-right text-right">
-                        {i.price} DKK
+                        {i.amount > 1 ? i.amount + "x" : ""} {i.price} DKK
                         </p>
                       </Link>
                     )

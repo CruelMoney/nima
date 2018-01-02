@@ -4,7 +4,7 @@ import BagItems from './BagItems'
 class Bag extends Component {
   render() {
     const {items, shipping} = this.props;
-
+ 
     return (
       <React.Fragment>
                 <h2>
