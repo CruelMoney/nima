@@ -7063,6 +7063,12 @@ react-scripts@1.0.17, react-scripts@^1.0.7:
   optionalDependencies:
     fsevents "1.1.2"
 
+react-stripe-elements@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/react-stripe-elements/-/react-stripe-elements-1.2.1.tgz#1e385fe645494e492b79ae04f67658b1020cfa25"
+  dependencies:
+    prop-types "^15.5.10"
+
 react-svg-core@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/react-svg-core/-/react-svg-core-2.1.0.tgz#3700322af70117c91f83f18febb481128de3cfbb"

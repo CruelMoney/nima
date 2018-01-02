@@ -47,6 +47,7 @@ class Checkout extends Component {
     const disabled = items.length === 0
 
     return (
+      <div className="checkout-page">
       <div className="container mx-auto  mt-16">
         <hr/>
         <div className="mt-10 mb-16 flex">
@@ -86,6 +87,7 @@ class Checkout extends Component {
           </article>
          
         </div>
+      </div>
       </div>
     );
   }

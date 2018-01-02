@@ -61,9 +61,11 @@ hr{
 .editor-class{
   border-width: 1px;
 }
-
+.container{
+  padding: 0 1em;
+}
 main{
-  overflow: auto;
+  overflow: hidden;
   min-height: 100vh;
 }
 .page-wrapper{
