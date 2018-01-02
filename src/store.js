@@ -6,7 +6,7 @@ import {
 import { reducers } from 'cude-cms';
 import theme from './theme/reducers';
 import thunkMiddleware from 'redux-thunk'
-import { persistStore, persistCombineReducers } from 'redux-persist'
+import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/es/storage' // default: localStorage if web, AsyncStorage if react-native
 import logger from 'redux-logger'
 
@@ -29,9 +29,10 @@ export default function configureStore(initialState = {}) {
   ]
 
   const store = createStore(
-    persistCombineReducers(persistConfig, {
+    combineReducers({
       ...reducers,
-      ...theme
+      ...theme,
+      cart: persistReducer(persistConfig, theme.cart),
     }),
     initialState,
     compose(...enhancers)
