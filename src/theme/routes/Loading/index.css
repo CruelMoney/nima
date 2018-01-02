@@ -5,6 +5,10 @@
   z-index: 2;
 }
 
+.loading-bg.transparent{
+  background: rgba(255, 255, 255, 0.8);
+}
+
 #loading-screen{
   pointer-events:  none;
   z-index: 2;

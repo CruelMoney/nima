@@ -79,9 +79,7 @@ class Logo extends Component {
   }
 
   componentWillReceiveProps(nextprops){
-    if(this.interval) clearInterval(this.interval);     
-
-    if(nextprops.loadAnimation){
+    if(nextprops.loadAnimation && !this.interval){
       this.startAnimation();
       this.interval = setInterval(this.startAnimation, 2500);
     }

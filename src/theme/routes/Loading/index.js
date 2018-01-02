@@ -98,7 +98,7 @@ class Loading extends Component {
        </div>
        <div 
         id={'loading-bg'}
-        className="loading-bg absolute pin">
+        className={`loading-bg absolute pin ${this.props.transparent ? 'transparent' : ''}`}>
        </div>
       </div>
     );

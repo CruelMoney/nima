@@ -28,11 +28,13 @@ export default function configureStore(initialState = {}) {
     applyMiddleware(...middlewares)
   ]
 
+  const { cart, ...themeReducers } = theme;
+  
   const store = createStore(
     combineReducers({
       ...reducers,
-      ...theme,
-      cart: persistReducer(persistConfig, theme.cart),
+      ...themeReducers,
+      cart: persistReducer(persistConfig, cart),
     }),
     initialState,
     compose(...enhancers)

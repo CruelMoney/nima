@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
+import {
+  StripeProvider,
+  Elements} from 'react-stripe-elements';
 import Bag from './Bag';
 import './index.css';
 import Information from './Steps/Information';
@@ -64,10 +67,13 @@ class Checkout extends Component {
             </div>
             <hr className="my-6" />
 
-            <Information active={step === 1} onSubmit={this.continueStep} />
+            <Information active={step === 3} onSubmit={this.continueStep} />
             <Shipping active={step === 2} stepBack={this.stepBack} onSubmit={this.continueStep} onChange={this.updateState}/>
-            <Payment active={step === 3}  stepBack={this.stepBack} />
-
+            <StripeProvider apiKey="pk_test_m2AjgtNJieb6Q2KdPu2vii9D">
+              <Elements>
+                <Payment active={step === 1}  stepBack={this.stepBack} />
+              </ Elements>
+            </ StripeProvider>
 
             {error?
             <span className="error">

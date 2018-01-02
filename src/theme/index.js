@@ -103,7 +103,8 @@ const mapStateToProps = (state) => {
   ); 
 
   return{
-    isFetchingData: isFetchingData
+    isFetchingData: isFetchingData,
+    showLoading: state.theme.loading
   }
 }
 
