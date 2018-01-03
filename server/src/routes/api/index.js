@@ -2,6 +2,8 @@ var keystone = require('keystone');
 var restful = require('restful-keystone-onode')(keystone);
 import * as fileupload from './fileUpload';
 import * as pages from './pages';
+import * as checkout from './checkout';
+
 
 const configurations = (req, res, next) => {
 	SocialConfiguration.model.findOne({}, (err, social)=>{
@@ -28,6 +30,8 @@ const setup = (app) => {
   
   app.get('/api/overviews/:id', pages.get);  
   app.get('/api/pages', pages.list);  
+
+  app.post('/api/checkout', checkout.post);
 
   restful.expose({
     BasePage : {
