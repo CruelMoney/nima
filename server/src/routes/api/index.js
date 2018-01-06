@@ -48,6 +48,10 @@ const setup = (app) => {
       populate : ["pages"],
       envelop: false,
     },
+    ShippingOption: {
+      path : "shipping",
+      envelop: false,
+    },
     Text :{
       envelop: false,
     }

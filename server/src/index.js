@@ -4,6 +4,8 @@ const keystone = require('keystone');
 keystone.import('models');
 const {setupUniversal} = require('./app');
 
+console.log(process.env)
+
 keystone.init({
   'name': 'NIMA CPH',
   'brand': 'NIMA CPH',

@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import Form from 'react-validation/build/form';
 import SubmitButton from '../../../components/SubmitButton';
+import {fetcher} from 'cude-cms';
 import Select from 'react-validation/build/select';
 import * as vl from '../../../utils/validators';
-
-const deliveryOptions = [
-  { name: "Standard delivery", price: 0, maxDeliveryDays: 20, description: "No delivery on Public Holidays. All orders are subject to Customs and Duty charges, payable by the recipient of the order." },
-  { name: "Express delivery", price: 119, maxDeliveryDays: 3, description: "Delivery is within 3 working days if ordered before 17:00 local time (Monday-Friday), excluding public holidays. All orders are subject to Customs and Duty charges, payable by the recipient of the order." }
-];
 
 class Shipping extends Component {
   state = {
@@ -43,7 +39,9 @@ class Shipping extends Component {
 
   render() {
     const { error, shipping } = this.state; 
-    const { active, stepBack } = this.props;
+    const { active, stepBack, data } = this.props;
+
+    const deliveryOptions = data.results;
 
     return (
       <Form
@@ -63,7 +61,7 @@ class Shipping extends Component {
                   <header className="flex justify-between">
                     <h4 className="w-3/5 mb-2">{option.name}
                       <span className="block text-sm font-normal">
-                        Delivered within {option.maxDeliveryDays} working days.
+                        {option.deliveryDescription}
                       </span>
                     </h4>
                     <h4>
@@ -108,4 +106,4 @@ class Shipping extends Component {
   }
 }
 
-export default Shipping;
+export default fetcher(Shipping, '/api/shipping', false, <div>Loading...</div>);
