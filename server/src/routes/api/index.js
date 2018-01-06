@@ -31,7 +31,7 @@ const setup = (app) => {
   app.get('/api/overviews/:id', pages.get);  
   app.get('/api/pages', pages.list);  
 
-  app.post('/api/checkout', checkout.post);
+  app.all('/api/checkout', checkout.post);
 
   restful.expose({
     BasePage : {

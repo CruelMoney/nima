@@ -17,7 +17,8 @@ class Checkout extends Component {
     shipping: {
       price: 0,
       name: "Delivery"
-    }
+    },
+    order: {}
   }
   
   continueStep = (values) => {
@@ -30,7 +31,11 @@ class Checkout extends Component {
     this.setState({
       step: error ? this.state.step : this.state.step+1,
       error: error,
-      ...values
+      order: {
+        ...this.state.order,
+        ...values,
+        items: this.props.cart.items
+      }
     });
   }
 
@@ -45,7 +50,7 @@ class Checkout extends Component {
   }
 
   render() {
-    const { step, shipping, error} =  this.state;
+    const { step, shipping, error, order} =  this.state;
     const { items } = this.props.cart;
     const disabled = items.length === 0
 
@@ -71,7 +76,7 @@ class Checkout extends Component {
             <Shipping active={step === 2} stepBack={this.stepBack} onSubmit={this.continueStep} onChange={this.updateState}/>
             <StripeProvider apiKey="pk_test_m2AjgtNJieb6Q2KdPu2vii9D">
               <Elements>
-                <Payment active={step === 3}  stepBack={this.stepBack} />
+                <Payment active={step === 3} stepBack={this.stepBack} orderValues={order} />
               </ Elements>
             </ StripeProvider>
 

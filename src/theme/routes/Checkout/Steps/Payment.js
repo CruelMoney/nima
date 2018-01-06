@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../../actions/theme'
+import { checkout } from '../../../actions/cart'
 import LoadingPage from '../../Loading';
 import Form from 'react-validation/build/form';
 import SubmitButton from '../../../components/SubmitButton';
@@ -12,6 +13,18 @@ import {
   CardCVCElement,
   } from 'react-stripe-elements';
 import * as vl from '../../../utils/validators';
+
+const itemsToOrder = (items) => {
+    const itemsView = {};
+
+    for (const item of items) {
+      const key = item.title+item.variation;
+      const viewItem = itemsView[key];
+      itemsView[key] = !!viewItem ? {...viewItem, amount: viewItem.amount + 1} : { ...item, amount: 1 };
+    }
+
+    return Object.values(itemsView);
+}
 
 const inputStyle = {
     style: {
@@ -33,34 +46,51 @@ class Payment extends Component {
   }
 
   submit = () => {
+    const {orderValues} = this.props;
+    const startTime = new Date().getTime(); 
+
     this.setState({
       error: null,
       loading: true
     });
 
     const { name } = this.form.getValues();
+
     this.props.stripe.createToken({name})
     .then(({token, error}) => {
-      // Let animation finish
-      setTimeout(()=>{
-        if(error){ 
-          this.setState({
-            error: error.message,
-            loading: false
-          })
-        }
-        else{
-          this.setState({
-            error: null,
-            loading: false
-          })
-          console.log('Received Stripe token:', token);
-        }
-      }, 2000);
+      if(error){ 
+        console.log(error)
+        throw error;
+      }
+      else{
+        return checkout({
+          ...orderValues,
+          card_token: token, 
+          items: itemsToOrder(orderValues.items),
+        });
+      }
+    })
+    .then(order => {
+      const dur = new Date().getTime() - startTime;
+      const delay = (dur < 3000) ? 3000 - dur : 0;
+      setTimeout(() => {
+        this.setState({
+          loading: false
+        });
+      }, delay);
+    })
+    .catch(error => {
+      const dur = new Date().getTime() - startTime;
+      const delay = (dur < 3000) ? 3000 - dur : 0;
+      setTimeout(() => {
+        this.setState({
+          error: error.message || error,
+          loading: false
+        });
+      }, delay);
     });
-
-    //this.props.onSubmit && this.props.onSubmit(this.form.getValues());
   }
+
   back = (e) => {
     e.preventDefault();
     this.props.stepBack && this.props.stepBack();
