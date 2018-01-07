@@ -5,10 +5,11 @@ import {
   StripeProvider,
   Elements} from 'react-stripe-elements';
 import Bag from './Bag';
-import './index.css';
 import Information from './Steps/Information';
 import Shipping from './Steps/Shipping';
 import Payment from './Steps/Payment';
+import './index.css';
+
 
 class Checkout extends Component {
   state={

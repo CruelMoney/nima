@@ -13,8 +13,15 @@ function cart(state = initialState, action) {
         items: [...state.items, action.item]
       }
     case cartActions.REMOVE_FROM_CART:
+      let removed = false;
       return {
-        items: state.items.filter(item => item._id !== action.item._id)
+        items: state.items.filter(item => {
+          if(!removed && item._id === action.item._id){
+            removed = true;
+            return false;
+          }
+          return true;
+        })
       }
     default:
       return state

@@ -53,3 +53,27 @@
 .checkout-flow .delivery-option.active{
   border-color: #8D0E20;
 }
+
+.bag-editor{
+  opacity: 0;
+  background: rgba(0,0,0,0.33);
+  cursor: default;
+}
+.bag-editor button{
+  border: none;
+  background: white;
+  border-radius: 50%;
+  height: 2em;
+  width: 2em;
+  text-align: center;
+  padding: 0;
+  padding-left: 3px;
+  padding-bottom: 2px;
+  line-height: 0;
+  margin: 0 0.2em;
+  pointer-events: all;
+}
+
+.bag-item:hover .bag-editor{
+  opacity: 1;
+}
