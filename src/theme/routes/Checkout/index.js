@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
+import * as actions from '../../actions/cart'
+import * as themeActions from '../../actions/theme'
 import {
   StripeProvider,
   Elements} from 'react-stripe-elements';
@@ -8,6 +10,7 @@ import Bag from './Bag';
 import Information from './Steps/Information';
 import Shipping from './Steps/Shipping';
 import Payment from './Steps/Payment';
+import Confirmation from './Steps/Confirmation';
 import './index.css';
 
 
@@ -19,7 +22,8 @@ class Checkout extends Component {
       price: 0,
       name: "Delivery"
     },
-    order: {}
+    order: {},
+    paymentSuceeded: false
   }
   
   continueStep = (values) => {
@@ -50,17 +54,27 @@ class Checkout extends Component {
     this.setState({step: this.state.step-1});
   }
 
+  paymentSuceeded = (order) => {
+    const { emptyCart, endLoading } = this.props;
+    this.setState({paymentSuceeded: true});
+    emptyCart();
+  }
+
   render() {
-    const { step, shipping, error, order} =  this.state;
-    const { items } = this.props.cart;
+    const { step, shipping, error, order, paymentSuceeded} =  this.state;
+    const { beginLoading, endLoading, cart } = this.props;
+    const { items } = cart;
     const disabled = items.length === 0
+
+    if(paymentSuceeded){
+      return <Confirmation />
+    }
 
     return (
       <div className="checkout-page">
       <div className="container mx-auto  mt-16">
         <hr/>
         <div className="mt-10 mb-16 flex">
-          
           <article className="w-1/2 checkout-flow">
             <h1 className="mb-4">
               Checkout
@@ -77,7 +91,14 @@ class Checkout extends Component {
             <Shipping active={step === 2} stepBack={this.stepBack} onSubmit={this.continueStep} onChange={this.updateState}/>
             <StripeProvider apiKey="pk_test_m2AjgtNJieb6Q2KdPu2vii9D">
               <Elements>
-                <Payment active={step === 3} stepBack={this.stepBack} orderValues={order} />
+                <Payment 
+                active={step === 3} 
+                stepBack={this.stepBack} 
+                beginLoading={beginLoading}
+                endLoading={endLoading}
+                orderValues={order} 
+                onPaymentSuceeded={this.paymentSuceeded}
+                />
               </ Elements>
             </ StripeProvider>
 
@@ -111,4 +132,12 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(Checkout)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    emptyCart: () => dispatch(actions.emptyCart()),
+    beginLoading: (transparent) => dispatch(themeActions.beginLoading(transparent)),
+    endLoading: () => dispatch(themeActions.endLoading())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Checkout)

@@ -5,13 +5,13 @@ import Menu from './components/Menu'
 import LoadingPage from './routes/Loading';
 import Checkout from './routes/Checkout'
 import { connect } from 'react-redux';
+import * as actions from './actions/theme'
 import { withRouter, Route, Switch} from 'react-router-dom'
 import Loadable from 'react-loadable';
 import {TransitionGroup, CSSTransition} from 'react-transition-group'
 
 class Index extends Component {
   
-  onTransitionDone = null;
   state={
     loadingCode : false,
     loadingScreen: false
@@ -31,43 +31,55 @@ class Index extends Component {
           return page
       })
     },
-    loading: LoadingPage
+    loading: "loading"
   });
 
-  handleTransitionLogic = (node, done) => {    
-    this.onTransitionDone = done;
-    
-    this.setState({
-      loadingScreen: true
-    }, ()=>{
-        // Minimum 1s loading screen
-        // Check if stuff fetched after 1 sec
-        setTimeout(() => {
-          const interval = setInterval(() => {
-            if(!this.props.isFetchingData){
-              this.setState({
-                loadingScreen:false
-              });
-              clearInterval(interval);
-            }
-          }, 100);
-        }, 600);
-    });
+  handleTransitionLogic = (node, done) => {
+    console.log("transition")
+
+    if(!this.state.loadingScreen){
+      this.setState({
+        loadingScreen: true
+      }, ()=>{
+          // Minimum 1s loading screen
+          // Check if stuff fetched after 1 sec
+          setTimeout(() => {
+            const interval = setInterval(() => {
+              const {isFetchingData, showLoading} = this.props;
+              const { loadingCode } = this.state;
+             if(!isFetchingData && !showLoading && !loadingCode){
+                this.setState({
+                  loadingScreen: false
+                });
+                clearInterval(interval);
+                done && done();
+              }
+            }, 100);
+          }, 600);
+      });
+    }
+  }
+
+  componentWillReceiveProps(nextprops){
+    const {showLoading} = nextprops;
+    if(showLoading && !this.state.loadingScreen){
+      this.handleTransitionLogic();
+    }
   }
 
   render() {
-    if(this.onTransitionDone && !this.state.loadingScreen){
-      this.onTransitionDone();
-    }
-
-    const { location, loading } = this.props;
+    const { location, transparentLoading } = this.props;
     const currentKey = location.pathname.split('/')[1] || 'home';
+    console.log("state: ", this.state.loadingScreen)
 
     return (
       <div className={`${currentKey} ${this.state.loadingScreen ? "loading" : ''} page-wrapper`}>
+         <LoadingPage 
+        transparent={transparentLoading}
+        active={this.state.loadingScreen} />
         <Menu />
         <TransitionGroup 
-        component={'main'}
+          component={'main'}
         >
           <CSSTransition 
           key={currentKey} 
@@ -91,7 +103,6 @@ class Index extends Component {
           </CSSTransition>
         </TransitionGroup>
         <Footer/>
-        <LoadingPage active={this.state.loadingScreen} />
       </div>
     );
   }
@@ -104,10 +115,18 @@ const mapStateToProps = (state) => {
 
   return{
     isFetchingData: isFetchingData,
-    showLoading: state.theme.loading
+    showLoading: state.theme.loading,
+    transparentLoading: state.theme.transparentLoading
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    beginLoading: () => dispatch(actions.beginLoading()),
+    endLoading: () => dispatch(actions.endLoading()),
   }
 }
 
 export default withRouter(
-  connect(mapStateToProps)(Index)
+  connect(mapStateToProps, mapDispatchToProps)(Index)
 );

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../../actions/theme'
 import { checkout } from '../../../actions/cart'
-import LoadingPage from '../../Loading';
 import Form from 'react-validation/build/form';
 import SubmitButton from '../../../components/SubmitButton';
 import Input from '../../../components/Input';
@@ -26,6 +25,10 @@ const itemsToOrder = (items) => {
     return Object.values(itemsView);
 }
 
+const getTotalPrice = (items) => {
+  return items.reduce((acc, i)=>acc+i.price, 0);
+}
+
 const inputStyle = {
     style: {
       base: {
@@ -42,19 +45,21 @@ const inputStyle = {
 class Payment extends Component {
   state = {
     error: null,
-    loading: false
   }
 
   submit = () => {
-    const {orderValues} = this.props;
+    const {orderValues, onPaymentSuceeded, beginLoading} = this.props;
     const startTime = new Date().getTime(); 
+    
+    beginLoading(true);
 
     this.setState({
       error: null,
-      loading: true
     });
 
+
     const { name } = this.form.getValues();
+    const totalPrice = getTotalPrice(orderValues.items) + orderValues.shipping.price;
 
     this.props.stripe.createToken({name})
     .then(({token, error}) => {
@@ -65,31 +70,32 @@ class Payment extends Component {
       else{
         return checkout({
           ...orderValues,
-          card_token: token, 
+          total_price: totalPrice,
+          card_token: "tok_visa", 
           items: itemsToOrder(orderValues.items),
         });
       }
     })
     .then(order => {
-      const dur = new Date().getTime() - startTime;
-      const delay = (dur < 3000) ? 3000 - dur : 0;
-      setTimeout(() => {
-        this.setState({
-          loading: false
-        });
-      }, delay);
+      this.handleCheckout(false, startTime);
+      onPaymentSuceeded && onPaymentSuceeded(order);
     })
     .catch(error => {
-      const dur = new Date().getTime() - startTime;
-      const delay = (dur < 3000) ? 3000 - dur : 0;
-      setTimeout(() => {
-        this.setState({
-          error: error.message || error,
-          loading: false
-        });
-      }, delay);
+      const err = error.message || error;
+      this.handleCheckout(err, startTime);
     });
   }
+
+  handleCheckout = (error, startTime) => {
+    const dur = new Date().getTime() - startTime;
+    const delay = (dur < 3000) ? 3000 - dur : 0;
+    setTimeout(() => {
+      this.setState({
+        error: error
+      });
+      this.props.endLoading();
+    }, delay);
+  } 
 
   back = (e) => {
     e.preventDefault();
@@ -105,11 +111,10 @@ class Payment extends Component {
     const { active, stepBack } = this.props;
 
     return (
-      <div>
         <Form
           className={!!active ? 'active' : ''}
           ref={c => { this.form = c }}
-        > 
+        >     
               <div className="flex mb-4">
                     <Input validations={[vl.required]} name="name" type="text" placeholder="Card owner name" className="w-full"/>
                   </div>
@@ -157,12 +162,6 @@ class Payment extends Component {
                 </span>
             </div>
       </Form>
-      <LoadingPage 
-        transparent
-        active={this.state.loading} 
-      />
-      </div>
-
     );
   }
 };

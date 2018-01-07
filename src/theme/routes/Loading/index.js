@@ -8,6 +8,7 @@ class Loading extends Component {
   bg = null
   logoOverflow = null
   logo = null
+  animating = false
 
   state={
     logoAnimate:false
@@ -20,34 +21,42 @@ class Loading extends Component {
   }
 
   startAnimation = () => {
-      const manipulator = (val) => {
-        if(val < 100){
-          this.bg.style.opacity = 1;
-          this.logoOverflow.style.opacity = 1;
-        } 
-        this.bg.style.transform = `translateY(${val}vh)`;
-        this.logoOverflow.style.transform = `translateY(${val}vh)`;
-        this.logo.style.transform = `translateY(-${val}vh) translateX(-50%)`;        
-      }
+    console.log("start animation")
+    this.animating = true;
 
-      const options = {
-        manipulator: manipulator,
-        start: 100,
-        end: 0,
-        duration: 750
-      }
-      
-      const animation = new Animate(options)
-      animation.start()
-      .then(()=>{
-        setTimeout(() => {
-          if(this.props.active){
-            this.setState({logoAnimate:true})            
-          }
-        }, 200);
-      });
+    const manipulator = (val) => {
+      if(val < 100){
+        this.bg.style.opacity = 1;
+        this.logoOverflow.style.opacity = 1;
+      } 
+      this.bg.style.transform = `translateY(${val}vh)`;
+      this.logoOverflow.style.transform = `translateY(${val}vh)`;
+      this.logo.style.transform = `translateY(-${val}vh) translateX(-50%)`;        
+    }
+
+    const options = {
+      manipulator: manipulator,
+      start: 100,
+      end: 0,
+      duration: 750
+    }
+    
+    const animation = new Animate(options)
+    animation.start()
+    .then(()=>{
+      this.animating = false;
+      setTimeout(() => {
+        if(this.props.active){
+          this.setState({logoAnimate:true})            
+        }
+      }, 200);
+    });
   }
   endAnimation = () => {
+    console.log("end animation")
+
+    this.animating = true;
+
     this.setState({
       logoAnimate:false
     });
@@ -70,18 +79,35 @@ class Loading extends Component {
     }
     
     const animation = new Animate(options);
-    animation.start();
+    animation.start()
+    .then(()=>{this.animating = false});
   }
 
   componentWillReceiveProps(nextprops){
+    let animation = ()=>{};
+
     if(nextprops.active && !this.props.active){
-      this.startAnimation();
+      animation = this.startAnimation;
+      console.log("start animation ")
+
     }else if(!nextprops.active && this.props.active){
-      this.endAnimation();
+      animation = this.endAnimation;
+    }
+
+    if(!this.animating){
+      animation();
+
+    }else{
+      const endInterval = setInterval(() => {
+        if(!this.animating){
+          animation();
+          clearInterval(endInterval);
+        }
+      }, 100);
     }
   }
 
-  render() {
+  render() {    
     return (
       <div 
       id="loading-screen"

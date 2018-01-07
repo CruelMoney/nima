@@ -22,7 +22,7 @@ class Overview extends Component {
               )
             })
           }
-        </div>        
+        </div>
       </div>
       </div>
     );

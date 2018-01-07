@@ -14,8 +14,8 @@ export const END_LOADING = 'END_LOADING'
  * action creators
  */
 
-export function beginLoading() {
-  return { type: BEGIN_LOADING }
+export function beginLoading(transparent=false) {
+  return { type: BEGIN_LOADING, transparentLoading: transparent  }
 }
 
 export function endLoading() {

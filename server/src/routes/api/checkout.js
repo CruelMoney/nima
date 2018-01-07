@@ -21,8 +21,6 @@ const post = async (req, res) => {
     total_price
   } = req.body;
 
-  console.log(req.body)
-
   let dbPrice = 0;
 
   try {
@@ -65,7 +63,7 @@ const post = async (req, res) => {
     })
 
     const ValidateShippingTask = new Promise((resolve, reject) => {
-        ShippingOption.model.findById(shipping.type).exec((err, DBShipping)=>{
+        ShippingOption.model.findById(shipping._id).exec((err, DBShipping)=>{
           if(err || DBShipping === null){
             return reject('Error getting shipping.');
           }

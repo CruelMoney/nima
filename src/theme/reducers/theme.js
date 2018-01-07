@@ -3,14 +3,16 @@ import {
 } from '../actions';
 
 const initialState = {
-  loading: false
+  loading: false,
+  transparentLoading: false
 }
 
 function theme(state = initialState, action) {
   switch (action.type) {
     case actions.BEGIN_LOADING:
       return {
-        loading: true
+        loading: true,
+        transparentLoading: action.transparentLoading
       }
     case actions.END_LOADING:
       return {

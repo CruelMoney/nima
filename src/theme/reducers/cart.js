@@ -12,6 +12,7 @@ function cart(state = initialState, action) {
       return {
         items: [...state.items, action.item]
       }
+
     case cartActions.REMOVE_FROM_CART:
       let removed = false;
       return {
@@ -23,6 +24,12 @@ function cart(state = initialState, action) {
           return true;
         })
       }
+    
+    case cartActions.EMPTY_CART:
+      return {
+        items: []
+      }
+
     default:
       return state
   }
