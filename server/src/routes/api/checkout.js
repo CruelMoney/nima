@@ -1,9 +1,9 @@
 var async = require('async'),
 keystone = require('keystone');
-var stripe = require('stripe')(process.env.STRIPE_KEY);
 var Order = keystone.list('Order');
 var Product = keystone.list('Product');
 var ShippingOption = keystone.list('ShippingOption');
+const {stripe} = require('../../logic/payments');
 
 /**
  * checkout
@@ -85,6 +85,8 @@ const post = async (req, res) => {
       return res.apiError(`Price does not match: ${dbPrice} and ${total_price}`);
     };
 
+    console.log(stripe)
+
     // make stripe buy using dbprice
     const stripeResult = await stripe.charges.create({
       amount: total_price*100,
@@ -97,9 +99,9 @@ const post = async (req, res) => {
 
     if(newsletter_subscribe){
       updateTasks.push(
-          () => console.log("added to email list")
+          () => {throw "Email not implemented"}
       );
-    }
+    };
 
     // Update stock
     await Promise.all(updateTasks.map(t => t && t()));
@@ -139,6 +141,21 @@ const post = async (req, res) => {
     return res.apiError(error);
   }
 }
+
+// Capture stripe payment when order isSent
+Order.schema.pre('save', function(next) {
+  if (this.isModified('isSent') && this.isSent && !!this.stripeID) {
+    stripe.charges.capture(this.stripeID, function(err, charge) {
+      if(err){
+        var err = new Error(err.message);
+        return next(err);
+      }else{
+        return next();
+      }
+    });
+  }
+  return next();
+});
 
 export {
   post
