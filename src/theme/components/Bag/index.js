@@ -29,7 +29,7 @@ class Bag extends Component{
   toggleDropdown = (state) => {
     setTimeout(()=>{
       this.setState({dropdown: state})
-    },100)
+    },250)
   }
 
   render(){
@@ -95,7 +95,7 @@ class Bag extends Component{
                 </div> 
                 <div className="flex justify-center w-full mt-4">
                   <Link 
-                 // onClick={()=>this.toggleDropdown(false)}
+                  onClick={()=>this.toggleDropdown(false)}
                   to={`/checkout`} className="text-2xl text-black hover:text-grey-dark text-center">
                     Checkout
                   </Link>
