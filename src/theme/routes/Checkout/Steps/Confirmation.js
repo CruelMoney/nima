@@ -17,7 +17,7 @@ class Confirmation extends Component {
                   You will receive a confirmation email right away. <br />
                   When the order is shipped you will receive an email containing the tracking number of the package.
                   <br />
-                  <h4 className="mt-6 block text-bold">NIMA COPENHAGEN</h4>
+                  <span className="mt-6 block font-bold">NIMA COPENHAGEN</span>
                 </p>
               
               </article>
