@@ -101,7 +101,7 @@ class Options extends Component {
             options.map( o => {
               return <li key={o.label}>
                 <button
-                className={`${o.label === selected ? 'active' : ''} option-button relative bg-transparent border hover:border-transparent hover:text-white font-bold py-2 px-6 mr-2`}
+                className={`${o.label === selected ? 'active' : ''} option-button relative bg-transparent font-medium py-2 px-6 mr-2`}
                 onClick={()=>{
                   if(editMode){
                     this.editOption(o.label)
@@ -119,7 +119,7 @@ class Options extends Component {
           {editMode ? 
             <li>
               <button 
-              className={`option-button relative bg-transparent border hover:border-transparent hover:text-white font-bold py-2 px-6 mr-2`}
+              className={`option-button relative bg-transparen font-medium py-2 px-6 mr-2`}
               onClick={this.addOption}>+</button>
             </li>
           : null}
@@ -139,13 +139,13 @@ class Options extends Component {
             </div>
 
             <div className="flex">
-              <button className="bg-red hover:bg-red-dark text-white font-bold py-2 px-4 mr-4" onClick={()=>this.removeOption(this.state.openOption.label)}>
+              <button className="bg-red hover:bg-red-dark text-white font-medium py-2 px-4 mr-4" onClick={()=>this.removeOption(this.state.openOption.label)}>
                 DELETE
               </button>
-              <button className="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 mr-4" onClick={this.cancelOption}>
+              <button className="bg-blue hover:bg-blue-dark text-white font-medium py-2 px-4 mr-4" onClick={this.cancelOption}>
                 CANCEL
               </button>
-              <button className="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4" onClick={this.saveOption}>
+              <button className="bg-blue hover:bg-blue-dark text-white font-medium py-2 px-4" onClick={this.saveOption}>
                 {isExistingOption ? "SAVE" : "ADD"}
               </button>
             </div>

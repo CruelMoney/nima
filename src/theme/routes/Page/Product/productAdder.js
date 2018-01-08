@@ -4,7 +4,7 @@ import * as actions from '../../../actions/cart';
 import ButtonOptions from '../../../components/Options';
 
 class ProductAdder extends Component {
-  state={}
+  state={productAdded: false}
 
   onAddBag = () => {
     const {selectedVariation} = this.state
@@ -12,6 +12,9 @@ class ProductAdder extends Component {
     if(!selectedVariation){
       alert("Please choose size first");
     }else{
+      this.setState({
+        productAdded:true
+      })
       this.props.addToCart({
         ...this.props.product,
         variation: selectedVariation
@@ -21,6 +24,7 @@ class ProductAdder extends Component {
 
   render() {
     const { product, editMode } = this.props;
+    const { productAdded } = this.state;
 
     return (
       <React.Fragment>
@@ -40,8 +44,9 @@ class ProductAdder extends Component {
         />
         <button
           onClick={this.onAddBag}
-          className={"bg-transparent border hover:border-transparent hover:text-white font-bold py-4 px-12 mt-6"}>
-          ADD TO BAG
+          disabled={productAdded}
+          className={"add-to-bag bg-transparent font-medium mt-6"}>
+          {productAdded ? "ADDED" : "ADD TO BAG"}
         </button>
       </React.Fragment>
     );

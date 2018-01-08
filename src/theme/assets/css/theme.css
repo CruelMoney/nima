@@ -105,14 +105,27 @@ main{
 
 input, 
 button,
+.button-look,
 .input-box{
   outline: none !important;
   border: 2px solid rgba(17,17,17,0.50);
   padding: 0.8em;
   letter-spacing: 1px;
   width: 100%;
+  line-height: 1em;
 }
-
+.button-look{
+  text-align: center;
+}
+button:disabled{
+  cursor: default;
+}
+button:not(:disabled):hover,
+button.active{
+  color: white;
+  background: #8D0E20;
+  border: 2px solid #8D0E20;
+}
 
 /* Base for label styling */
 [type="checkbox"]:not(:checked),

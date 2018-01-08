@@ -4,3 +4,7 @@
 .product h1{
   text-transform: uppercase;
 }
+button.add-to-bag {
+  width: 18em;
+  height: 4.3em;
+}
