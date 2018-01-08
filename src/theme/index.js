@@ -67,13 +67,14 @@ class Index extends Component {
   }
 
   render() {
-    const { location, transparentLoading } = this.props;
+    const { location, transparentLoading, loadingText, showLoading} = this.props;
     const currentKey = location.pathname.split('/')[1] || 'home';
 
     return (
       <div className={`${currentKey} ${this.state.loadingScreen ? "loading" : ''} page-wrapper`}>
          <LoadingPage 
-        transparent={transparentLoading}
+         text={showLoading ? loadingText : "NIMA COPENHAGEN"}
+        transparent={showLoading && transparentLoading}
         active={this.state.loadingScreen} />
         <Menu />
         <TransitionGroup 
@@ -114,7 +115,8 @@ const mapStateToProps = (state) => {
   return{
     isFetchingData: isFetchingData,
     showLoading: state.theme.loading,
-    transparentLoading: state.theme.transparentLoading
+    transparentLoading: state.theme.transparentLoading,
+    loadingText: state.theme.loadingText
   }
 }
 

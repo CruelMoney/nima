@@ -17,7 +17,7 @@ class Loading extends Component {
   componentDidMount(){
     this.bg = document.querySelector('#loading-bg');
     this.logoOverflow = document.querySelector('#loading-logo-wrapper');
-    this.logo = document.querySelector('#loading-logo');    
+    this.logo = document.querySelector('#loading-screen-content');    
   }
 
   startAnimation = () => {
@@ -113,13 +113,22 @@ class Loading extends Component {
       <div 
       id="loading-logo-wrapper"
       className="logo-wrapper relative pin h-full">
+        <div id="loading-screen-content" className="absolute h-full flex justify-center items-center flex-col">
           <Logo
-            loadAnimation={this.state.logoAnimate}
-            id="loading-logo"
-            className="absolute pin"
-            color="#111111"
-            />
-       </div>
+              loadAnimation={this.state.logoAnimate}
+              id="loading-logo"
+              className=""
+              color="#111111"
+              />
+           
+            {this.props.text ?
+               <span className="loading-text">
+               {this.props.text}
+              </span>
+              : null}
+        </div>
+         
+        </div>
        <div 
         id={'loading-bg'}
         className={`loading-bg absolute pin ${this.props.transparent ? 'transparent' : ''}`}>

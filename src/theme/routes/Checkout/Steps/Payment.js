@@ -51,7 +51,7 @@ class Payment extends Component {
     const {orderValues, onPaymentSuceeded, beginLoading, items} = this.props;
     const startTime = new Date().getTime(); 
     
-    beginLoading();
+    beginLoading(false, "PLACING ORDER");
 
     this.setState({
       error: null,

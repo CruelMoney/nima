@@ -14,12 +14,11 @@
   z-index: 2;
 }
 
-#loading-screen svg{
+#loading-screen #loading-screen-content{
   z-index: 3;
   position: absolute;
-  top: 32.8%;
   left: 50%;
-  transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(0%);
 }
 
 #loading-logo-wrapper{
@@ -28,12 +27,17 @@
   transform: translateY(100vh);
   overflow: hidden;
 }
-#loading-logo{
-  transform: translateY(-100vh);
-}
 
-#loading-logo, 
+#loading-screen-content, 
 #loading-logo-wrapper,
 #loading-bg{
   will-change: transform;
+}
+
+#loading-screen .loading-text{
+  font-family: PierSans-Bold;
+  font-size: 22px;
+  text-transform: uppercase;
+  letter-spacing: 1.83px;
+  margin-bottom: 7em;
 }

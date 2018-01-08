@@ -85,8 +85,6 @@ const post = async (req, res) => {
       return res.apiError(`Price does not match: ${dbPrice} and ${total_price}`);
     };
 
-    console.log(stripe)
-
     // make stripe buy using dbprice
     const stripeResult = await stripe.charges.create({
       amount: total_price*100,
@@ -137,6 +135,7 @@ const post = async (req, res) => {
     return res.apiResponse(order);
 
   } catch (error) {
+    console.log(error)
     error = error.message || error;
     return res.apiError(error);
   }

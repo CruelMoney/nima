@@ -4,7 +4,8 @@ import {
 
 const initialState = {
   loading: false,
-  transparentLoading: false
+  transparentLoading: false,
+  text: false
 }
 
 function theme(state = initialState, action) {
@@ -12,7 +13,8 @@ function theme(state = initialState, action) {
     case actions.BEGIN_LOADING:
       return {
         loading: true,
-        transparentLoading: !!action.transparentLoading
+        transparentLoading: !!action.transparentLoading,
+        loadingText: action.text
       }
     case actions.END_LOADING:
       return {

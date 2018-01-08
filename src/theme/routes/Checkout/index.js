@@ -143,7 +143,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     emptyCart: () => dispatch(actions.emptyCart()),
-    beginLoading: (transparent) => dispatch(themeActions.beginLoading(transparent)),
+    beginLoading: (transparent, text) => dispatch(themeActions.beginLoading(transparent, text)),
     endLoading: () => dispatch(themeActions.endLoading())
   }
 }
