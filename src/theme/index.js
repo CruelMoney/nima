@@ -35,7 +35,6 @@ class Index extends Component {
   });
 
   handleTransitionLogic = (node, done) => {
-    console.log("transition")
 
     if(!this.state.loadingScreen){
       this.setState({
@@ -70,7 +69,6 @@ class Index extends Component {
   render() {
     const { location, transparentLoading } = this.props;
     const currentKey = location.pathname.split('/')[1] || 'home';
-    console.log("state: ", this.state.loadingScreen)
 
     return (
       <div className={`${currentKey} ${this.state.loadingScreen ? "loading" : ''} page-wrapper`}>

@@ -118,34 +118,29 @@ class Payment extends Component {
               <div className="flex mb-4">
                     <Input validations={[vl.required]} name="name" type="text" placeholder="Card owner name" className="w-full"/>
                   </div>
-
-                  {active ?
-                    <div>
-                    <div className="flex mt-2">
-                    <div className="w-full input-box">
-                        <CardNumberElement
-                          placeholder={"Card number"}
-                         {...inputStyle}
-                        />
-                    </div>
+                  
+                <div className="flex mt-2">
+                  <div className="w-full input-box">
+                      <CardNumberElement
+                        placeholder={"Card number"}
+                       {...inputStyle}
+                      />
                   </div>
-                  <div className="flex my-4">
-                    <div className="w-1/2 mr-2 input-box">
-                      <CardCVCElement
-                          placeholder={"CVC"}
-                         {...inputStyle}
-                        />
-                    </div>
-                    <div className="w-1/2 ml-2 input-box">
-                      <CardExpiryElement
-                          placeholder={"Card expiry MM/YY"}
-                         {...inputStyle}
-                        />
-                    </div>
+                </div>
+                <div className="flex my-4">
+                  <div className="w-1/2 mr-2 input-box">
+                    <CardCVCElement
+                        placeholder={"CVC"}
+                       {...inputStyle}
+                      />
                   </div>
+                  <div className="w-1/2 ml-2 input-box">
+                    <CardExpiryElement
+                        placeholder={"Card expiry MM/YY"}
+                       {...inputStyle}
+                      />
                   </div>
-                    : null}
-                
+                </div>
            
             <hr className="my-6" />
 

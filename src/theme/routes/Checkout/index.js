@@ -87,9 +87,13 @@ class Checkout extends Component {
             </div>
             <hr className="my-6" />
 
-            <Information active={step === 1} onSubmit={this.continueStep} />
+             <Information active={step === 1} onSubmit={this.continueStep} />
             <Shipping active={step === 2} stepBack={this.stepBack} onSubmit={this.continueStep} onChange={this.updateState}/>
-            <StripeProvider apiKey="pk_test_m2AjgtNJieb6Q2KdPu2vii9D">
+            
+
+            { // stripeprovider cant be server rendered, so only render on active step
+              step === 3 ?
+              <StripeProvider apiKey="pk_test_m2AjgtNJieb6Q2KdPu2vii9D">
               <Elements>
                 <Payment 
                 active={step === 3} 
@@ -100,7 +104,10 @@ class Checkout extends Component {
                 onPaymentSuceeded={this.paymentSuceeded}
                 />
               </ Elements>
-            </ StripeProvider>
+            </ StripeProvider> 
+              : null
+            }
+         
 
             {error?
             <span className="error">
