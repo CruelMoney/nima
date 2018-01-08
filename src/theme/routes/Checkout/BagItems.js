@@ -23,7 +23,7 @@ class BagItems extends Component {
     for (const item of items) {
       const key = item.title+item.variation;
       const viewItem = itemsView[key];
-      itemsView[key] = !!viewItem ? {...viewItem, amount: viewItem.amount + 1} : { ...item, amount: 1 };
+      itemsView[key] = !!viewItem ? {...viewItem, quantity: viewItem.quantity + 1} : { ...item, quantity: 1 };
     }
 
     return (
@@ -43,14 +43,14 @@ class BagItems extends Component {
                             alt={item.thumbnail.alt1}/>
                           </div>
                           <p className="ml-3 mb-0">
-                            {item.amount > 1 ? item.amount + "x" : ""} {item.title}
+                            {item.quantity > 1 ? item.quantity + "x" : ""} {item.title}
                             <span className="block text-xs">
                               Size: {item.variation}
                             </span>
                           </p>
                         </div>
                         <p className="text-right w-2/5 mb-0">
-                        {item.amount > 1 ? item.amount + "x" : ""} {item.price} DKK
+                        {item.quantity > 1 ? item.quantity + "x" : ""} {item.price} DKK
                         </p>
                       </Link>
                     </div>

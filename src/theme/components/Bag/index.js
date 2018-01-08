@@ -40,7 +40,7 @@ class Bag extends Component{
     for (const item of items) {
       const key = item.title+item.variation;
       const viewItem = itemsView[key];
-      itemsView[key] = !!viewItem ? {...viewItem, amount: viewItem.amount + 1} : { ...item, amount: 1 };
+      itemsView[key] = !!viewItem ? {...viewItem, quantity: viewItem.quantity + 1} : { ...item, quantity: 1 };
     }
 
     return(
@@ -66,10 +66,10 @@ class Bag extends Component{
                     return(
                       <Link to={`/${i.slug}`} key={'bag-item-'+idx} className="bag-section text-black hover:text-grey-dark">
                         <p className="inline float-left text-left">
-                        {i.amount > 1 ? i.amount + "x" : ""} {i.title} ({i.variation})
+                        {i.quantity > 1 ? i.quantity + "x" : ""} {i.title} ({i.variation})
                         </p>
                         <p className="inline float-right text-right">
-                        {i.amount > 1 ? i.amount + "x" : ""} {i.price} DKK
+                        {i.quantity > 1 ? i.quantity + "x" : ""} {i.price} DKK
                         </p>
                       </Link>
                     )

@@ -36,17 +36,17 @@ const post = async (req, res) => {
           const stock = JSON.parse(dbItem.stock);
 
           // check if stock is available
-          const stockAmount = stock.find(v => v.label === item.variation).stock;
-          if(stockAmount < item.amount){
-            if(stockAmount === 0){
+          const stockQuantity = stock.find(v => v.label === item.variation).stock;
+          if(stockQuantity < item.quantity){
+            if(stockQuantity === 0){
               return reject(`Sorry, no ${dbItem.title}s in ${item.variation} left.`);
             }
-            return reject(`Sorry, only ${stockAmount} ${dbItem.title}s in ${item.variation} left.`);
+            return reject(`Sorry, only ${stockQuantity} ${dbItem.title}s in ${item.variation} left.`);
           }
 
           const newStock = stock.map(v =>{
             if(v.label === item.variation){
-              return {...v, stock : v.stock - item.amount}
+              return {...v, stock : v.stock - item.quantity}
             }else{
               return v;
             }
@@ -55,7 +55,7 @@ const post = async (req, res) => {
           dbItem.set({ stock: JSON.stringify(newStock) });
 
           // add price to totalPrice
-          dbPrice += dbItem.price * item.amount;
+          dbPrice += dbItem.price * item.quantity;
 
           resolve(dbItem.save);
         });
@@ -101,8 +101,9 @@ const post = async (req, res) => {
     const orderItems = items.map(i => {
       return{
         _id: i._id,
+        description: i.title, 
         variation: i.variation,
-        amount: i.amount
+        quantity: i.quantity
       }
     });
     const order = new Order.model({
