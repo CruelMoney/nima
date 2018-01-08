@@ -18,6 +18,7 @@ const post = async (req, res) => {
     last_name,
     shipping,
     total_price,
+    newsletter_subscribe,
     ...rest
   } = req.body;
 
@@ -93,6 +94,12 @@ const post = async (req, res) => {
       source: card_token,
       description: "Charge for " + email
     });
+
+    if(newsletter_subscribe){
+      updateTasks.push(
+          () => console.log("added to email list")
+      );
+    }
 
     // Update stock
     await Promise.all(updateTasks.map(t => t && t()));

@@ -5,17 +5,31 @@ import Input from '../../../components/Input';
 import * as vl from '../../../utils/validators';
 
 class Information extends Component {
+  state={
+    optEmail: false
+  }
 
   continue = () => {
     this.form.validateAll();
-    this.props.onSubmit && this.props.onSubmit(this.form.getValues());
+    const values = this.form.getValues();
+    this.props.onSubmit && this.props.onSubmit({
+      ...values,
+      newsletter_subscribe : values.newsletter_subscribe === "true"
+    });
   }
 
   onErrors = () => {
     this.form.validateAll();
   }
 
+  toggleOptEmail = () => {
+    this.setState({
+      optEmail: !this.state.optEmail
+    })
+  }
+
   render() {
+    const { optEmail } = this.state;
     const { active } = this.props;
 
     return (
@@ -33,7 +47,10 @@ class Information extends Component {
             </div>
             <div className="flex">
               <p className="m-0">
-                <Input name="newsletter-subscribe" type="checkbox" id="subscribe">
+                <Input 
+                  onChange={this.toggleOptEmail}
+                  value={optEmail}
+                  name="newsletter_subscribe" type="checkbox" id="subscribe" >
                   <label for="subscribe">Subscribe to newsletter</label>
                 </Input>
               </p>
