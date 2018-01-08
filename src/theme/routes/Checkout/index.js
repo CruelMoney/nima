@@ -101,6 +101,7 @@ class Checkout extends Component {
                 beginLoading={beginLoading}
                 endLoading={endLoading}
                 orderValues={order} 
+                items={items}
                 onPaymentSuceeded={this.paymentSuceeded}
                 />
               </ Elements>

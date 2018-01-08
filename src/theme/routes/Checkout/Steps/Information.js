@@ -24,12 +24,12 @@ class Information extends Component {
         ref={c => { this.form = c }}
       >
         <div className="flex">
-              <Input validations={[vl.required]} name="first-name" type="text" placeholder="First name" className="w-1/2 mr-2"/>
-              <Input validations={[vl.required]} name="last-name" type="text" placeholder="Last name" className="w-1/2 ml-2"/>
+              <Input validations={[vl.required]} name="first_name" type="text" placeholder="First name" className="w-1/2 mr-2"/>
+              <Input validations={[vl.required]} name="last_name" type="text" placeholder="Last name" className="w-1/2 ml-2"/>
             </div>
             <div className="flex my-4">
               <Input validations={[vl.required, vl.email]} name="email" type="email" placeholder="Email" className="w-1/2 mr-2"/>
-              <Input validations={[vl.required]} name="telephone" type="tel" placeholder="Phone" className="w-1/2 ml-2"/>
+              <Input validations={[vl.required]} name="phone" type="tel" placeholder="Phone" className="w-1/2 ml-2"/>
             </div>
             <div className="flex">
               <p className="m-0">

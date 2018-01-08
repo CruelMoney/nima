@@ -21,7 +21,6 @@ class Loading extends Component {
   }
 
   startAnimation = () => {
-    console.log("start animation")
     this.animating = true;
 
     const manipulator = (val) => {
@@ -53,8 +52,6 @@ class Loading extends Component {
     });
   }
   endAnimation = () => {
-    console.log("end animation")
-
     this.animating = true;
 
     this.setState({
@@ -83,21 +80,22 @@ class Loading extends Component {
     .then(()=>{this.animating = false});
   }
 
+  // Contains logic for not starting animation unless the previous has finished
   componentWillReceiveProps(nextprops){
     let animation = ()=>{};
 
     if(nextprops.active && !this.props.active){
       animation = this.startAnimation;
-      console.log("start animation ")
 
     }else if(!nextprops.active && this.props.active){
       animation = this.endAnimation;
     }
 
-    if(!this.animating){
+    // animate if nothing else is going on
+    if(!this.animating){ 
       animation();
-
     }else{
+      // Check every 100 ms to see if animation is finished yet
       const endInterval = setInterval(() => {
         if(!this.animating){
           animation();

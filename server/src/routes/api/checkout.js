@@ -14,11 +14,11 @@ const post = async (req, res) => {
     items,
     email,
     phone,
-    address,
     first_name,
     last_name,
     shipping,
-    total_price
+    total_price,
+    ...rest
   } = req.body;
 
   let dbPrice = 0;
@@ -98,17 +98,27 @@ const post = async (req, res) => {
     await Promise.all(updateTasks.map(t => t && t()));
 
     // Create order
+    const orderItems = items.map(i => {
+      return{
+        _id: i._id,
+        variation: i.variation,
+        amount: i.amount
+      }
+    });
     const order = new Order.model({
-      items: JSON.stringify(items),
+      items: JSON.stringify(orderItems),
       totalPrice: total_price, 
       stripeID: stripeResult.id,
       email: email,
       phone: phone,
       delivery: {
-        type: shipping.type, 
+        type: shipping._id, 
         firstName: first_name,
         lastName: last_name,
-        ...address
+        address: rest.address,
+        city: rest.city,
+        zip: rest.zip,
+        country: rest.country
       }
     });
     await order.save();

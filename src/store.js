@@ -30,6 +30,8 @@ export default function configureStore(initialState = {}) {
 
   const { cart, ...themeReducers } = theme;
   
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
   const store = createStore(
     combineReducers({
       ...reducers,
@@ -37,7 +39,7 @@ export default function configureStore(initialState = {}) {
       cart: persistReducer(persistConfig, cart),
     }),
     initialState,
-    compose(...enhancers)
+    composeEnhancers(...enhancers)
   );
 
   let persistor = persistStore(store)

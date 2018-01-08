@@ -12,10 +12,11 @@ function theme(state = initialState, action) {
     case actions.BEGIN_LOADING:
       return {
         loading: true,
-        transparentLoading: action.transparentLoading
+        transparentLoading: !!action.transparentLoading
       }
     case actions.END_LOADING:
       return {
+        ...state,
         loading: false
       }
     default:

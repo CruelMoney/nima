@@ -48,10 +48,10 @@ class Payment extends Component {
   }
 
   submit = () => {
-    const {orderValues, onPaymentSuceeded, beginLoading} = this.props;
+    const {orderValues, onPaymentSuceeded, beginLoading, items} = this.props;
     const startTime = new Date().getTime(); 
     
-    beginLoading(true);
+    beginLoading();
 
     this.setState({
       error: null,
@@ -59,7 +59,7 @@ class Payment extends Component {
 
 
     const { name } = this.form.getValues();
-    const totalPrice = getTotalPrice(orderValues.items) + orderValues.shipping.price;
+    const totalPrice = getTotalPrice(items) + orderValues.shipping.price;
 
     this.props.stripe.createToken({name})
     .then(({token, error}) => {
@@ -72,7 +72,7 @@ class Payment extends Component {
           ...orderValues,
           total_price: totalPrice,
           card_token: "tok_visa", 
-          items: itemsToOrder(orderValues.items),
+          items: itemsToOrder(items),
         });
       }
     })
