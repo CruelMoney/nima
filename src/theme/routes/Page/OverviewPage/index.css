@@ -12,63 +12,20 @@
 .page-thumb{
   overflow: hidden;
 }
-.page-thumb .overlay{
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  top: 0;
-  justify-content: center;
-  align-items: center;
-  left: 0;
-  z-index: 2;
-  bottom: 0;
-  padding: 0 30px;
-  right: 0;
-  text-align: center;
-  color: white;
-  background: rgba(17, 17, 17, 0.9);
-  transition: transform 250ms cubic-bezier(0.215, 0.610, 0.355, 1);
-  transform: translateY(100%);
+
+h4.page-thumb{
+  color: #111111 !important;
 }
 
-.reveal-up{
-  position: relative;
-  overflow: hidden;
-  transition: transform 500ms cubic-bezier(0.215, 0.610, 0.355, 1);
-  padding: 0px 2px;
-}
-.reveal-up > *{
-  transition: transform 500ms cubic-bezier(0.215, 0.610, 0.355, 1);
-  transform: translateY(100%);
+h4.page-thumb span{
+  float: right;
+  font-weight: 300;
 }
 
-.page-thumb:hover .overlay{
-  transform: none;  
+.overview{
+  margin: 0 -1.5em;
 }
 
-.page-thumb:hover .reveal-up{
-  transition-delay: 250ms;
-  transform: none;
+.page-thumb-wrapper{
+  padding: 1.5em;
 }
-.page-thumb:hover .reveal-up > *{
-  transition-delay: 250ms;
-  transform: none;
-}
-.page-thumb:hover .facts .reveal-up:nth-child(1){
-  transition-delay: 350ms;  
-}
-.page-thumb:hover .facts .reveal-up:nth-child(1) > *{
-  transition-delay: 350ms;
-}  
-.page-thumb:hover .facts .reveal-up:nth-child(2){
-  transition-delay: 450ms;  
-}
-.page-thumb:hover .facts .reveal-up:nth-child(2) > *{
-  transition-delay: 450ms;
-}  
-.page-thumb:hover .facts .reveal-up:nth-child(3){
-  transition-delay: 550ms;  
-}
-.page-thumb:hover .facts .reveal-up:nth-child(3) > *{
-  transition-delay: 550ms;
-}  

@@ -12,28 +12,18 @@ class Overview extends Component {
 
 
     return (
-      <div className="overview-page">
+      <div className="overview-page mb-16 mt-16">
+
       <div className="container mx-auto">
-        <div className="flex flex-wrap">
+      <hr/>
+
+        <div className="flex flex-wrap overview">
           {
-            children && children.map((page) => {
+            children && children.map((page, idx) => {
               return(
-                <div className="w-1/2 h-screen flex justify-center items-center">
-                  <div className="w-3/4">
+                  <div className="w-1/3 page-thumb-wrapper">
                     <PageThumb page={page} />
                   </div>
-                </div> 
-              )
-            })
-          }
-           {
-            children && children.map((page) => {
-              return(
-                <div className="w-1/2 h-screen flex justify-center items-center">
-                  <div className="w-3/4">
-                    <PageThumb page={page} />
-                  </div>
-                </div> 
               )
             })
           }

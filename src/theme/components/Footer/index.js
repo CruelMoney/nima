@@ -11,13 +11,15 @@ class Footer extends Component {
     const menuItems = menu ? menu.pages : [];
     return (
       <footer className="absolute pin-b w-full ">
-        <div className="container mx-auto px-64 font-sans h-16">
-          <ul className="list-reset flex items-center justify-between flex-wrap h-full text-xs">
+        <div className="container mx-auto font-sans h-16">
+          <ul className="list-reset flex items-center justify-center flex-wrap h-full text-xs">
 
             { !!menuItems && !!menuItems.map ?
               menuItems.map(link=>{
                 return(
-                  <li key={`footer-link-${link.slug}`}>
+                  <li 
+                  className={`mx-4`}
+                  key={`footer-link-${link.slug}`}>
                     <Link 
                     to={`/${link.slug}`}
                     className="text-black hover:text-grey-dark"
@@ -28,7 +30,7 @@ class Footer extends Component {
                 )
               })
              : null}
-            <li>
+            <li className="mx-4">
               <a className="text-black hover:text-grey-dark" href="https://cude.io">WEBSITE BY CUDEIO</a>
             </li>
           </ul>

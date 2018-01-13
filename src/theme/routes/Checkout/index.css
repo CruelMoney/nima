@@ -50,8 +50,11 @@
   letter-spacing: 0.88px;
   border-width: 3px;
 }
-.checkout-flow .delivery-option.active{
-  border-color: #8D0E20;
+.checkout-flow .delivery-option.active,
+.checkout-flow .delivery-option:hover{
+  border: 3px solid #8D0E20;
+  background: transparent;
+  color: #111111;
 }
 
 .bag-editor{

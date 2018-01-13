@@ -10,7 +10,7 @@ class Landing extends Component {
 
   render() {
     return (
-      <div className={`landingVideo p-16 ${this.state.hover && "hover"}`}>
+      <div className={`landingVideo p-8 lg:p-16 ${this.state.hover && "hover"}`}>
         <div className={`overflow-hidden w-full h-full`}>
           <video 
             autoPlay 
@@ -35,7 +35,7 @@ class Landing extends Component {
             to="/shop"
             onMouseEnter={()=>this.setState({hover:true})}
             onMouseLeave={()=>this.setState({hover:false})}
-            className={`landing-button bg-transparent hover:bg-white  text-white font-medium hover:text-black py-4 px-24 border-2 border-white hover:border-transparent`}>
+            className={`landing-button bg-transparent hover:bg-white  text-white font-medium hover:text-black py-4 lg:px-24 px-12 border-2 border-white hover:border-transparent`}>
               WEBSHOP
           </Link>
         </div>

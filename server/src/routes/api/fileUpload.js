@@ -48,11 +48,18 @@ exports.update = function(req, res) {
     
     // Delete existing file
     var path = keystone.expandPath('public/uploads/files/'+item.file.filename);
-    fs.unlink(path, ()=>{
+    fs.unlink(path, (err)=>{
+      if (err) {
+        console.log(err)
+        return res.apiError('create error', err);
+      }
 
       //Updating image
       item.getUpdateHandler(req).process(data, function(err) {
-        if (err) return res.apiError('create error', err);
+        if (err) {
+          console.log(err)
+          return res.apiError('create error', err);
+        }
         
         item.url =  ('/uploads/files/'+item.file.filename)
         res.apiResponse(item);
@@ -70,7 +77,6 @@ exports.update = function(req, res) {
  * Upload a New File
  */
 exports.create = function(req, res) {
-
     const theFile = req.files.file_upload;
     var name = theFile.originalname.split(".");
     name.pop();

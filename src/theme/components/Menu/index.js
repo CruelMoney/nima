@@ -39,7 +39,7 @@ class Menu extends Component {
 
             </ul>
           </nav>
-          <div className="w-16 flex items-center">
+          <div className="w-16 flex items-center justify-center">
             <Bag />
           </div>
         </div>
