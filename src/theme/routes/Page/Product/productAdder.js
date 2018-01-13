@@ -28,7 +28,7 @@ class ProductAdder extends Component {
 
     return (
       <React.Fragment>
-        <h1>
+        <h1 className="xl:text-6xl text-5xl">
         {product.title}
         </h1>
         <p>

@@ -77,7 +77,7 @@ class Checkout extends Component {
         <div className="mt-10 mb-16 flex flex-col lg:flex-row-reverse">
 
           <article className="lg:w-1/2 w-full mb-12 lg:ml-12 checkout-bag">
-            <div className="p-12">
+            <div className="lg:p-12 p-6">
               <Bag 
                 shipping={shipping}
                 items={items}

@@ -3,6 +3,7 @@
 }
 .product h1{
   text-transform: uppercase;
+  line-height: 0.7em;
 }
 button.add-to-bag {
   width: 18em;
