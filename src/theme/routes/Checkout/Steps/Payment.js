@@ -142,7 +142,7 @@ class Payment extends Component {
                   </div>
                 </div>
            
-            <hr className="my-6" />
+            <hr className="my-6 mobile-hide" />
 
             <div className="flex">
             <button

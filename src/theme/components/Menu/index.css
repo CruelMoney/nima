@@ -1,3 +1,30 @@
 nav a{
   text-transform: uppercase;
+  font-family: PierSans-Medium;
+  font-size: 0.875em;
+  letter-spacing: 1.91px;
+  position: relative;
+}
+
+
+.indicate-active a:after{
+  content: "";
+  position: absolute;
+  bottom: -0.3em;
+  left: 0;
+  right: 0;
+  background: #8D0E20;
+  height: 1px;
+  transition: transform 250ms cubic-bezier(0.215, 0.610, 0.355, 1);
+  transform: scaleX(0);
+}
+.indicate-active a.active:after,
+.indicate-active a:hover:after{
+  transform:none;
+}
+
+@media (max-width: 375px){
+  .header-menu nav a{
+    font-size: 0.675em;
+  }
 }

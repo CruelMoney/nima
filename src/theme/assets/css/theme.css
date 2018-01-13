@@ -204,3 +204,20 @@ button{
   color: #8D0E20;
   line-height: 2em;
 }
+
+
+.mobile-only{
+  display: none;
+}
+.mobile-hide{
+  display: block;
+}
+
+@media (max-width: 375px){
+  .mobile-only{
+    display: block;
+  }
+  .mobile-hide{
+    display: none;
+  }
+}

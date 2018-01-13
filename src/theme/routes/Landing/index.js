@@ -28,7 +28,7 @@ class Landing extends Component {
           <Logo 
           color={'white'} 
           shadow />
-          <h1 className="mb-24 text-white text-shadow">
+          <h1 className="mb-16 text-white text-shadow">
             NIMA COPENHAGEN
           </h1>
           <Link

@@ -27,7 +27,7 @@ class Product extends Component {
             }
             </div>
           </div>
-          <div className="lg:w-1/2">
+          <div className="lg:w-1/2 lg:m-0 mt-6">
             <ProductAdder 
               editMode={editMode}
               product={

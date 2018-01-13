@@ -36,8 +36,15 @@
 
 #loading-screen .loading-text{
   font-family: PierSans-Bold;
-  font-size: 22px;
+  font-size: 1.375em;
   text-transform: uppercase;
   letter-spacing: 1.83px;
-  margin-bottom: 7em;
+  margin-bottom: 5.6em;
+}
+
+
+@media (max-width: 375px){
+  #loading-screen .loading-text{
+    margin-bottom: 1.3em;
+  }
 }

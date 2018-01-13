@@ -85,7 +85,7 @@ class Shipping extends Component {
               : null
             }
           
-            <hr className="my-6" />
+            <hr className="my-6 mobile-hide" />
 
             <div className="flex">
              <button

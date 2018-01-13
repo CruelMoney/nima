@@ -76,7 +76,7 @@ class Index extends Component {
          text={showLoading ? loadingText : "NIMA COPENHAGEN"}
         transparent={showLoading && transparentLoading}
         active={this.state.loadingScreen} />
-        <Menu />
+        <Menu indicateActive />
         <TransitionGroup 
           component={'main'}
         >

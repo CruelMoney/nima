@@ -12,6 +12,7 @@ class Footer extends Component {
     return (
       <footer className="relative lg:absolute pin-b w-full mb-8 lg:m-0">
         <div className="container mx-auto font-sans lg:h-16 ">
+          <hr className="mobile-only mb-6"/>
           <ul className="list-reset flex flex-col lg:flex-row items-center justify-center flex-wrap h-full text-xs">
 
             { !!menuItems && !!menuItems.map ?

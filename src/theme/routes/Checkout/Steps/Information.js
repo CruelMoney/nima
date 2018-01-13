@@ -65,7 +65,7 @@ class Information extends Component {
             <div className="flex my-4">
               <Input validations={[vl.required]} name="country" type="country" placeholder="Country" className="w-full"/>
             </div>
-            <hr className="my-6" />
+            <hr className="my-6 mobile-hide" />
 
             <div className="flex">
               <SubmitButton
