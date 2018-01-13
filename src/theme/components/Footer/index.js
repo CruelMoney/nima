@@ -10,15 +10,15 @@ class Footer extends Component {
     const menu = results && results.find(menu => menu.name === "Footer menu");
     const menuItems = menu ? menu.pages : [];
     return (
-      <footer className="absolute pin-b w-full ">
-        <div className="container mx-auto font-sans h-16">
-          <ul className="list-reset flex items-center justify-center flex-wrap h-full text-xs">
+      <footer className="relative lg:absolute pin-b w-full mb-8 lg:m-0">
+        <div className="container mx-auto font-sans lg:h-16 ">
+          <ul className="list-reset flex flex-col lg:flex-row items-center justify-center flex-wrap h-full text-xs">
 
             { !!menuItems && !!menuItems.map ?
               menuItems.map(link=>{
                 return(
                   <li 
-                  className={`mx-4`}
+                  className={`lg:mx-4 w-full lg:w-auto text-center`}
                   key={`footer-link-${link.slug}`}>
                     <Link 
                     to={`/${link.slug}`}
@@ -30,7 +30,7 @@ class Footer extends Component {
                 )
               })
              : null}
-            <li className="mx-4">
+            <li className="lg:mx-4 w-full lg:w-auto text-center">
               <a className="text-black hover:text-grey-dark" href="https://cude.io">WEBSITE BY CUDEIO</a>
             </li>
           </ul>

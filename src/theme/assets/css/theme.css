@@ -66,10 +66,10 @@ hr{
 }
 main{
   overflow: hidden;
-  min-height: 100vh;
 }
 .page-wrapper{
   position: relative;
+  min-height: 100vh;
 }
 .fixed-ratio{
   position: relative;

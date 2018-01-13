@@ -113,7 +113,7 @@ class Loading extends Component {
       <div 
       id="loading-logo-wrapper"
       className="logo-wrapper relative pin h-full">
-        <div id="loading-screen-content" className="absolute h-full flex justify-center items-center flex-col">
+        <div id="loading-screen-content" className="absolute h-full w-full flex justify-center items-center flex-col">
           <Logo
               loadAnimation={this.state.logoAnimate}
               id="loading-logo"

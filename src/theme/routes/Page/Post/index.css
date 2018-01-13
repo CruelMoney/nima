@@ -8,3 +8,12 @@
 .post-page p{
   padding-right: 50%;
 }
+
+@media (max-width: 768px){
+  #root .post-page img{
+    width: 100% !important;
+  }
+  .post-page p{
+    padding-right: 0% !important;
+  }
+}

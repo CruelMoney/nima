@@ -21,7 +21,7 @@ class Overview extends Component {
           {
             children && children.map((page, idx) => {
               return(
-                  <div className="w-1/3 page-thumb-wrapper">
+                  <div className="sm:w-1/2 xl:w-1/3 page-thumb-wrapper">
                     <PageThumb page={page} />
                   </div>
               )

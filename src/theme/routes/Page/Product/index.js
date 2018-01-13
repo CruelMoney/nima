@@ -14,10 +14,20 @@ class Product extends Component {
 
     return (
       <div className="product">
-        <header className="py-12 mt-16">
+        <header className="py-6 lg:py-12 mt-16">
         <div className="container mx-auto">
-          <div className="flex">
-          <div className="w-1/2">
+          <div className="flex flex-col lg:flex-row-reverse">
+          
+          <div className="lg:w-1/2">
+            <div className="fixed-ratio">
+            { thumbnail && <img 
+              className={`object-fit-cover w-full h-full`}
+              src={'/uploads/files/'+thumbnail.file.filename}
+              alt={thumbnail.alt1}/>
+            }
+            </div>
+          </div>
+          <div className="lg:w-1/2">
             <ProductAdder 
               editMode={editMode}
               product={
@@ -29,21 +39,12 @@ class Product extends Component {
               }
             />
           </div>
-          <div className="w-1/2">
-            <div className="fixed-ratio">
-            { thumbnail && <img 
-              className={`object-fit-cover w-full h-full`}
-              src={'/uploads/files/'+thumbnail.file.filename}
-              alt={thumbnail.alt1}/>
-            }
-            </div>
-            </div>
           </div>
           </div>
         </header>
-        <div className="container mx-auto  mt-16">
-        <article className="mb-16">
-          <div className="mb-16">
+        <div className="container mx-auto mt-6 sm:mt-16">
+        <article className="mb-6 sm:mb-16">
+          <div className="mb-6 sm:mb-16">
             <ImageMosaic dbKey={`${page.slug}-image-mosaic`} />
           </div>
           <DBWysiwyg 
