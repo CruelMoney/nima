@@ -1,11 +1,26 @@
 /* TYPOGRAPHY START */
+@font-face {
+  font-family: "Wash Care Symbols";
+  src:  url('../fonts/Wash_Care_Symbols.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: "PierSans-Regular";
+  font-weight: normal;
+  src:  url('../fonts/PierSans-Regular.otf') format('opentype');
+}
+@font-face {
+  font-family: "PierSans-Black";
+  font-weight: bolder;
+  src:  url('../fonts/PierSans-Black.otf') format('opentype');
+}
 
 a{
   text-decoration: none;
 }
 
 body{
-  font-family: PierSans-Regular, sans-serif;
+  font-family: "PierSans-Regular", sans-serif;
   font-size: 1em;
   color: #111111;
   letter-spacing: 0;
@@ -22,12 +37,19 @@ p{
 }
 
 h1{
-  font-family: PierSans-Black, sans-serif;
+  font-family: "PierSans-Black", sans-serif;
   font-size: 4em;
   color: #000000;
   letter-spacing: 2px;
   line-height: 1em;
   margin-bottom: 0.4em;
+}
+
+h2{
+  font-family: "PierSans-Regular";
+  font-size: 2.25em;
+  letter-spacing: 2px;
+  margin-bottom: 2em;
 }
 
 /* TYPOGRAPHY END */

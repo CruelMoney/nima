@@ -22,6 +22,8 @@ class Post extends Component {
             toolbarClassName="toolbar-class"
           />
         </article>
+        <hr className="mb-0 sm:mb-16 mobile-hide"/>
+
       </div>
       </div>
     );

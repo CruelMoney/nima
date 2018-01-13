@@ -27,7 +27,7 @@ class Product extends Component {
             }
             </div>
           </div>
-          <div className="lg:w-1/2 lg:m-0 mt-6">
+          <div className="lg:w-1/2 lg:m-0 mt-6 lg:pr-4">
             <ProductAdder 
               editMode={editMode}
               product={
@@ -43,17 +43,26 @@ class Product extends Component {
           </div>
         </header>
         <div className="container mx-auto mt-6 sm:mt-16">
-        <article className="mb-6 sm:mb-16">
+        <article className="mb-6 sm:mb-24">
           <div className="mb-6 sm:mb-16">
             <ImageMosaic dbKey={`${page.slug}-image-mosaic`} />
           </div>
-          <DBWysiwyg 
-            dbKey={`${page.slug}-wysiwyg-content`}
-            wrapperClassName="wrapper-class"
-            editorClassName="editor-class"
-            toolbarClassName="toolbar-class"
-          />
+          <div className="product-description">
+            <DBWysiwyg 
+              dbKey={`${page.slug}-wysiwyg-content`}
+              wrapperClassName="wrapper-class"
+              editorClassName="editor-class"
+              toolbarClassName="toolbar-class"
+              toolbar={{
+                fontFamily: {
+                  options: ['Pier Sans', "Wash Care Symbols"]
+                }
+              }}
+            />
+          </div>
+
         </article>
+        <hr className="mb-6 sm:mb-16 mobile-hide"/>
         </div>
       </div>
     );
