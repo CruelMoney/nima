@@ -4,7 +4,6 @@ const User = keystone.list('User');
 const Social = keystone.list('SocialConfiguration');
 const General = keystone.list('GeneralConfiguration');
 const APIs = keystone.list('APIsConfiguration');
-const Homepage = keystone.list('Homepage');
 
 module.exports = function(done) {
   new User.model({
@@ -18,9 +17,6 @@ module.exports = function(done) {
   new General.model({
   }).save();
   new APIs.model({
-  }).save();
-  new Homepage.model({
-      title: "Homepage"
   }).save(done);
 }
 

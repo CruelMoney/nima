@@ -25,10 +25,11 @@ FileUpload.add({
   name: { type: Types.Key, index: { unique: true } },
   file: { 
     type: Types.File,
-    storage: myStorage
+    storage: myStorage,
+    initial: true
 	},
   createdTimeStamp: { type: Types.Datetime, default: Date.now },
-  alt1: { type: String },
+  alt1: { type: String, initial: true },
   attributes1: { type: String },
   category: { type: String },      //Used to categorize widgets.
   priorityId: { type: String },    //Used to prioritize display order.

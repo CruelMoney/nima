@@ -1,8 +1,8 @@
 'use strict';
-const keystone = require( 'keystone');
+const keystone = require('keystone');
 const Types = keystone.Field.Types;
 
-var Tag = new keystone.List('Tag', {
+const Tag = new keystone.List('Tag', {
 	hidden: true
 	});
 Tag.add(
@@ -16,8 +16,14 @@ Tag.register();
 
 var BasePage = new keystone.List('BasePage', {
     map: { name: 'title' },
-	autokey: { path: 'slug', from: 'title', unique: true },
-	hidden: false
+		autokey: { path: 'slug', from: 'title', unique: true },
+		hidden: false,
+		track: {
+			createdAt: true,
+			createdBy: false,
+			updatedAt: true,
+			updatedBy: false,
+		}
 	});
 BasePage.add(
 	{
@@ -25,7 +31,7 @@ BasePage.add(
 		description: {type: String},
 		slug: { type: String, readonly: true },
 		thumbnail: { type: Types.Relationship, ref: 'FileUpload', many: false, createInline: true },
-		tags: { type: Types.Relationship, ref: 'Tag', many: true, createInline: true },	
+		tags: { type: Types.Relationship, ref: 'Tag', many: true, createInline: true }
 	}
 );
 BasePage.register();
@@ -44,17 +50,18 @@ Overview.register();
 
 var Product = new keystone.List('Product', { 
 	inherits: BasePage, 
+	defaultColumns: "title, tags, price",
 });
 Product.add({
-price: { type: Types.Money, format: '0.0,00 DKK'},
-stock: { type: Types.Text } 
-// stock format:
-// {
-//   sizes: {
-//     "small": { stock: 10 },
-//     "medium": { stock: 10 }
-//   }
-// }
+	price: { type: Types.Money, format: '0.0,00 DKK'},
+	stock: { type: Types.Text } 
+	// stock format:
+	// {
+	//   sizes: {
+	//     "small": { stock: 10 },
+	//     "medium": { stock: 10 }
+	//   }
+	// }
 });
   
 Product.register();

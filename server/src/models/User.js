@@ -11,3 +11,8 @@ User.add({
 });
 
 User.register();
+
+exports = module.exports = {
+  User
+}
+
