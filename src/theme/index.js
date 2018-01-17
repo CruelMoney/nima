@@ -10,6 +10,28 @@ import { withRouter, Route, Switch} from 'react-router-dom'
 import Loadable from 'react-loadable';
 import {TransitionGroup, CSSTransition} from 'react-transition-group'
 
+function LoadingComponent(props) {
+  if (props.error) {
+    // When the loader has errored
+    return <LoadingPage 
+              text={"ERROR. PLEASE REFRESH."}
+              active />
+  } else if (props.timedOut) {
+    // When the loader has taken longer than the timeout
+    return <LoadingPage 
+              text={"STILL LOADING"}
+              active />
+  } else if (props.pastDelay) {
+    // When the loader has taken longer than the delay
+    return  <LoadingPage 
+              text={"NIMA COPENHAGEN"}
+              active />
+  } else {
+    // When the loader has just started
+    return null;
+  }
+}
+
 class Index extends Component {
   
   state={
@@ -17,6 +39,7 @@ class Index extends Component {
     loadingScreen: false
   }
 
+  
   AsyncPage = Loadable({
     loader: () => {
       this.setState({
@@ -31,10 +54,7 @@ class Index extends Component {
           return page
       })
     },
-    loading:  <LoadingPage 
-                text={"NIMA COPENHAGEN"}
-                active
-                />
+    loading:  LoadingComponent
   });
 
   handleTransitionLogic = (node, done) => {
