@@ -31,7 +31,10 @@ class Index extends Component {
           return page
       })
     },
-    loading: "loading"
+    loading:  <LoadingPage 
+                text={"NIMA COPENHAGEN"}
+                active
+                />
   });
 
   handleTransitionLogic = (node, done) => {
@@ -73,9 +76,9 @@ class Index extends Component {
     return (
       <div className={`${currentKey} ${this.state.loadingScreen ? "loading" : ''} page-wrapper`}>
          <LoadingPage 
-         text={showLoading ? loadingText : "NIMA COPENHAGEN"}
-        transparent={showLoading && transparentLoading}
-        active={this.state.loadingScreen} />
+          text={showLoading ? loadingText : "NIMA COPENHAGEN"}
+          transparent={showLoading && transparentLoading}
+          active={this.state.loadingScreen} />
         <Menu indicateActive />
         <TransitionGroup 
           component={'main'}
