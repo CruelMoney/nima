@@ -42,7 +42,7 @@ export default function configureStore(initialState = {}) {
     composeEnhancers(...enhancers)
   );
 
-  let persistor = persistStore(store)
+  let persistor = persistStore(store).purge()
 
   return { persistor, store }
 }
