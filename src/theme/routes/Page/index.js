@@ -5,7 +5,7 @@ import Post from './Post';
 import Overview from './OverviewPage';
 import Product from './Product';
 import NotFound from './NotFound'
-
+import Loading from '../Loading'
 
 class Page extends Component {
   render() {
@@ -35,4 +35,13 @@ class Page extends Component {
   }
 }
 
-export default withRouter(fetcher(Page, '/api/pages', true, <div>Loading...</div>));
+export default withRouter(
+  fetcher(
+    Page, 
+    '/api/pages', 
+    true, 
+    <Loading 
+      text={"NIMA COPENHAGEN"}
+      active />
+  )
+);

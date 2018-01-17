@@ -138,4 +138,28 @@ class Loading extends Component {
   }
 }
 
+
+export function LoadingComponent(props) {
+  if (props.error) {
+    // When the loader has errored
+    return <Loading 
+              text={"ERROR. PLEASE REFRESH."}
+              active />
+  } else if (props.timedOut) {
+    // When the loader has taken longer than the timeout
+    return <Loading 
+              text={"STILL LOADING"}
+              active />
+  } else if (props.pastDelay) {
+    // When the loader has taken longer than the delay
+    return  <Loading 
+              text={"NIMA COPENHAGEN"}
+              active />
+  } else {
+    // When the loader has just started
+    return null;
+  }
+}
+
+
 export default Loading;
