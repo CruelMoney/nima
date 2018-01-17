@@ -13,7 +13,7 @@ keystone.init({
   'mongo': process.env.MONGO_URL || 'mongodb://localhost/database',
   'session': true,
   'session store' : 'mongo',
-  "view cache" : false,
+  //"view cache" : false,
   'auth': true,
   'user model': 'User',
   'signin redirect': '/',
