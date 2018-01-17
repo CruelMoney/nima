@@ -4,7 +4,7 @@ var Order = keystone.list('Order');
 var Product = keystone.list('Product');
 var ShippingOption = keystone.list('ShippingOption');
 const {stripe} = require('../../logic/payments');
-
+const emailService = require('../../logic/email');
 /**
  * checkout
  */
@@ -95,11 +95,17 @@ const post = async (req, res) => {
       description: "Charge for " + email
     });
 
-    if(newsletter_subscribe){
-      updateTasks.push(
-          () => {throw "Email not implemented"}
-      );
-    };
+    // Add to customer db
+    updateTasks.push(()=>{
+      emailService.addCustomer({
+        name:{
+          first: first_name,
+          last: last_name
+        },
+        email, 
+        receivesNewsletter: newsletter_subscribe
+      });
+    });
 
     // Update stock
     await Promise.all(updateTasks.map(t => t && t()));

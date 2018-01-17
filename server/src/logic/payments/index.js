@@ -1,3 +1,3 @@
 var stripeInit = require('stripe');
 
-export let stripe = stripeInit(process.env.STRIPE_KEY);
+export let stripe = stripeInit(process.env.STRIPE_SECRET_KEY);

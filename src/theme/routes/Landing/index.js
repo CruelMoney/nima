@@ -20,7 +20,7 @@ class Landing extends Component {
             preload="metadata"
             className="object-fit-cover w-full h-full"
             >
-            <source src="https://d1235ca2z646oc.cloudfront.net/videos/processed/256/KingdomofDust-HD.mp4-mobile.mp4#t=0.1" type="video/mp4" />
+            <source src="/uploads/files/landing-video.mp4#t=0.1" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>

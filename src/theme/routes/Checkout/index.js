@@ -103,7 +103,7 @@ class Checkout extends Component {
 
             { // stripeprovider cant be server rendered, so only render on active step
               step === 3 ?
-              <StripeProvider apiKey="pk_test_m2AjgtNJieb6Q2KdPu2vii9D">
+              <StripeProvider apiKey={process.env.REACT_APP_STRIPE_PUBLIC_KEY}>
               <Elements>
                 <Payment 
                 active={step === 3} 
