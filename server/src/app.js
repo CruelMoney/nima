@@ -4,19 +4,11 @@ const React = require('react');
 const { renderToNodeStream, renderToString } = require("react-dom/server");
 const {default: staticLoader} = require('@cra-express/static-loader');
 const {default: universalLoader} = require('@cra-express/universal-loader');
-const express = require('express');
 const {default: App} = require('../../src/App');
 const clientBuildPath = path.resolve(__dirname, 'client');
 const {configureStoreServer} = require('../../src/store');
 const {StaticRouter} = require('react-router-dom')
-const serve = require('serve-static');
-const favicon = require('serve-favicon');
-const body = require('body-parser');
-const cookieParser = require('cookie-parser');
-const multer = require('multer');
 const createRoutes = require('./routes');
-const cookieSecret = process.env.cookieSecret || 'secretCookie';
-const session = require('express-session');
 
 
 const getStoreFromRequest = (req, res) =>{
@@ -44,8 +36,6 @@ const getApp = (req, store, context) => {
 
 const handleUniversalRender = async (req, res) => {
 
-  console.log("handling universal")
-
   const store = getStoreFromRequest(req, res);
   let context = {
     store, 
@@ -71,8 +61,6 @@ const handleUniversalRender = async (req, res) => {
 
 const renderer = (req, res, stream, htmlData, options) => {
   const preloadedState = res.locals.store.getState();
-
-  console.log("renderer")
 
   htmlData = htmlData.replace(
     `"%PRELOADED_STATE%"`, 

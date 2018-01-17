@@ -23,8 +23,6 @@ export default function configureStore(initialState = {}) {
     thunkMiddleware
   ];
 
-  console.log(process.env);
-
   if(process.env.NODE_ENV !== 'production'){
     middlewares.push(logger);
   }
@@ -47,7 +45,7 @@ export default function configureStore(initialState = {}) {
     composeEnhancers(...enhancers)
   );
 
-  let persistor = persistStore(store).purge();
+  let persistor = persistStore(store);
 
   return { persistor, store }
 }
