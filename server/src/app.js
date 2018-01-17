@@ -43,6 +43,9 @@ const getApp = (req, store, context) => {
   }
 
 const handleUniversalRender = async (req, res) => {
+
+  console.log("handling universal")
+
   const store = getStoreFromRequest(req, res);
   let context = {
     store, 
@@ -68,6 +71,8 @@ const handleUniversalRender = async (req, res) => {
 
 const renderer = (req, res, stream, htmlData, options) => {
   const preloadedState = res.locals.store.getState();
+
+  console.log("renderer")
 
   htmlData = htmlData.replace(
     `"%PRELOADED_STATE%"`, 

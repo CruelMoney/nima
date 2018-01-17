@@ -16,17 +16,22 @@ export default function configureStore(initialState = {}) {
   const persistConfig = {
     key: 'root',
     storage,
-  }
+  };
 
   // Create the store with two middlewares
   const middlewares = [
-    thunkMiddleware,
-    logger
-  ]
+    thunkMiddleware
+  ];
+
+  console.log(process.env);
+
+  if(process.env.NODE_ENV !== 'production'){
+    middlewares.push(logger);
+  }
 
   const enhancers = [
     applyMiddleware(...middlewares)
-  ]
+  ];
 
   const { cart, ...themeReducers } = theme;
   
@@ -42,7 +47,7 @@ export default function configureStore(initialState = {}) {
     composeEnhancers(...enhancers)
   );
 
-  let persistor = persistStore(store).purge()
+  let persistor = persistStore(store).purge();
 
   return { persistor, store }
 }
@@ -52,8 +57,7 @@ export function configureStoreServer(initialState = {}) {
 
   // Create the store with two middlewares
   const middlewares = [
-    thunkMiddleware,
-    logger
+    thunkMiddleware
   ]
 
   const enhancers = [
