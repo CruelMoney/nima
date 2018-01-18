@@ -46,7 +46,7 @@ const handleUniversalRender = async (req, res) => {
 
   // Render one time to populate promises
   renderToString(getApp(req, store, context));
-  
+
   // Await the fetching of the data
   let result = await Promise.all(context.promises);
 
@@ -60,16 +60,20 @@ const handleUniversalRender = async (req, res) => {
 
 }
 
-const renderer = (req, res, stream, htmlData, options) => {
+const renderer = async (req, res, stream, htmlData, options) => {
   const preloadedState = res.locals.store.getState();
+
+  // This refreshes the helmet data
+  renderToString(
+    getApp(req, res.locals.store, res.locals.context)
+  );  
+  htmlData = addHelmetData(htmlData);
 
   htmlData = htmlData.replace(
     `"%PRELOADED_STATE%"`, 
     JSON.stringify(preloadedState).replace(/</g, '\\u003c')
   );
   
-  htmlData = addHelmetData(htmlData);
-
   var segments = htmlData.split('<div id="root">');
   res.write(segments[0] + '<div id="root">');
   stream.pipe(res, { end: false });

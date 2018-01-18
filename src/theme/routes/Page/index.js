@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter, Redirect } from 'react-router'
+import { withRouter } from 'react-router'
 import { fetcher } from 'cude-cms'
 import Post from './Post';
 import Overview from './OverviewPage';
@@ -10,7 +10,7 @@ import {Helmet} from 'react-helmet';
 
 class Page extends Component {
   render() {
-    const { match, location, history, data } = this.props
+    const { location, data } = this.props
     const pages  = data.results;
     let page = !!pages ? pages.find(page => '/'+page.slug === location.pathname) : false;
     let PageComponent = null;

@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 import Landing from './routes/Landing'
 import Footer from './components/Footer'
 import Menu from './components/Menu'
-import LoadingPage, {LoadingComponent} from './routes/Loading';
+import LoadingPage from './routes/Loading';
 import Checkout from './routes/Checkout'
 import { connect } from 'react-redux';
 import * as actions from './actions/theme'
 import { withRouter, Route, Switch} from 'react-router-dom'
-import Loadable from 'react-loadable';
+//import Loadable from 'react-loadable';
 import {TransitionGroup, CSSTransition} from 'react-transition-group'
 import Page from './routes/Page';
 

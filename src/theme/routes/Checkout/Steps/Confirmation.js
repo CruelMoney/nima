@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 class Confirmation extends Component {
 
   render() {
-    const { active } = this.props;
-
     return (
       <div className="checkout-page confirmation">
         <div className="container mx-auto  mt-16">

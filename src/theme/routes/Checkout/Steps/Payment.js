@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import * as actions from '../../../actions/theme'
 import { checkout } from '../../../actions/cart'
 import Form from 'react-validation/build/form';
 import SubmitButton from '../../../components/SubmitButton';
@@ -108,7 +106,7 @@ class Payment extends Component {
 
   render() {
     const { error } = this.state; 
-    const { active, stepBack } = this.props;
+    const { active } = this.props;
 
     return (
         <Form

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { fetcher, DBWysiwyg } from 'cude-cms'
+import { fetcher } from 'cude-cms'
 import PageThumb from './pageThumbnail';
 import './index.css'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
@@ -7,7 +7,7 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 class Overview extends Component {
   render() {
-    const { page, data } = this.props;
+    const { data } = this.props;
     const { children } = data;
 
 

@@ -89,10 +89,13 @@ class Logo extends Component {
   }
 
   render() {
+    const { shadow, loadAnimation, ...rest} = this.props;
+
     return (
       <svg 
       width="220px" height="170px" viewBox="0 0 220 170"
-      {...this.props}>
+        {...rest}
+        >
         <title>Logo</title>
         <defs>
           <filter

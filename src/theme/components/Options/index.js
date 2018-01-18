@@ -91,7 +91,7 @@ class Options extends Component {
   }
 
   render() {
-    const { options, selected, openOption, isExistingOption } = this.state;
+    const { options, selected, isExistingOption } = this.state;
     const { editMode } = this.props;
 
     return (

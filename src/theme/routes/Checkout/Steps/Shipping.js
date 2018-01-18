@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import Form from 'react-validation/build/form';
 import SubmitButton from '../../../components/SubmitButton';
 import {fetcher} from 'cude-cms';
-import Select from 'react-validation/build/select';
-import * as vl from '../../../utils/validators';
 
 class Shipping extends Component {
   state = {
@@ -39,7 +37,7 @@ class Shipping extends Component {
 
   render() {
     const { error, shipping } = this.state; 
-    const { active, stepBack, data } = this.props;
+    const { active, data } = this.props;
 
     const deliveryOptions = data.results;
 

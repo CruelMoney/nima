@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {Link} from 'react-router-dom';
 import * as actions from '../../actions/cart'
 import * as themeActions from '../../actions/theme'
 import {
@@ -55,7 +54,7 @@ class Checkout extends Component {
   }
 
   paymentSuceeded = (order) => {
-    const { emptyCart, endLoading } = this.props;
+    const { emptyCart } = this.props;
     this.setState({paymentSuceeded: true});
     emptyCart();
   }
@@ -64,7 +63,7 @@ class Checkout extends Component {
     const { step, shipping, error, order, paymentSuceeded} =  this.state;
     const { beginLoading, endLoading, cart } = this.props;
     const { items } = cart;
-    const disabled = items.length === 0
+//    const disabled = items.length === 0
 
     if(paymentSuceeded){
       return <Confirmation />
