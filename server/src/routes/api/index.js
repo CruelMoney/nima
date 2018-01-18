@@ -29,7 +29,7 @@ const setup = (app) => {
   app.all('/api*', keystone.middleware.api);
   
   app.get('/api/overviews/:id', pages.get);  
-  app.get('/api/pages', pages.list);  
+  app.all('/api/pages', pages.list);  
 
   app.all('/api/checkout', checkout.post);
 

@@ -7,7 +7,11 @@ var BasePage = keystone.list('BasePage');
  * List pages
  */
 exports.list = function(req, res) {
-  BasePage.model.find(function(err, pages) {
+  BasePage.model
+  .find()
+  .populate('thumbnail')
+  .populate('tags')
+  .exec(function(err, pages) {
 
     if (err) return res.apiError('database error', err);
 

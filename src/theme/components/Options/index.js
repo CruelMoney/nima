@@ -12,8 +12,11 @@ class Options extends Component {
     isExistingOption: false
   }
 
-  componentWillMount(){
+  componentDidMount(){
     Modal.setAppElement('body');
+  }
+
+  componentWillMount(){
 
     this.setState({
       options: this.props.options

@@ -10,11 +10,12 @@ import {Helmet} from 'react-helmet';
 
 class Page extends Component {
   render() {
-    const { location, data } = this.props
+    const { location, data, publicURL } = this.props;
     const pages  = data.results;
     let page = !!pages ? pages.find(page => '/'+page.slug === location.pathname) : false;
     let PageComponent = null;
-    
+    let type = "website";
+
     if(!page){
       PageComponent = NotFound;
       page = { title: "Not Found", description: "The page could not be found." };
@@ -22,15 +23,32 @@ class Page extends Component {
       PageComponent = Overview;
     }else if(page.__t === 'Product'){
       PageComponent = Product;
+      type = "product";
     }else{
       PageComponent = Post;
+      type = "article";
     }
+
+    let title = `NIMA | ${page.title || "COPENHAGEN"}`;
 
     return (
       <React.Fragment>
          <Helmet>
-          <title>NIMA | {page.title || "CPH"}</title>
+          <title>{title}</title>
+          <meta name="og:title" content={title} />
+
+          <meta name="og:url" content={publicURL + location.pathname} />
+          <meta name="og:type" content={type} />
+
           <meta name="description" content={page.description || "NIMA COPENHAGEN"} />
+          <meta name="og:description" content={page.description || "NIMA COPENHAGEN"} />
+
+          {
+            page.thumbnail && page.thumbnail.file ? 
+            <meta name="og:image" content={publicURL + '/uploads/files/'+page.thumbnail.file.filename} />
+            : null
+          }
+
         </Helmet>
         <PageComponent
           page={page}
