@@ -4,34 +4,39 @@ import { fetcher } from 'cude-cms'
 import Post from './Post';
 import Overview from './OverviewPage';
 import Product from './Product';
-import NotFound from './NotFound'
-import Loading from '../Loading'
+import NotFound from './NotFound';
+import Loading from '../Loading';
+import {Helmet} from 'react-helmet';
 
 class Page extends Component {
   render() {
     const { match, location, history, data } = this.props
     const pages  = data.results;
-    const page = !!pages ? pages.find(page => '/'+page.slug === location.pathname) : false;
-
+    let page = !!pages ? pages.find(page => '/'+page.slug === location.pathname) : false;
+    let PageComponent = null;
+    
     if(!page){
-      return (
-        <NotFound />
-      )
-    } 
-
-    if(page.__t === 'Overview'){
-      return(
-        <Overview page={page} />
-      );
+      PageComponent = NotFound;
+      page = { title: "Not Found", description: "The page could not be found." };
+    }else if(page.__t === 'Overview'){
+      PageComponent = Overview;
     }else if(page.__t === 'Product'){
-      return(
-        <Product page={page} />
-      );
+      PageComponent = Product;
     }else{
-      return(
-        <Post page={page} />
-      );
+      PageComponent = Post;
     }
+
+    return (
+      <React.Fragment>
+         <Helmet>
+          <title>NIMA | {page.title || "CPH"}</title>
+          <meta name="description" content={page.description || "NIMA COPENHAGEN"} />
+        </Helmet>
+        <PageComponent
+          page={page}
+        />
+      </React.Fragment>
+    )
   }
 }
 

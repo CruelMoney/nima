@@ -98,11 +98,11 @@ const post = async (req, res) => {
     // Add to customer db
     updateTasks.push(()=>{
       emailService.addCustomer({
+        email, 
         name:{
           first: first_name,
           last: last_name
         },
-        email, 
         receivesNewsletter: newsletter_subscribe
       });
     });

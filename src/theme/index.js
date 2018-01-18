@@ -9,6 +9,7 @@ import * as actions from './actions/theme'
 import { withRouter, Route, Switch} from 'react-router-dom'
 import Loadable from 'react-loadable';
 import {TransitionGroup, CSSTransition} from 'react-transition-group'
+import Page from './routes/Page';
 
 class Index extends Component {
   
@@ -18,22 +19,22 @@ class Index extends Component {
   }
 
   
-  AsyncPage = Loadable({
-    loader: () => {
-      this.setState({
-        loadingCode: true
-      });
-      return (
-        import ('./routes/Page'))
-        .then((page) =>{
-          this.setState({
-            loadingCode: false
-          });
-          return page
-      })
-    },
-    loading: LoadingComponent
-  });
+  // AsyncPage = Loadable({
+  //   loader: () => {
+  //     this.setState({
+  //       loadingCode: true
+  //     });
+  //     return (
+  //       import ('./routes/Page'))
+  //       .then((page) =>{
+  //         this.setState({
+  //           loadingCode: false
+  //         });
+  //         return page
+  //     })
+  //   },
+  //   loading: LoadingComponent
+  // });
 
   handleTransitionLogic = (node, done) => {
 
@@ -97,7 +98,7 @@ class Index extends Component {
               <Switch location={location}>
                 <Route exact path="/" component={Landing}/>
                 <Route path="/checkout" component={Checkout}/>
-                <Route component={this.AsyncPage}/>
+                <Route component={Page}/>
               </Switch>
             </section>
           </CSSTransition>

@@ -4,8 +4,13 @@
  box-sizing: border-box;
 }
 
+.landingVideo.loaded video{
+  opacity: 1;
+}
+
 .landingVideo video{
   transition: all 1000ms ease;
+ // opacity: 0;
   filter: grayscale(100%);
 }
 .landingVideo.hover video{

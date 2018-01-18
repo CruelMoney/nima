@@ -9,7 +9,7 @@ const clientBuildPath = path.resolve(__dirname, 'client');
 const {configureStoreServer} = require('../../src/store');
 const {StaticRouter} = require('react-router-dom')
 const createRoutes = require('./routes');
-
+const {Helmet} = require('react-helmet');
 
 const getStoreFromRequest = (req, res) =>{
   var initialState = {
@@ -32,10 +32,10 @@ const getApp = (req, store, context) => {
       <App />
     </StaticRouter>
   </Provider>)
-  }
+}
+
 
 const handleUniversalRender = async (req, res) => {
-
   const store = getStoreFromRequest(req, res);
   let context = {
     store, 
@@ -43,12 +43,13 @@ const handleUniversalRender = async (req, res) => {
     promises:[]
   }
 
+
   // Render one time to populate promises
   renderToString(getApp(req, store, context));
   
   // Await the fetching of the data
-  const result = await Promise.all(context.promises);
-  
+  let result = await Promise.all(context.promises);
+
   context.resolved = true 
   res.locals.context = context;
   res.locals.store = store;
@@ -66,6 +67,8 @@ const renderer = (req, res, stream, htmlData, options) => {
     `"%PRELOADED_STATE%"`, 
     JSON.stringify(preloadedState).replace(/</g, '\\u003c')
   );
+  
+  htmlData = addHelmetData(htmlData);
 
   var segments = htmlData.split('<div id="root">');
   res.write(segments[0] + '<div id="root">');
@@ -77,8 +80,21 @@ const renderer = (req, res, stream, htmlData, options) => {
     res.write(segments[1]);
     res.end();
   });
+}
 
-   
+// Adds the helmet markup to the end of head tag
+const addHelmetData = (htmlString) => {
+  const segments = htmlString.split('</head>');
+  const helmet = Helmet.renderStatic();
+
+  return(`
+    ${segments[0]}
+      ${helmet.title.toString()}
+      ${helmet.meta.toString()}
+      ${helmet.link.toString()}
+    </head>
+    ${segments[1]}
+  `);
 }
 
 const setupUniversal = (app) => {

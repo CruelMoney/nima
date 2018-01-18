@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import Modal from 'react-modal';
 import './index.css';
 
-Modal.setAppElement('body');
-
 class Options extends Component {
 
   state={
@@ -15,6 +13,8 @@ class Options extends Component {
   }
 
   componentWillMount(){
+    Modal.setAppElement('body');
+
     this.setState({
       options: this.props.options
     })

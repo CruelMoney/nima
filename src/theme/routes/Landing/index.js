@@ -1,24 +1,39 @@
 import React, { Component } from 'react';
 import Logo from '../../components/Logo';
 import { Link } from 'react-router-dom';
+import {Helmet} from 'react-helmet';
 import './index.css';
 
 class Landing extends Component {
-  state={
-    hover:false
+  state = {
+    hover: false,
+    videoLoaded: false
+  }
+
+  onVideoLoaded = () => {
+    this.setState({
+      videoLoaded:true
+    })
   }
 
   render() {
+    const { videoLoaded, hover } = this.state;
+
     return (
-      <div className={`landingVideo p-8 lg:p-16 ${this.state.hover && "hover"}`}>
+      <div className={`landingVideo p-8 lg:p-16 ${hover && "hover"} ${videoLoaded && 'loaded'}`}>
+        <Helmet>
+          <title>{"NIMA CPH"}</title>
+          <meta name="description" content={"NIMA COPENHAGEN"} />
+        </Helmet>
         <div className={`overflow-hidden w-full h-full`}>
           <video 
             autoPlay 
             loop 
             playsInline 
             muted 
-            preload="metadata"
-            className="object-fit-cover w-full h-full"
+            preload="auto"
+            onCanPlayThrough={this.onVideoLoaded}
+            className={`object-fit-cover w-full h-full`}
             >
             <source src="/uploads/files/landing-video.mp4#t=0.1" type="video/mp4" />
             Your browser does not support the video tag.
