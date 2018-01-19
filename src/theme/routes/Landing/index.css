@@ -20,7 +20,7 @@
 .header-menu{
   opacity: 1;
   transition: opacity 10ms;
-  transition-delay: 600ms;
+  transition-delay: 800ms;
 }
 
 .home .header-menu{

@@ -10,6 +10,7 @@ import { withRouter, Route, Switch} from 'react-router-dom'
 //import Loadable from 'react-loadable';
 import {TransitionGroup, CSSTransition} from 'react-transition-group'
 import Page from './routes/Page';
+import withTracker from './utils/withTracker';
 
 class Index extends Component {
   
@@ -18,6 +19,10 @@ class Index extends Component {
     loadingScreen: false
   }
 
+  componentWillMount(){
+    // Initialize google analytics
+
+  }
   
   // AsyncPage = Loadable({
   //   loader: () => {
@@ -101,9 +106,9 @@ class Index extends Component {
           >
             <section className="transition-page my-active-enter">
               <Switch location={location}>
-                <Route exact path="/" component={Landing}/>
-                <Route path="/checkout" component={Checkout}/>
-                <Route component={Page}/>
+                <Route exact path="/" component={withTracker(Landing)}/>
+                <Route path="/checkout" component={withTracker(Checkout)}/>
+                <Route component={withTracker(Page)}/>
               </Switch>
             </section>
           </CSSTransition>
@@ -135,5 +140,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(Index)
+  connect(mapStateToProps, mapDispatchToProps)(
+    Index
+  )
 );

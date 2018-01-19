@@ -64,7 +64,8 @@ class Checkout extends Component {
     const { step, shipping, error, order, paymentSuceeded} =  this.state;
     const { beginLoading, endLoading, cart, configuration } = this.props;
     const { items } = cart;
-    const { stripePublic } = configuration.APIs.key;
+    const keys = !!configuration.APIs ? configuration.APIs.key : { };
+    const { stripePublic } = keys;
 
     if(paymentSuceeded){
       return <Confirmation />

@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router'
 import { fetcher } from 'cude-cms'
 import Post from './Post';
 import Overview from './OverviewPage';
 import Product from './Product';
 import NotFound from './NotFound';
 import Loading from '../Loading';
-import {Helmet} from 'react-helmet';
+import { Helmet } from 'react-helmet';
+
 
 class Page extends Component {
   render() {
@@ -36,19 +36,15 @@ class Page extends Component {
          <Helmet>
           <title>{title}</title>
           <meta name="og:title" content={title} />
-
           <meta name="og:url" content={publicURL + location.pathname} />
           <meta name="og:type" content={type} />
-
           <meta name="description" content={page.description || "NIMA COPENHAGEN"} />
           <meta name="og:description" content={page.description || "NIMA COPENHAGEN"} />
-
           {
             page.thumbnail && page.thumbnail.file ? 
             <meta name="og:image" content={publicURL + '/uploads/files/'+page.thumbnail.file.filename} />
             : null
           }
-
         </Helmet>
         <PageComponent
           page={page}
@@ -58,13 +54,11 @@ class Page extends Component {
   }
 }
 
-export default withRouter(
-  fetcher(
+export default fetcher(
     Page, 
     '/api/pages', 
     true, 
     <Loading 
       text={"NIMA COPENHAGEN"}
       active />
-  )
-);
+  );
