@@ -155,6 +155,6 @@ const mapDispatchToProps = (dispatch) => {
 
 export default connect(mapStateToProps, mapDispatchToProps)(
   configurationProvider(
-    withTracker(Checkout)
+    withTracker(Checkout) // need to do it here due to some weird bug lol
   )
 )
