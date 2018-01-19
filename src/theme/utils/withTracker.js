@@ -16,15 +16,19 @@ export default function withTracker(WrappedComponent, options = {}) {
 
   const HOC = class extends Component {
     componentDidMount() {
-      const page = this.props.location.pathname;
-      trackPage(page);
+      const {pathname} = this.props.location ? this.props.location : {};
+      pathname && trackPage(pathname);
     }
 
     componentWillReceiveProps(nextProps) {
-      const currentPage = this.props.location.pathname;
-      const nextPage = nextProps.location.pathname;
+      const getPathName = (location) => {
+        const { pathname } = location ? location : {};
+        return pathname;
+      }
+      const currentPage = getPathName(this.props.location);
+      const nextPage =  getPathName(nextProps.location);
 
-      if (currentPage !== nextPage) {
+      if (!!nextPage && !!currentPage && currentPage !== nextPage) {
         trackPage(nextPage);
       }
     }

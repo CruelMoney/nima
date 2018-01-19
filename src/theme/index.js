@@ -107,7 +107,7 @@ class Index extends Component {
             <section className="transition-page my-active-enter">
               <Switch location={location}>
                 <Route exact path="/" component={withTracker(Landing)}/>
-                <Route path="/checkout" component={withTracker(Checkout)}/>
+                <Route path="/checkout" component={(Checkout)}/>
                 <Route component={withTracker(Page)}/>
               </Switch>
             </section>

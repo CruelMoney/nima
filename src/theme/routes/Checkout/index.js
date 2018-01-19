@@ -11,6 +11,7 @@ import Shipping from './Steps/Shipping';
 import Payment from './Steps/Payment';
 import Confirmation from './Steps/Confirmation';
 import {configurationProvider} from 'cude-cms';
+import withTracker from '../../utils/withTracker'
 import './index.css';
 
 
@@ -64,8 +65,8 @@ class Checkout extends Component {
     const { step, shipping, error, order, paymentSuceeded} =  this.state;
     const { beginLoading, endLoading, cart, configuration } = this.props;
     const { items } = cart;
-    const keys = !!configuration.APIs ? configuration.APIs.key : { };
-    const { stripePublic } = keys;
+    const keys = configuration && !!configuration.APIs ? configuration.APIs.key : { };
+    const { stripePublic } = !!keys ? keys : { };
 
     if(paymentSuceeded){
       return <Confirmation />
@@ -153,5 +154,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  configurationProvider(Checkout)
+  configurationProvider(
+    withTracker(Checkout)
+  )
 )
