@@ -47,7 +47,8 @@ APIsConfiguration.add({
     key: {
         analytics: { type: Types.Key},
         twitter: { type: Types.Key },
-        instagram: { type: Types.Key }
+        instagram: { type: Types.Key },
+        stripe: { type: Types.Key }
     },
 });
 

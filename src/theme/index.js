@@ -36,27 +36,33 @@ class Index extends Component {
   //   loading: LoadingComponent
   // });
 
-  handleTransitionLogic = (node, done) => {
+  fininshAnimationIfDone = (cb) => {
+    console.log("checking");
+    const {isFetchingData, showLoading} = this.props;
+    const { loadingCode } = this.state;
+    if(!isFetchingData && !showLoading && !loadingCode){
+      this.setState({
+        loadingScreen: false
+      });
+      cb && cb();
+      return true;
+    }
+    return false;
+  }
 
+  handleTransitionLogic = (node, done) => {
     if(!this.state.loadingScreen){
       this.setState({
         loadingScreen: true
       }, ()=>{
-          // Minimum 1s loading screen
-          // Check if stuff fetched after 1 sec
+          // Minimum 600ms loading screen
           setTimeout(() => {
-            const interval = setInterval(() => {
-              const {isFetchingData, showLoading} = this.props;
-              const { loadingCode } = this.state;
-             if(!isFetchingData && !showLoading && !loadingCode){
-                this.setState({
-                  loadingScreen: false
-                });
-                clearInterval(interval);
-                done && done();
-              }
-            }, 100);
-          }, 600);
+            if (!this.fininshAnimationIfDone(done)){
+              const interval = setInterval(() => { // Check if stuff fetched each 2000ms
+                this.fininshAnimationIfDone(done) && clearInterval(interval);
+              }, 2000);
+            }
+          }, 800);
       });
     }
   }

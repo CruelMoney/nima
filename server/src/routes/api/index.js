@@ -4,27 +4,6 @@ import * as fileupload from './fileUpload';
 import * as pages from './pages';
 import * as checkout from './checkout';
 
-
-const configurations = (req, res, next) => {
-	SocialConfiguration.model.findOne({}, (err, social)=>{
-        if (err) return next(err)
-        GeneralConfiguration.model.findOne({}, (err, general)=>{
-            if (err) return next(err)
-            APIsConfiguration.model.findOne({}, (err, apis)=>{
-                if (err) return next(err)
-                const result = {
-                data:{
-                    general,
-                    social,
-                    apis
-                }}
-                return res.send(JSON.stringify(result));
-            })
-        }) 
-    });
-}
-
-
 const setup = (app) => {
   app.all('/api*', keystone.middleware.api);
   
@@ -38,6 +17,10 @@ const setup = (app) => {
       path: 'pages',
       envelop: false,
       populate : ["tags", 'thumbnail'],
+    },
+    Configuration: {
+      path: 'configuration',
+      envelop: false
     },
     Overview : {
       envelop: false,
@@ -69,6 +52,5 @@ const setup = (app) => {
 
 
 export {
-  setup,
-  configurations
+  setup
 }

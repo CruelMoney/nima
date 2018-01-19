@@ -104,7 +104,7 @@ class Options extends Component {
             options.map( o => {
               return <li key={o.label}>
                 <button
-                className={`${o.label === selected ? 'active' : ''} option-button relative bg-transparent font-medium py-2 px-6 mr-2`}
+                className={`${o.label === selected ? 'active' : ''} option-button relative bg-transparent font-medium py-2 px-6 mr-2 w-auto`}
                 onClick={()=>{
                   if(editMode){
                     this.editOption(o.label)
