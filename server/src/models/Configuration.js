@@ -1,21 +1,14 @@
 'use strict';
 const keystone = require( 'keystone');
 const Types = keystone.Field.Types;
-const storage = new keystone.Storage({
-	adapter: keystone.Storage.Adapters.FS,
-	fs: {
-		path: keystone.expandPath('public'), // required; path where the files should be stored
-        generateFilename: (file, attempt, cb)=> {
-            if(file.extension !== "ico"){
-                cb("Favicon has to be an .ico file.")
-            }
-            cb(null, "favicon.ico")
-        },
-        whenExists: "overwrite"
-	}
-});
 
-var SocialConfiguration = new keystone.List('SocialConfiguration', { 
+
+var Configuration = new keystone.List('Configuration');
+Configuration.add({});
+Configuration.register();
+
+var SocialConfiguration = new keystone.List('SocialConfiguration', {
+    inherits: Configuration,
     plural: "Social",
     label: "Social",
     nocreate: true, //Single item
@@ -32,12 +25,11 @@ SocialConfiguration.add({
     },
 });
 SocialConfiguration.defaultColumns = 'name|16%, social.facebook|16%, social.twitter|16%, social.instagram|16%', 'social.snapchat|16%', 'social.youtube|16%';
-
 SocialConfiguration.register();
 
 
-var APIsConfiguration = new keystone.List('APIsConfiguration', { 
-    
+var APIsConfiguration = new keystone.List('APIsConfiguration', {
+    inherits: Configuration, 
     label: "APIs",
     nocreate: true, //Single item
     nodelete: true, //Single item
@@ -48,16 +40,15 @@ APIsConfiguration.add({
         analytics: { type: Types.Key},
         twitter: { type: Types.Key },
         instagram: { type: Types.Key },
-        stripe: { type: Types.Key }
+        stripePublic: { type: Types.Key }
     },
 });
 
 APIsConfiguration.register();
 
 
-
-
 var GeneralConfiguration = new keystone.List('GeneralConfiguration', { 
+    inherits: Configuration,
     label: "General",
     nocreate: true, //Single item
     nodelete: true, //Single item
@@ -69,11 +60,6 @@ GeneralConfiguration.add({
         phone: {type: String},
         address: {type: Types.Location, defaults: { country: 'Denmark' }},
         cvr: { type: String, label: "CVR"},
-    },
-    favicon: { 
-        type: Types.File,
-        storage: storage,
-        allowedTypes: ["ico"]
     }
 });
 GeneralConfiguration.defaultColumns = 'name, contact.email|20%, contact.phone|20%, contact.cvr|20%';

@@ -37,7 +37,6 @@ class Index extends Component {
   // });
 
   fininshAnimationIfDone = (cb) => {
-    console.log("checking");
     const {isFetchingData, showLoading} = this.props;
     const { loadingCode } = this.state;
     if(!isFetchingData && !showLoading && !loadingCode){
