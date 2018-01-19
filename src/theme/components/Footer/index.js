@@ -31,9 +31,9 @@ class Footer extends Component {
                 )
               })
              : null}
-            <li className="lg:mx-4 w-full lg:w-auto text-center">
+            {/* <li className="lg:mx-4 w-full lg:w-auto text-center">
               <a className="text-black hover:text-grey-dark" href="https://cude.io">WEBSITE BY CUDEIO</a>
-            </li>
+            </li> */}
           </ul>
         </div>
       </footer>
