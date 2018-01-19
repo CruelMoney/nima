@@ -10,6 +10,7 @@ import Information from './Steps/Information';
 import Shipping from './Steps/Shipping';
 import Payment from './Steps/Payment';
 import Confirmation from './Steps/Confirmation';
+import {configurationProvider} from 'cude-cms';
 import './index.css';
 
 
@@ -61,9 +62,9 @@ class Checkout extends Component {
 
   render() {
     const { step, shipping, error, order, paymentSuceeded} =  this.state;
-    const { beginLoading, endLoading, cart } = this.props;
+    const { beginLoading, endLoading, cart, configuration } = this.props;
     const { items } = cart;
-//    const disabled = items.length === 0
+    const { stripePublic } = configuration.APIs.key;
 
     if(paymentSuceeded){
       return <Confirmation />
@@ -102,7 +103,7 @@ class Checkout extends Component {
 
             { // stripeprovider cant be server rendered, so only render on active step
               step === 3 ?
-              <StripeProvider apiKey={process.env.REACT_APP_STRIPE_PUBLIC_KEY}>
+              <StripeProvider apiKey={stripePublic}>
               <Elements>
                 <Payment 
                 active={step === 3} 
@@ -150,4 +151,6 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Checkout)
+export default connect(mapStateToProps, mapDispatchToProps)(
+  configurationProvider(Checkout)
+)

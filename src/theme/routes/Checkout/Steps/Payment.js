@@ -166,4 +166,4 @@ class Payment extends Component {
 };
 
 
-export default injectStripe(Payment);
+export default injectStripe(Payment)
