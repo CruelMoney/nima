@@ -37,10 +37,10 @@ var APIsConfiguration = new keystone.List('APIsConfiguration', {
 APIsConfiguration.add({ 
     name: {type: String, default: "APIs", noedit:true, hidden:true},
     key: {
-        analytics: { type: Types.Key},
-        twitter: { type: Types.Key },
-        instagram: { type: Types.Key },
-        stripePublic: { type: Types.Key }
+        analytics: { type: String},
+        twitter: { type: String },
+        instagram: { type: String },
+        stripePublic: { type: String }
     },
 });
 
