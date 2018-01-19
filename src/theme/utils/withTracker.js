@@ -16,8 +16,6 @@ export default function withTracker(WrappedComponent, options = {}) {
 
   const HOC = class extends Component {
     componentDidMount() {
-      console.log("MOUNTING");
-
       const page = this.props.location.pathname;
       trackPage(page);
     }

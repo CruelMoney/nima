@@ -10,7 +10,7 @@ class WithGoogleAnalytics extends Component {
     const { analytics } = keys;
     if(!!analytics){
       ReactGA.initialize(analytics,  {
-        debug: process.env.NODE_ENV !== 'production',
+        //debug: process.env.NODE_ENV !== 'production',
         gaOptions:{
           'name': process.env.NODE_ENV
         }
