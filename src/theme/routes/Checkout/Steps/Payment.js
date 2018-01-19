@@ -69,7 +69,7 @@ class Payment extends Component {
         return checkout({
           ...orderValues,
           total_price: totalPrice,
-          card_token: process.env.NODE_ENV !== "production" ? "tok_visa" : token, 
+          card_token: token.id, 
           items: itemsToOrder(items),
         });
       }
