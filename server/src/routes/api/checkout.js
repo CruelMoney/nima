@@ -84,7 +84,7 @@ const post = async (req, res) => {
           coupon: coupon
         });
         
-        const updateCouponUses = coupon.set({ uses: coupon.uses-1 }).save;
+        const updateCouponUses = coupon.set({ used: coupon.used+1 }).save;
         updateTasks.push(updateCouponUses);
     }
 
@@ -149,7 +149,8 @@ const post = async (req, res) => {
         city: rest.city,
         zip: rest.zip,
         country: rest.country
-      }
+      }, 
+      usedCouponCode: coupon_code
     });
     await order.save();
 

@@ -39,6 +39,7 @@ Order.add(
     country: { type: String, required: true, initial: true },
     trackingCode: { type: String, noedit:true },
   }},
+  {usedCouponCode: { type: String, noedit:true }},
   {isSent: { type: Boolean, default: false, note:"Checking this will charge the money on the customers card." }},
   'Information',
   {email: { type: Types.Email, required: true, initial: true }},
