@@ -27,7 +27,7 @@ function isInvalid({
   if(!valid){
     return "Coupon invalid."
   }
-  if(uses >= -1 && used >= uses){
+  if(uses >= 0 && used >= uses){
     return "Coupon already used."
   }
   const now = new Date();
