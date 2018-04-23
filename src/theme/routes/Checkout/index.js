@@ -61,8 +61,14 @@ class Checkout extends Component {
     emptyCart();
   }
 
+  addCoupon = ({coupon}) => {
+    this.setState({
+      coupon: coupon
+    });
+  }
+
   render() {
-    const { step, shipping, error, order, paymentSuceeded} =  this.state;
+    const { step, shipping, error, order, paymentSuceeded, coupon} =  this.state;
     const { beginLoading, endLoading, cart, configuration } = this.props;
     const { items } = cart;
     const keys = configuration && !!configuration.APIs ? configuration.APIs.key : { };
@@ -80,7 +86,8 @@ class Checkout extends Component {
 
           <article className="lg:w-1/2 w-full mb-12 lg:ml-12 checkout-bag">
             <div className="lg:p-12 p-6">
-              <Bag 
+              <Bag
+                coupon={coupon}
                 shipping={shipping}
                 items={items}
               />
@@ -114,6 +121,7 @@ class Checkout extends Component {
                 endLoading={endLoading}
                 orderValues={order} 
                 items={items}
+                addCoupon={this.addCoupon}
                 onPaymentSuceeded={this.paymentSuceeded}
                 />
               </ Elements>

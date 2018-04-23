@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { checkout } from '../../../actions/cart'
+import { checkout, getCoupon } from '../../../actions/cart'
 import Form from 'react-validation/build/form';
 import SubmitButton from '../../../components/SubmitButton';
 import Input from '../../../components/Input';
@@ -10,6 +10,8 @@ import {
   CardCVCElement,
   } from 'react-stripe-elements';
 import * as vl from '../../../utils/validators';
+import debounce from 'lodash.debounce';
+import * as priceCalc from '../priceCalculator';
 
 const itemsToOrder = (items) => {
     const itemsView = {};
@@ -21,10 +23,6 @@ const itemsToOrder = (items) => {
     }
 
     return Object.values(itemsView);
-}
-
-const getTotalPrice = (items) => {
-  return items.reduce((acc, i)=>acc+i.price, 0);
 }
 
 const inputStyle = {
@@ -43,10 +41,12 @@ const inputStyle = {
 class Payment extends Component {
   state = {
     error: null,
+    couponError: null
   }
 
   submit = () => {
     const {orderValues, onPaymentSuceeded, beginLoading, items} = this.props;
+    const { coupon } = this.state;
     const startTime = new Date().getTime(); 
     
     beginLoading(false, "PLACING ORDER");
@@ -57,7 +57,11 @@ class Payment extends Component {
 
 
     const { name } = this.form.getValues();
-    const totalPrice = getTotalPrice(items) + orderValues.shipping.price;
+    const totalPrice = priceCalc.getTotalPrice({
+      items,
+      coupon: coupon,
+      initial: orderValues.shipping.price
+    });
 
     this.props.stripe.createToken({name})
     .then(({token, error}) => {
@@ -68,8 +72,9 @@ class Payment extends Component {
       else{
         return checkout({
           ...orderValues,
+          coupon_code: !!coupon ? coupon.code : false,
           total_price: totalPrice,
-          card_token: token.id, 
+          card_token: token.id,
           items: itemsToOrder(items),
         });
       }
@@ -104,8 +109,38 @@ class Payment extends Component {
     this.form.validateAll();
   }
 
+  checkCoupon = debounce((code) => {
+    if(!code){
+      this.setState({
+        couponError: null,
+        coupon: null
+      });
+      this.props.addCoupon && this.props.addCoupon({coupon: null});
+      return null;
+    };
+    getCoupon({
+      coupon_code: code,
+      coupon: null
+    })
+    .then(coupon => {
+      this.props.addCoupon && this.props.addCoupon({coupon: coupon});
+      this.setState({
+        couponError: null,
+        coupon: coupon
+      });
+    })
+    .catch(err => {
+      this.props.addCoupon && this.props.addCoupon({coupon: null});
+      this.setState({
+        couponError: err,
+        coupon: null
+      });
+    });
+  }, 300)
+  
+
   render() {
-    const { error } = this.state; 
+    const { error, couponError } = this.state; 
     const { active } = this.props;
 
     return (
@@ -113,6 +148,14 @@ class Payment extends Component {
           className={!!active ? 'active' : ''}
           ref={c => { this.form = c }}
         >     
+
+              <div className="flex">
+                    <Input validations={[this.checkCoupon]} name="coupon" type="text" placeholder="Have coupon code?" className="w-full" />   
+                </div>
+                <div className="flex mb-4">
+                <span className="error">{couponError}</span>
+                </div>
+                <hr className="my-6" />
               <div className="flex mb-4">
                     <Input validations={[vl.required]} name="name" type="text" placeholder="Card owner name" className="w-full"/>
                   </div>

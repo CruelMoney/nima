@@ -3,6 +3,7 @@ var restful = require('restful-keystone-onode')(keystone);
 import * as fileupload from './fileUpload';
 import * as pages from './pages';
 import * as checkout from './checkout';
+import * as coupon from './coupon';
 
 const setup = (app) => {
   app.all('/api*', keystone.middleware.api);
@@ -11,6 +12,7 @@ const setup = (app) => {
   app.all('/api/pages', pages.list);  
 
   app.all('/api/checkout', checkout.post);
+  app.get('/api/coupon/:coupon_code', coupon.get);
 
   restful.expose({
     BasePage : {

@@ -8,6 +8,7 @@
     "cude-animations": "^1.5.0",
     "cude-cms": "^0.3.0",
     "draft-js": "^0.10.4",
+    "lodash.debounce": "^4.0.8",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
     "react-draft-wysiwyg": "^1.11.0",

@@ -1,10 +1,21 @@
 import React, { Component } from 'react';
 import BagItems from './BagItems'
+import * as priceCalc from './priceCalculator';
 
 class Bag extends Component {
+
+  calculateTotal = (init, coupon) => {
+    const {items} = this.props;
+    return priceCalc.getTotalPrice({
+      items,
+      coupon,
+      initial: init
+    });
+  }
+
   render() {
-    const {items, shipping} = this.props;
- 
+    const {items, shipping, coupon} = this.props;
+
     return (
       <React.Fragment>
                 <h2>
@@ -26,9 +37,24 @@ class Bag extends Component {
                   Subtotal
                 </p>
                 <p className="inline float-right text-right">
-                  {items.reduce((acc, i)=>acc+i.price, 0)} DKK
+                  {this.calculateTotal(0)} DKK
                 </p>
               </div>
+              {
+                !!coupon ?
+                <div className="checkout-bag-section">
+                  <p className="inline float-left text-left">
+                    Discount
+                  </p>
+                  <p className="inline float-right text-right">
+                    {coupon.discount} {
+                      coupon.type === "Percentage" ? "%" : "DKK"
+                    }
+                  </p>
+                </div>
+               : null
+              }
+              
               <div className="checkout-bag-section">
                 <p className="inline float-left text-left">
                   {shipping.name}
@@ -43,7 +69,7 @@ class Bag extends Component {
                   Total (incl. taxes)
                 </p>
                 <p className="inline float-right text-right">
-                  {items.reduce((acc, i)=>acc+i.price, shipping.price)} DKK
+                  {this.calculateTotal(shipping.price, coupon)} DKK
                 </p>
               </div>
           </React.Fragment>

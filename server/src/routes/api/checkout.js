@@ -2,6 +2,7 @@ var async = require('async'),
 keystone = require('keystone');
 var Order = keystone.list('Order');
 var Product = keystone.list('Product');
+var Coupon = keystone.list('Coupon');
 var ShippingOption = keystone.list('ShippingOption');
 const {stripe} = require('../../logic/payments');
 const emailService = require('../../logic/email');
@@ -18,6 +19,7 @@ const post = async (req, res) => {
     last_name,
     shipping,
     total_price,
+    coupon_code,
     newsletter_subscribe,
     ...rest
   } = req.body;
@@ -63,22 +65,36 @@ const post = async (req, res) => {
       });
     })
 
-    const ValidateShippingTask = new Promise((resolve, reject) => {
-        ShippingOption.model.findById(shipping._id).exec((err, DBShipping)=>{
-          if(err || DBShipping === null){
-            return reject('Error getting shipping.');
-          }
-          
-          // add price to totalPrice
-          dbPrice += DBShipping.price;
-
-          resolve();
-        })
-    });
-
-    tasks.push(ValidateShippingTask);
 
     const updateTasks = await Promise.all(tasks);
+
+    if(!!coupon_code){
+        console.log(coupon_code)
+        const couponQuery = { 'code': coupon_code };
+        const coupon = await Coupon.model.findOne(couponQuery);
+        if (!coupon) throw new Error("Coupon not valid.");
+        const invalid = coupon.isInvalid();
+        if(invalid){
+          throw new Error(invalid);
+        } 
+
+        // calculate new price
+        dbPrice = getPriceWithCoupon({
+          price: dbPrice,
+          coupon: coupon
+        });
+        
+        const updateCouponUses = coupon.set({ uses: coupon.uses-1 }).save;
+        updateTasks.push(updateCouponUses);
+    }
+
+    const DBShipping = await ShippingOption.model.findOne({ _id: shipping._id });
+    if( DBShipping === null){
+      throw new Error('Error getting shipping.');
+    }
+    // add shippingPrice to totalPrice
+    dbPrice += DBShipping.price;
+  
 
     // compare dbprice to requested price
     if(dbPrice !== total_price){
@@ -161,6 +177,26 @@ Order.schema.pre('save', function(next) {
   }
   return next();
 });
+
+
+const getPriceWithCoupon = ({price, coupon}) => {
+  if(!coupon) return price;
+  const value = coupon.discount;
+
+  switch (coupon.type) {
+    case "Percentage":
+      price -= (price/100*value);
+      break;
+    case "Value":
+      price -= value;
+      break;
+    default:
+      break;
+  }
+  if(price < 0){price = 0;}
+  return price;
+}
+
 
 export {
   post
