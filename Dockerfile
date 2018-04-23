@@ -19,6 +19,7 @@ RUN yarn run cra-universal build
 
 # Copy necessary folders to build
 RUN cp -R server/src/models/ dist/build/models/
+RUN cp -R server/src/templates/ dist/build/templates/
 RUN cp -R server/src/updates/ dist/build/updates/
 
 # Go to dist and install packages

@@ -42,6 +42,10 @@ APIsConfiguration.add({
         instagram: { type: String },
         stripePublic: { type: String }
     },
+    mailAccount: {
+        email:    { type: String, note: "Should be a gmail account."}, 
+        password: { type: String }, 
+    }
 });
 
 APIsConfiguration.register();

@@ -4134,6 +4134,10 @@ node.extend@^1.1.5, node.extend@~1.1.5:
   dependencies:
     is "^3.1.0"
 
+nodemailer@^4.6.4:
+  version "4.6.4"
+  resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-4.6.4.tgz#f0d72d0c6a6ec5f4369fa8f4bf5127a31baa2014"
+
 nodemon-webpack-plugin@0.1.5:
   version "0.1.5"
   resolved "https://registry.yarnpkg.com/nodemon-webpack-plugin/-/nodemon-webpack-plugin-0.1.5.tgz#87eedf2725b1dc6f27ae8da9279060d5b015423f"

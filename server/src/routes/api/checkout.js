@@ -6,6 +6,7 @@ var Coupon = keystone.list('Coupon');
 var ShippingOption = keystone.list('ShippingOption');
 const {stripe} = require('../../logic/payments');
 const emailService = require('../../logic/email');
+
 /**
  * checkout
  */
@@ -59,7 +60,7 @@ const post = async (req, res) => {
 
           // add price to totalPrice
           dbPrice += dbItem.price * item.quantity;
-
+    
           resolve(dbItem.save);
         });
       });
@@ -132,7 +133,9 @@ const post = async (req, res) => {
         _id: i._id,
         description: i.title, 
         variation: i.variation,
-        quantity: i.quantity
+        quantity: i.quantity,
+        price: i.price,
+        link: process.env.PUBLIC_URL + '/' + i.slug
       }
     });
     const order = new Order.model({
@@ -153,6 +156,16 @@ const post = async (req, res) => {
       usedCouponCode: coupon_code
     });
     await order.save();
+
+
+    emailService.sendEmail({
+      receiverEmail: email,
+      type: "ORDER_CONFIRMATION",
+      items: orderItems,
+      order,
+      shipping: DBShipping
+    });
+
 
     // return new product stock
     return res.apiResponse(order);
