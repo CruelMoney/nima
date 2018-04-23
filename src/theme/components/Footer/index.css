@@ -1,6 +1,32 @@
+
+
 footer li a{
   text-transform: uppercase;
   font-family: PierSans-Light;
   font-size: 0.9em;
   letter-spacing: 1.5px;
+  cursor: pointer;
+}
+
+.newsletter-signup{
+  text-align: center;
+  position: fixed;
+  bottom: 12.5%;
+  width: 100%;
+  left: 0;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 250ms ease;
+  transition-delay: 250ms;
+}
+.newsletter-signup .error{
+  left: 0;
+  position: absolute;
+  bottom: -2em;
+}
+.newsletter-signup h3{
+  margin-bottom: 1em;
+}
+.newsletter-signup .container{
+  max-width: 700px;
 }

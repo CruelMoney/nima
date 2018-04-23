@@ -4,6 +4,23 @@ import { fetcher } from 'cude-cms'
 import './index.css';
 
 class Footer extends Component {
+  toggleNewsletter = (e) =>{
+    e.preventDefault();
+
+
+    const { 
+      showNewsletterActive,
+      showNewsletter,
+      hideNewsletter
+    } = this.props;
+
+    if(showNewsletterActive){
+      hideNewsletter();
+    }else{
+      showNewsletter();
+    }
+  }
+
   render() {
     const { data } = this.props;
     const { results } = data;
@@ -31,11 +48,20 @@ class Footer extends Component {
                 )
               })
              : null}
+
+              <li 
+              className={`lg:mx-4 w-full lg:w-auto text-center`}>
+                <a 
+                onClick={this.toggleNewsletter}
+                class="text-black hover:text-grey-dark">Newsletter</a>
+              </li>
             {/* <li className="lg:mx-4 w-full lg:w-auto text-center">
               <a className="text-black hover:text-grey-dark" href="https://cude.io">WEBSITE BY CUDEIO</a>
             </li> */}
           </ul>
         </div>
+            
+
       </footer>
     );
   }

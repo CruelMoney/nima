@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import Landing from './routes/Landing'
 import Footer from './components/Footer'
 import Menu from './components/Menu'
@@ -11,6 +11,7 @@ import { withRouter, Route, Switch} from 'react-router-dom'
 import {TransitionGroup, CSSTransition} from 'react-transition-group'
 import Page from './routes/Page';
 import withTracker from './utils/withTracker';
+import NewsletterSignup from './components/Footer/NewsletterSignup';
 
 class Index extends Component {
   
@@ -79,11 +80,18 @@ class Index extends Component {
   }
 
   render() {
-    const { location, transparentLoading, loadingText, showLoading} = this.props;
+    const { location, transparentLoading, loadingText, showLoading, showNewsletterActive} = this.props;
     const currentKey = location.pathname.split('/')[1] || 'home';
 
     return (
-      <div className={`${currentKey} ${this.state.loadingScreen ? "loading" : ''} page-wrapper`}>
+      <Fragment>
+      <div className={`
+      ${currentKey} 
+      ${this.state.loadingScreen ? "loading" : ''} 
+      ${showNewsletterActive ? "show-newsletter" : ''} 
+      page-wrapper`}
+      onClick={() => showNewsletterActive && this.props.hideNewsletter()}
+      >
          <LoadingPage 
           text={showLoading ? loadingText : "NIMA COPENHAGEN"}
           transparent={showLoading && transparentLoading}
@@ -113,8 +121,15 @@ class Index extends Component {
             </section>
           </CSSTransition>
         </TransitionGroup>
-        <Footer/>
+        <Footer
+          showNewsletterActive={showNewsletterActive}
+          showNewsletter={this.props.showNewsletter}
+          hideNewsletter={this.props.hideNewsletter}
+        />
       </div>
+      <NewsletterSignup />
+
+      </Fragment>
     );
   }
 }
@@ -128,7 +143,8 @@ const mapStateToProps = (state) => {
     isFetchingData: isFetchingData,
     showLoading: state.theme.loading,
     transparentLoading: state.theme.transparentLoading,
-    loadingText: state.theme.loadingText
+    loadingText: state.theme.loadingText,
+    showNewsletterActive: state.theme.showNewsletter
   }
 }
 
@@ -136,6 +152,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     beginLoading: () => dispatch(actions.beginLoading()),
     endLoading: () => dispatch(actions.endLoading()),
+    showNewsletter: () => dispatch(actions.showNewsletter()),
+    hideNewsletter: () => dispatch(actions.hideNewsletter())
   }
 }
 

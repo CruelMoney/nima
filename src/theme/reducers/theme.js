@@ -5,7 +5,8 @@ import {
 const initialState = {
   loading: false,
   transparentLoading: false,
-  text: false
+  text: false,
+  showNewsletter: false
 }
 
 function theme(state = initialState, action) {
@@ -20,6 +21,16 @@ function theme(state = initialState, action) {
       return {
         ...state,
         loading: false
+      }
+    case actions.SHOW_NEWSLETTER:
+      return {
+        ...state,
+        showNewsletter: true,
+      }
+    case actions.HIDE_NEWSLETTER:
+      return {
+        ...state,
+        showNewsletter: false,
       }
     default:
       return state

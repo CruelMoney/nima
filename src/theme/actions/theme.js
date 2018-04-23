@@ -4,6 +4,8 @@
 
 export const BEGIN_LOADING = 'BEGIN_LOADING'
 export const END_LOADING = 'END_LOADING'
+export const SHOW_NEWSLETTER = 'SHOW_NEWSLETTER'
+export const HIDE_NEWSLETTER = 'HIDE_NEWSLETTER'
 
 /*
  * other constants
@@ -20,4 +22,13 @@ export function beginLoading(transparent=false, text = false) {
 
 export function endLoading() {
   return { type: END_LOADING }
+}
+
+export function showNewsletter() {
+  document.body.style.overflow = 'hidden';
+  return { type: SHOW_NEWSLETTER }
+}
+export function hideNewsletter() {
+  document.body.style.overflow = 'auto';
+  return { type: HIDE_NEWSLETTER }
 }
