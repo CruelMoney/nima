@@ -13,6 +13,7 @@ button.add-to-bag {
 .product-description{
   margin: auto;
   max-width: 40em;
+  white-space: pre-line;
 }
 .product-description img{
   margin-bottom: 3em;

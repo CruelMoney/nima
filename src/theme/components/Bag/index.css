@@ -12,8 +12,13 @@
   width: 18rem;
   z-index: 2;
   margin-top: 1rem;
+  font-size: 0.8em;
 }
-
+.bag-dropdown h4{
+  font-size: 1.4rem;
+  margin-bottom: 1em;
+  text-align: center;
+}
 
 .bag-dropdown:before{
   content: "";

@@ -15,7 +15,7 @@ class Menu extends Component {
       : [];
 
     return (
-      <div className={`header-menu absolute pin-t w-full`}>
+      <div className={`header-menu fixed pin-t w-full`}>
         <div className="container mx-auto h-16 flex">
           <div className="w-16 h-full logo">
             <Link to="/">

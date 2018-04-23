@@ -1,11 +1,12 @@
 const path = require('path');
-const { Provider } = require("react-redux");
-const React = require('react');
-const { renderToNodeStream, renderToString } = require("react-dom/server");
+const clientBuildPath = path.resolve(__dirname, 'client');
 const {default: staticLoader} = require('@cra-express/static-loader');
 const {default: universalLoader} = require('@cra-express/universal-loader');
+const { renderToNodeStream, renderToString } = require("react-dom/server");
+
+const { Provider } = require("react-redux");
+const React = require('react');
 const {default: App} = require('../../src/App');
-const clientBuildPath = path.resolve(__dirname, 'client');
 const {configureStoreServer} = require('../../src/store');
 const {StaticRouter} = require('react-router-dom')
 const createRoutes = require('./routes');
@@ -57,7 +58,6 @@ const handleUniversalRender = async (req, res) => {
   const stream = renderToNodeStream(getApp(req, store, context));
   
   return stream;
-
 }
 
 const renderer = async (req, res, stream, htmlData, options) => {

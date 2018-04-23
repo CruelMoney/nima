@@ -21,6 +21,8 @@
   opacity: 1;
   transition: opacity 10ms;
   transition-delay: 800ms;
+  background: #FFFFFF;
+  z-index: 1;
 }
 
 .home .header-menu{
