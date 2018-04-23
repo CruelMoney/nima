@@ -7,10 +7,11 @@ const emailTemplate = require('./emailTemplate');
 const addCustomer = async ({email, name, ...rest}) => {
     return User.findOne({"email" : email})
     .exec()
-    .then((dbUser)=>{
+    .then(async (dbUser)=>{
       let user = null; 
-
+      console.log(email)
       if(!dbUser){ // Email not exist
+        console.log("No exits")
         user = new User({
           ...rest,
           name: { ...name },
@@ -20,6 +21,7 @@ const addCustomer = async ({email, name, ...rest}) => {
           isAdmin: false,
         });
       }else{ // Exists, update values
+        console.log("exits")
         user = dbUser;
         user.set({
           isCustomer: true,
@@ -27,7 +29,9 @@ const addCustomer = async ({email, name, ...rest}) => {
           receivesNewsletter: dbUser.receivesNewsletter || rest.receivesNewsletter
         });
       }
-      return user.save();
+      await user.save();
+      console.log(user)
+      return user;
     })
     .catch(err => {throw err});
 }

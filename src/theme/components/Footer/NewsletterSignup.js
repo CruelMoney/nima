@@ -3,14 +3,31 @@ import Input from '../Input';
 import SubmitButton from '../SubmitButton';
 import Form from 'react-validation/build/form';
 import * as vl from '../../utils/validators';
+import { signup } from '../../actions/newsletter';
 
 class NewsletterSignup extends Component {
-  
-  submit = () => {
+  state={
+    signedUp:false,
+    err: null
+  }
+
+  submit = async () => {
     this.form.validateAll();
     const values = this.form.getValues();
 
-    console.log(values);
+    try {
+      await signup(values);
+      this.setState({
+        err: null,
+        signedUp: true
+      });
+      setTimeout(this.props.hideNewsletter, 1000);
+    } catch (error) {
+      console.log(error)
+      this.setState({
+        err: "Something went wrong"
+      })
+    }
   }
   
   onErrors = () => {
@@ -34,11 +51,20 @@ class NewsletterSignup extends Component {
             <Input validations={[vl.required]} name="name" type="text" placeholder="Name" className="w-2/5 mx-2 relative"/>
             <Input validations={[vl.required, vl.email]} name="email" type="text" placeholder="Email" className="w-2/5 mx-2 relative"/>
             <SubmitButton
+                disabled={this.state.signedUp}
                 onClick={this.submit}
                 onErrors={this.onErrors}
                 className={`active border-2 p-3 border-black w-1/5 mx-2`}>
-                  SIGN UP
+                 {
+                   this.state.signedUp ? 
+                   "ADDED"
+                   :
+                   "SIGN UP"
+                }
             </SubmitButton>
+          </div>
+          <div className="error">
+            {this.state.err}
           </div>
         </Form>
       </div>

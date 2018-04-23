@@ -4,6 +4,7 @@ import * as fileupload from './fileUpload';
 import * as pages from './pages';
 import * as checkout from './checkout';
 import * as coupon from './coupon';
+import * as newsletter from './newsletter';
 
 const setup = (app) => {
   app.all('/api*', keystone.middleware.api);
@@ -13,6 +14,7 @@ const setup = (app) => {
 
   app.all('/api/checkout', checkout.post);
   app.get('/api/coupon/:coupon_code', coupon.get);
+  app.post('/api/newsletter', newsletter.post);
 
   restful.expose({
     BasePage : {

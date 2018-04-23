@@ -127,7 +127,9 @@ class Index extends Component {
           hideNewsletter={this.props.hideNewsletter}
         />
       </div>
-      <NewsletterSignup />
+      <NewsletterSignup 
+         hideNewsletter={this.props.hideNewsletter}
+      />
 
       </Fragment>
     );

@@ -29,6 +29,17 @@ const post = async (req, res) => {
 
   try {
 
+
+    await emailService.addCustomer({
+      email, 
+      name:{
+        first: first_name,
+        last: last_name
+      },
+      receivesNewsletter: newsletter_subscribe
+    });
+
+
     // Tasks for updating db items and validate price
     const tasks = items.map(item=>{
       return new Promise((resolve, reject)=>{
@@ -70,7 +81,6 @@ const post = async (req, res) => {
     const updateTasks = await Promise.all(tasks);
 
     if(!!coupon_code){
-        console.log(coupon_code)
         const couponQuery = { 'code': coupon_code };
         const coupon = await Coupon.model.findOne(couponQuery);
         if (!coupon) throw new Error("Coupon not valid.");
@@ -102,6 +112,7 @@ const post = async (req, res) => {
       return res.apiError(`Price does not match: ${dbPrice} and ${total_price}`);
     };
 
+
     // make stripe buy using dbprice
     const stripeResult = await stripe.charges.create({
       amount: total_price*100,
@@ -110,18 +121,6 @@ const post = async (req, res) => {
       receipt_email: email,
       source: card_token,
       description: "Charge for " + email
-    });
-
-    // Add to customer db
-    updateTasks.push(()=>{
-      emailService.addCustomer({
-        email, 
-        name:{
-          first: first_name,
-          last: last_name
-        },
-        receivesNewsletter: newsletter_subscribe
-      });
     });
 
     // Update stock
