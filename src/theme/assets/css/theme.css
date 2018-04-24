@@ -11,10 +11,19 @@
         url('../fonts/PierSans.ttf') format('truetype');
 }
 @font-face {
+  font-family: "PierSans-Medium";
+  font-weight: 300;
+  src:  url('../fonts/PierSans-Medium.otf') format('opentype');
+}
+@font-face {
+  font-family: "PierSans-Bold";
+  font-weight: 300;
+  src:  url('../fonts/PierSans-Bold.otf') format('opentype');
+}
+@font-face {
   font-family: "PierSans-Black";
   font-weight: 900;
-  src:  url('../fonts/PierSans-Black.otf') format('opentype'),
-        url('../fonts/PierSans-Bold.ttf') format('truetype');
+  src:  url('../fonts/PierSans-Black.otf') format('opentype');
 }
 @font-face {
   font-family: "PierSans-Light";
