@@ -28,6 +28,7 @@ export function showNewsletter() {
   document.body.style.overflow = 'hidden';
   setTimeout(() => {
     const scrolltop = document.body.scrollHeight;
+    console.log("scroll")
     window.scroll({top: scrolltop, left:0, behavior: "smooth"});
   }, 100);
   return { type: SHOW_NEWSLETTER }
