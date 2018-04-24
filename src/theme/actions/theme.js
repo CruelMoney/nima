@@ -30,7 +30,7 @@ export function showNewsletter() {
     const scrolltop = document.body.scrollHeight;
     console.log("scroll")
     window.scroll({top: scrolltop, left:0, behavior: "smooth"});
-  }, 250);
+  }, 300);
   return { type: SHOW_NEWSLETTER }
 }
 export function hideNewsletter() {
