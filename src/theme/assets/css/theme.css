@@ -7,12 +7,14 @@
 @font-face {
   font-family: "PierSans-Regular";
   font-weight: normal;
-  src:  url('../fonts/PierSans-Regular.otf') format('opentype');
+  src:  url('../fonts/PierSans-Regular.otf') format('opentype'),
+        url('../fonts/PierSans.ttf') format('truetype');
 }
 @font-face {
   font-family: "PierSans-Black";
   font-weight: bolder;
-  src:  url('../fonts/PierSans-Black.otf') format('opentype');
+  src:  url('../fonts/PierSans-Black.otf') format('opentype'),
+        url('../fonts/PierSans-Bold.ttf') format('truetype');
 }
 
 a{
