@@ -253,4 +253,7 @@ button{
   .mobile-hide{
     display: none;
   }
+  .page-wrapper.show-newsletter{
+    transform: translateY(-60vh);
+  }
 }

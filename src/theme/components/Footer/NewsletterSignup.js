@@ -47,14 +47,14 @@ class NewsletterSignup extends Component {
         </p>
         
         <Form ref={c => { this.form = c }}>
-          <div className="flex">
-            <Input validations={[vl.required]} name="name" type="text" placeholder="Name" className="w-2/5 mx-2 relative"/>
-            <Input validations={[vl.required, vl.email]} name="email" type="text" placeholder="Email" className="w-2/5 mx-2 relative"/>
+          <div className="flex flex-col sm:flex-row mb-2 sm:mb-16">
+            <Input validations={[vl.required]} name="name" type="text" placeholder="Name" className="sm:w-2/5 sm:mx-2 my-2 relative"/>
+            <Input validations={[vl.required, vl.email]} name="email" type="text" placeholder="Email" className="sm:w-2/5 my-2 sm:mx-2 relative"/>
             <SubmitButton
                 disabled={this.state.signedUp}
                 onClick={this.submit}
                 onErrors={this.onErrors}
-                className={`active border-2 p-3 border-black w-1/5 mx-2`}>
+                className={`active border-2 p-3 border-black sm:w-1/5 sm:mx-2 my-2`}>
                  {
                    this.state.signedUp ? 
                    "ADDED"
