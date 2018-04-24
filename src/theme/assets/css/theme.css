@@ -6,15 +6,20 @@
 
 @font-face {
   font-family: "PierSans-Regular";
-  font-weight: normal;
+  font-weight: 600;
   src:  url('../fonts/PierSans-Regular.otf') format('opentype'),
         url('../fonts/PierSans.ttf') format('truetype');
 }
 @font-face {
   font-family: "PierSans-Black";
-  font-weight: bolder;
+  font-weight: 900;
   src:  url('../fonts/PierSans-Black.otf') format('opentype'),
         url('../fonts/PierSans-Bold.ttf') format('truetype');
+}
+@font-face {
+  font-family: "PierSans-Light";
+  font-weight: 300;
+  src:  url('../fonts/PierSans-Light.otf') format('opentype');
 }
 
 a{

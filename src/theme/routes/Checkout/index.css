@@ -6,7 +6,7 @@
   line-height: 1em;
 }
 .checkout-progress span.active{
-  font-family: PierSans-Bold;
+  font-family: "PierSans-Bold";
 }
 
 .checkout-bag h2{
@@ -29,7 +29,7 @@
 .checkout-bag-section p,
 .bag-item p,
 .empty-message{
-  font-family: PierSans-Light;
+  font-family: "PierSans-Light";
   letter-spacing: 2.18px;
 }
 .checkout-bag-section:last-of-type p{
