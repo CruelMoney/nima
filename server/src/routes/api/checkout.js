@@ -3,6 +3,7 @@ keystone = require('keystone');
 var Order = keystone.list('Order');
 var Product = keystone.list('Product');
 var Coupon = keystone.list('Coupon');
+var Campaign = keystone.list('Campaign');
 var ShippingOption = keystone.list('ShippingOption');
 const {stripe} = require('../../logic/payments');
 const emailService = require('../../logic/email');
@@ -166,6 +167,12 @@ const post = async (req, res) => {
     });
 
 
+    applyCampaigns({
+      order,
+      email
+    });
+
+
     // return new product stock
     return res.apiResponse(order);
 
@@ -190,6 +197,49 @@ Order.schema.pre('save', function(next) {
   }
   return next();
 });
+
+
+const applyCampaigns = async ({order, email}) => {
+  const campaigns = await Campaign.model.find().exec();
+  return await Promise.all(campaigns.map(async campaign => {
+      const { campaignType } = campaign;
+      switch (campaignType) {
+        // Create coupon on order
+        case 1:
+          const {discount, type} = campaign;
+          const coupon = await generateCoupon({
+            name:     `Free coupon for order: ${order._id}`,
+            type:     type,
+            discount: discount
+          });
+          await emailService.sendEmail({
+            receiverEmail: email,
+            type: "COUPON",
+            coupon,
+            order,
+          });
+          return {campaign, coupon};
+      
+        default:
+          break;
+      }
+    })
+  );
+}
+
+const generateCoupon = async ({name, type, discount}) => {
+  const coupon = new Coupon.model({
+    name          : name,
+    type          : type,
+    discount      : discount,
+    uses          : 1,
+    valid         : true,
+    isAutoCreated: true
+  });
+
+  await coupon.save();
+  return coupon;
+}
 
 
 const getPriceWithCoupon = ({price, coupon}) => {

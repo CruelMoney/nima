@@ -4,6 +4,7 @@ const getTemplate = async ({
   type,
   order,
   items,
+  coupon,
   shipping
 }) => {
   switch (type) {
@@ -19,6 +20,12 @@ const getTemplate = async ({
         subject: "Your NIMA order has been despatched"
       }
 
+    case "COUPON":
+      return{
+        html: await _getHTML("COUPON").then( e => _interpolateCouponEmail(e, order, coupon)),
+        subject: "Your free NIMA coupon"
+      }
+
     default:
       break;
   }
@@ -32,6 +39,26 @@ const _getHTML = (template) => {
       resolve(html);
     });
   })
+}
+
+const _interpolateCouponEmail = (html, order, coupon) => {
+  const {
+    delivery,
+    orderID
+  } = order;
+
+  const {
+    code,
+    discount,
+    uses
+  } = coupon;
+
+  html = html.replace("{{name}}", (!!delivery && !!delivery.firstName ? delivery.firstName : "there"));
+  html = html.replace("{{coupon_code}}", code);
+  html = html.replace("{{discount}}", discount);
+  html = html.replace("{{uses}}", uses);
+
+  return html;
 }
 
 const _interpolateEmail = (html, order, items, shipping) => {

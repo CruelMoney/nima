@@ -41,6 +41,7 @@ const sendEmail = async ({
   type,
   order, 
   items,
+  coupon,
   shipping
 }) => {
 
@@ -56,7 +57,7 @@ const sendEmail = async ({
         }
     });
 
-    const htmlPack = await emailTemplate.getTemplate({type, order, items, shipping});
+    const htmlPack = await emailTemplate.getTemplate({type, order, items, coupon, shipping});
 
     const mailOptions = {
       from: mailAccount.email, // sender address
