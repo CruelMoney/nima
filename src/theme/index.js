@@ -56,7 +56,9 @@ class Index extends Component {
   }
 
   handleTransitionLogic = (node, done) => {
-    if(!this.state.loadingScreen){
+    const x = window.matchMedia("(max-width: 462px)")
+
+    if(!x.matches && !this.state.loadingScreen){
       this.setState({
         loadingScreen: true
       }, ()=>{
@@ -69,15 +71,25 @@ class Index extends Component {
             }
           }, 800);
       });
+    }else{
+      done()
     }
   }
 
   componentWillReceiveProps(nextprops){
     const {showLoading} = nextprops;
-    if(showLoading && !this.state.loadingScreen){
+    const x = window.matchMedia("(max-width: 462px)")
+    if(!x.matches && showLoading && !this.state.loadingScreen){
       this.handleTransitionLogic();
     }
   }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.location !== prevProps.location) {
+      window.scrollTo(0, 0)
+    }
+  }
+
 
   render() {
     const { location, transparentLoading, loadingText, showLoading, showNewsletterActive} = this.props;

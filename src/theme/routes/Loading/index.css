@@ -44,7 +44,7 @@
 
 
 @media (max-width: 375px){
-  #loading-screen .loading-text{
-    margin-bottom: 1.3em;
+  #loading-screen {
+    display: none;
   }
 }

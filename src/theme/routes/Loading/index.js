@@ -109,7 +109,7 @@ class Loading extends Component {
     return (
       <div 
       id="loading-screen"
-      className={`fixed pin`}>
+      className={`fixed pin sm:hidden`}>
       <div 
       id="loading-logo-wrapper"
       className="logo-wrapper relative pin h-full">
