@@ -1,14 +1,14 @@
 
-.post-page img{
+.post-page .content-wrapper  img{
   width: 66.666% !important;
   margin-bottom: 1.5em;
 }
-.post-page p{
+.post-page .content-wrapper p{
   padding-right: 50%;
 }
 
 @media (max-width: 768px){
-  #root .post-page img{
+  #root .post-page .content-wrapper img{
     width: 100% !important;
   }
   .post-page p{

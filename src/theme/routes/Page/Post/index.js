@@ -16,10 +16,11 @@ class Post extends Component {
           {page.title}  
           </h1>
           <DBWysiwyg 
+            className="content-wrapper"
             dbKey={`${page.slug}-wysiwyg-content`}
-            wrapperClassName="wrapper-class"
-            editorClassName="editor-class"
-            toolbarClassName="toolbar-class"
+            wrapperClassName="wysiwyg"
+            editorClassName="content-wrapper"
+            toolbarClassName="wysiwyg-toolbar"
           />
         </article>
         <hr className="mb-0 sm:mb-16 mobile-hide"/>
