@@ -64,6 +64,7 @@ class Index extends Component {
       }, ()=>{
           // Minimum 600ms loading screen
           setTimeout(() => {
+            window.scrollTo(0, 0)
             if (!this.fininshAnimationIfDone(done)){
               const interval = setInterval(() => { // Check if stuff fetched each 2000ms
                 this.fininshAnimationIfDone(done) && clearInterval(interval);
@@ -84,11 +85,6 @@ class Index extends Component {
     }
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.location !== prevProps.location) {
-      window.scrollTo(0, 0)
-    }
-  }
 
 
   render() {

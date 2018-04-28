@@ -32,15 +32,16 @@ class BagItems extends Component {
                   return(
                     <div key={'bag-item-'+idx} className="bag-item">
                       <Link to={`/${item.slug}`} className="flex items-center justify-between text-black hover:text-grey-dark">
-                          <div className="flex items-center ">
+                          <div className="flex items-center w-3/5 ">
                           <div className="fixed-ratio w-1/3">
-                            <div className="absolute pin bag-editor flex items-center justify-center">
-                            <button onClick={(e)=>this.removeItem(e, item)}>-</button><button onClick={(e)=>this.addItem(e, item)}>+</button>
+                              <div className="absolute pin bag-editor flex items-center justify-center">
+                              <button onClick={(e)=>this.removeItem(e, item)}>-</button><button onClick={(e)=>this.addItem(e, item)}>+</button>
                             </div>
                             <img 
-                            className={`object-fit-cover h-full w-full`}
-                            src={`/uploads/files/${item.thumbnail.file.filename}`} 
-                            alt={item.thumbnail.alt1}/>
+                              className={`object-fit-cover h-full w-full fixed-ratio-content`}
+                              src={`/uploads/files/${item.thumbnail.file.filename}`} 
+                              alt={item.thumbnail.alt1}
+                            />
                           </div>
                           <p className="ml-3 mb-0">
                             {item.quantity > 1 ? item.quantity + "x" : ""} {item.title}

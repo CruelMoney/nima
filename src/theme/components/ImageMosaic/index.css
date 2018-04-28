@@ -1,0 +1,7 @@
+.image-mosaic{
+  margin: 0 -0.5em;
+}
+.image-mosaic .fixed-ratio{
+  border: 0.5em white solid;
+  height: 100%;
+}

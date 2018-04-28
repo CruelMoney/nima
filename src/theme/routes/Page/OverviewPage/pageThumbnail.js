@@ -9,7 +9,7 @@ class PageThumb extends Component {
       <Link to={page.slug}>
         <div className="page-thumb fixed-ratio">
           <img 
-          className={`object-fit-cover h-full w-full`}
+          className={`object-fit-cover h-full w-full fixed-ratio-content`}
           src={`/uploads/files/${page.thumbnail.file.filename}`} 
           alt={page.thumbnail.alt1}/>
         </div>

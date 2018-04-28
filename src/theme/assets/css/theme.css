@@ -126,6 +126,8 @@ main{
 
 .fixed-ratio{
   position: relative;
+  background: #eee;
+
 }
 .fixed-ratio-content{
   position: absolute;
@@ -146,6 +148,7 @@ main{
   float: left;
   height: 0;
   padding-top: 100%;
+  width: 100%;
 }
 .fixed-ratio::after { /* to clear float */
   content: "";
@@ -161,6 +164,8 @@ button,
 .button-look,
 .input-box{
   outline: none !important;
+  -webkit-appearance: none;
+  border-radius: 0;
   border: 2px solid rgba(17,17,17,0.50);
   padding: 0.8em;
   letter-spacing: 1px;

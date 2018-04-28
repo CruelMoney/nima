@@ -21,7 +21,7 @@ class Product extends Component {
           <div className="lg:w-1/2">
             <div className="fixed-ratio">
             { thumbnail && <img 
-              className={`object-fit-cover w-full h-full`}
+              className={`object-fit-cover w-full h-full fixed-ratio-content`}
               src={'/uploads/files/'+thumbnail.file.filename}
               alt={thumbnail.alt1}/>
             }

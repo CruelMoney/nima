@@ -45,3 +45,16 @@
   color: #FFFFFF;
   letter-spacing: 1.5px;
 }
+
+
+@media (max-width: 462px){
+  .landingVideo h1{
+    font-size: 0.8em;
+    margin-bottom: 10em;
+  }
+  .landingVideo svg{
+    height: 100px  !important;
+    width: 120px !important;
+    margin-bottom: 1em;
+  }
+}

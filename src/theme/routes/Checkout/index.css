@@ -62,6 +62,7 @@
   opacity: 0;
   background: rgba(0,0,0,0.33);
   cursor: default;
+  z-index: 2;
 }
 .bag-editor button{
   border: none;
