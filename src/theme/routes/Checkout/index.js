@@ -42,7 +42,7 @@ class Checkout extends Component {
         ...values,
         items: this.props.cart.items
       }
-    });
+    }, _ => window.scrollTo(0, 0));
   }
 
   updateState = (values) => {
@@ -82,19 +82,10 @@ class Checkout extends Component {
       <div className="checkout-page">
       <div className="container mx-auto  mt-16">
         <hr/>
-        <div className="mt-10 mb-16 flex flex-col lg:flex-row-reverse">
+        <div className="mt-10 mb-16 flex flex-col lg:flex-row">
 
-          <article className="lg:w-1/2 w-full mb-12 lg:ml-12 checkout-bag">
-            <div className="lg:p-12 p-6">
-              <Bag
-                coupon={coupon}
-                shipping={shipping}
-                items={items}
-              />
-            </div>
-          </article>
-
-          <article className="lg:w-1/2 w-full checkout-flow ">
+     
+          <article className="lg:w-1/2 w-full checkout-flow mb-12">
             <h1 className="mb-4">
               Checkout
             </h1>
@@ -138,7 +129,16 @@ class Checkout extends Component {
 
           </article>
 
-          
+          <article id="checkout-bag" className="lg:w-1/2 w-full lg:ml-12 checkout-bag">
+            <div className="lg:p-12 p-6">
+              <Bag
+                coupon={coupon}
+                shipping={shipping}
+                items={items}
+              />
+            </div>
+          </article>
+
          
         </div>
       </div>

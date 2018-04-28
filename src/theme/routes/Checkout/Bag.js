@@ -42,7 +42,7 @@ class Bag extends Component {
               </div>
               {
                 !!coupon ?
-                <div className="checkout-bag-section">
+                <div className="checkout-bag-section text-green">
                   <p className="inline float-left text-left">
                     Discount
                   </p>

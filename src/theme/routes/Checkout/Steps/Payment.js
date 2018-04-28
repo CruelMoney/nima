@@ -10,8 +10,9 @@ import {
   CardCVCElement,
   } from 'react-stripe-elements';
 import * as vl from '../../../utils/validators';
-import debounce from 'lodash.debounce';
+import throttle from 'lodash.throttle';
 import * as priceCalc from '../priceCalculator';
+import scrolltoElement from 'scrollto-element'
 
 const itemsToOrder = (items) => {
     const itemsView = {};
@@ -109,7 +110,9 @@ class Payment extends Component {
     this.form.validateAll();
   }
 
-  checkCoupon = debounce((code) => {
+  checkCoupon = throttle((event) => {
+    let code = event.target.value;
+
     if(!code){
       this.setState({
         couponError: null,
@@ -128,6 +131,7 @@ class Payment extends Component {
         couponError: null,
         coupon: coupon
       });
+      this.scrollToBag();
     })
     .catch(err => {
       this.props.addCoupon && this.props.addCoupon({coupon: null});
@@ -136,8 +140,16 @@ class Payment extends Component {
         coupon: null
       });
     });
-  }, 300)
-  
+  }, 1000)
+
+  scrollToBag = () => {
+    const x = window.matchMedia("(max-width: 462px)")
+
+    if(x.matches){
+      const scrolltop = document.body.scrollHeight;
+      window.scroll({top: scrolltop, left:0, behavior: "smooth"});
+    }
+  }
 
   render() {
     const { error, couponError } = this.state; 
@@ -150,7 +162,7 @@ class Payment extends Component {
         >     
 
               <div className="flex">
-                    <Input validations={[this.checkCoupon]} name="coupon" type="text" placeholder="Have coupon code?" className="w-full" />   
+                    <Input onChange={this.checkCoupon} name="coupon" type="text" placeholder="Have coupon code?" className="w-full" />   
                 </div>
                 <div className="flex mb-4">
                 <span className="error">{couponError}</span>

@@ -9,6 +9,7 @@
     "cude-cms": "^0.3.0",
     "draft-js": "^0.10.4",
     "lodash.debounce": "^4.0.8",
+    "lodash.throttle": "^4.1.1",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
     "react-draft-wysiwyg": "^1.11.0",
@@ -27,6 +28,7 @@
     "redux-logger": "^3.0.6",
     "redux-persist": "^5.4.0",
     "redux-thunk": "^2.2.0",
+    "scrollto-element": "^1.0.4",
     "validator": "^9.2.0"
   },
   "scripts": {

@@ -8,7 +8,7 @@ class Confirmation extends Component {
         <div className="container mx-auto  mt-16">
             <hr/>
             <div className="mt-10 mb-16 flex">
-              <article className="text-center mx-auto w-1/2 checkout-flow">
+              <article className="text-center mx-auto lg:w-1/2 checkout-flow">
 
                 <h1>Thank you</h1>
                 <p>
