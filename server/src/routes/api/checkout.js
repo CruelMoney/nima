@@ -206,11 +206,12 @@ const applyCampaigns = async ({order, email}) => {
       switch (campaignType) {
         // Create coupon on order
         case 1:
-          const {discount, type} = campaign;
+          const {discount, type, uses} = campaign;
           const coupon = await generateCoupon({
             name:     `Free coupon for order: ${order._id}`,
             type:     type,
-            discount: discount
+            discount: discount,
+            uses: uses
           });
           await emailService.sendEmail({
             receiverEmail: email,
@@ -227,12 +228,12 @@ const applyCampaigns = async ({order, email}) => {
   );
 }
 
-const generateCoupon = async ({name, type, discount}) => {
+const generateCoupon = async ({name, type, discount, uses}) => {
   const coupon = new Coupon.model({
     name          : name,
     type          : type,
     discount      : discount,
-    uses          : 1,
+    uses          : !!uses ? uses : 1,
     valid         : true,
     isAutoCreated: true
   });
