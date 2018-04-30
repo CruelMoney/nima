@@ -37,7 +37,8 @@ Order.add(
     city: { type: String, required: true, initial: true },
     zip:  {type: String, required: true, initial: true },
     country: { type: String, required: true, initial: true },
-    trackingCode: { type: String, noedit:true },
+    trackingCode: { type: String },
+    estimatedDelivery: { type: String }
   }},
   {usedCouponCode: { type: String, noedit:true }},
   {isSent: { type: Boolean, default: false, note:"Checking this will charge the money on the customers card." }},

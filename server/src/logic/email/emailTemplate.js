@@ -14,10 +14,10 @@ const getTemplate = async ({
         subject: "Thanks for your order!"
       }
     
-    case "SHIPMENT_CONFIRMATION":
+    case "SHIPPING_CONFIRMATION":
       return{
-        html: await _getHTML("SHIPMENT_CONFIRMATION").then( e => _interpolateEmail(e, order, items, shipping)),
-        subject: "Your NIMA order has been despatched"
+        html: await _getHTML("SHIPPING_CONFIRMATION").then( e => _interpolateDeliveryEmail(e, order)),
+        subject: "Your NIMA order has been shipped"
       }
 
     case "COUPON":
@@ -57,6 +57,25 @@ const _interpolateCouponEmail = (html, order, coupon) => {
   html = html.replace("{{coupon_code}}", code);
   html = html.replace("{{discount}}", discount);
   html = html.replace("{{uses}}", uses);
+
+  return html;
+}
+
+const _interpolateDeliveryEmail = (html, order) => {
+  const {
+    delivery,
+    orderID,
+  } = order;
+
+  const {
+    estimatedDelivery,
+    trackingCode
+  } = delivery;
+
+  html = html.replace("{{order_number}}", orderID)
+  html = html.replace("{{name}}", (!!delivery && !!delivery.firstName ? delivery.firstName : "there"));
+  html = html.replace("{{tracking_code}}", trackingCode);
+  html = html.replace("{{estimated_delivery}}", estimatedDelivery);
 
   return html;
 }

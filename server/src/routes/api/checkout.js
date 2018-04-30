@@ -190,13 +190,21 @@ const post = async (req, res) => {
 
 // Capture stripe payment when order isSent
 Order.schema.pre('save', function(next) {
-  if (this.isModified('isSent') && this.isSent && !!this.stripeID) {
-    stripe.charges.capture(this.stripeID, function(err, charge) {
+  const order = this;
+  if (order.isModified('isSent') && order.isSent && !!order.stripeID) {
+    stripe.charges.capture(order.stripeID, function(err, charge) {
       if(err){
         var err = new Error(err.message);
         return next(err);
       }else{
-        return next();
+        console.log(order)
+        emailService.sendEmail({
+          receiverEmail: order.email,
+          type: "SHIPPING_CONFIRMATION",
+          order: order,
+        })
+        .then(_ => next())
+        .catch(_ => next("Could not send confirmation email, but money has been charged."));    
       }
     });
   }
