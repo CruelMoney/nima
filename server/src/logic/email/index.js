@@ -29,6 +29,7 @@ const addCustomer = async ({email, name, ...rest}) => {
           receivesNewsletter: dbUser.receivesNewsletter || rest.receivesNewsletter
         });
       }
+      console.log("Saving user");
       await user.save();
       console.log(user)
       return user;

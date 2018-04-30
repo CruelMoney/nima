@@ -124,6 +124,8 @@ const post = async (req, res) => {
       description: "Charge for " + email
     });
 
+    console.log("saving everything");
+
     // Update stock
     await Promise.all(updateTasks.map(t => t && t()));
 
@@ -155,6 +157,8 @@ const post = async (req, res) => {
       }, 
       usedCouponCode: coupon_code
     });
+    console.log("saving order");
+
     await order.save();
 
 
@@ -166,6 +170,7 @@ const post = async (req, res) => {
       shipping: DBShipping
     });
 
+    console.log("applying campaign");
 
     applyCampaigns({
       order,
