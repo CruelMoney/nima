@@ -3,6 +3,7 @@ var User = keystone.list('User').model;
 var Configuration = keystone.list('APIsConfiguration').model;
 const nodemailer = require('nodemailer');
 const emailTemplate = require('./emailTemplate');
+var mg = require('nodemailer-mailgun-transport');
 
 const addCustomer = async ({email, name, ...rest}) => {
     return User.findOne({"email" : email})
@@ -48,20 +49,22 @@ const sendEmail = async ({
 
   try {
     const conf = await Configuration.findOne();
-    const { mailAccount } = conf;
+    const { key } = conf;
 
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
+    const auth = {
       auth: {
-            user: mailAccount.email,
-            pass: mailAccount.password
-        }
-    });
+        api_key: key.mailgun,
+        domain: 'nima.cude.io'
+      }
+    }
+    
+    var transporter = nodemailer.createTransport(mg(auth));
+    
 
     const htmlPack = await emailTemplate.getTemplate({type, order, items, coupon, shipping});
 
     const mailOptions = {
-      from: mailAccount.email, // sender address
+      from: "info@nima.cude.io", // sender address
       to: receiverEmail, // list of receivers
       ...htmlPack
     };

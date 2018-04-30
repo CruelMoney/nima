@@ -40,12 +40,9 @@ APIsConfiguration.add({
         analytics: { type: String},
         twitter: { type: String },
         instagram: { type: String },
-        stripePublic: { type: String }
+        stripePublic: { type: String },
+        mailgun:  { type: String }
     },
-    mailAccount: {
-        email:    { type: String, note: "Should be a gmail account."}, 
-        password: { type: String }, 
-    }
 });
 
 APIsConfiguration.register();
