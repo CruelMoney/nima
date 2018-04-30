@@ -16,6 +16,9 @@
 .landingVideo.hover video{
   filter: grayscale(0%);
 }
+.landingVideo > div{
+  background: #eee;
+}
 
 .header-menu{
   z-index: 2;

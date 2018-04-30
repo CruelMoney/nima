@@ -96,8 +96,8 @@ const post = async (req, res) => {
           coupon: coupon
         });
         
-        const updateCouponUses = coupon.set({ used: coupon.used+1 }).save;
-        updateTasks.push(updateCouponUses);
+        // const updateCouponUses = coupon.set({ used: coupon.used+1 }).save;
+        // updateTasks.push(updateCouponUses);
     }
 
     const DBShipping = await ShippingOption.model.findOne({ _id: shipping._id });
