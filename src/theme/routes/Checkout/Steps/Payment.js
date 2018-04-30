@@ -42,7 +42,8 @@ const inputStyle = {
 class Payment extends Component {
   state = {
     error: null,
-    couponError: null
+    couponError: null,
+    loading: false
   }
 
   submit = () => {
@@ -54,6 +55,7 @@ class Payment extends Component {
 
     this.setState({
       error: null,
+      loading: true
     });
 
 
@@ -95,7 +97,8 @@ class Payment extends Component {
     const delay = (dur < 3000) ? 3000 - dur : 0;
     setTimeout(() => {
       this.setState({
-        error: error
+        error: error,
+        loading: false
       });
       this.props.endLoading();
     }, delay);
@@ -152,7 +155,7 @@ class Payment extends Component {
   }
 
   render() {
-    const { error, couponError } = this.state; 
+    const { error, couponError, loading } = this.state; 
     const { active } = this.props;
 
     return (
@@ -204,10 +207,11 @@ class Payment extends Component {
                   BACK
               </button>
               <SubmitButton
+                disabled={loading}
                 onClick={this.submit}
                 onErrors={this.onErrors}
                 className={`w-full border-2 p-3 border-black ml-2`}>
-                  PLACE ORDER
+                  {loading ? "ORDERING..." : "PLACE ORDER"}
               </SubmitButton> 
             </div>
             <div className="flex my-2">

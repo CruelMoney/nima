@@ -85,7 +85,7 @@ class Shipping extends Component {
           
             <hr className="my-6 mobile-hide" />
 
-            <div className="flex">
+            <div className="flex mt-2">
              <button
                 onClick={this.back}
                 className={`w-full border-2 p-3 border-black mr-2`}>

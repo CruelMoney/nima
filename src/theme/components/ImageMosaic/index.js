@@ -31,7 +31,7 @@ class ImageMosaic extends Component {
             </div>
           </div>
         </div>
-        <div className="flex flex-col sm:flex-row">
+        {/* <div className="flex flex-col sm:flex-row">
           <div className="w-full sm:w-2/3">
             <div className="fixed-ratio ratio-2">
             <div className="fixed-ratio-content">
@@ -46,7 +46,7 @@ class ImageMosaic extends Component {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     );
   }

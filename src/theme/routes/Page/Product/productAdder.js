@@ -25,6 +25,7 @@ class ProductAdder extends Component {
   render() {
     const { product, editMode } = this.props;
     const { productAdded } = this.state;
+    const soldOut = product.stock.every(o => o.stock <= 0);
 
     return (
       <React.Fragment>
@@ -44,9 +45,12 @@ class ProductAdder extends Component {
         />
         <button
           onClick={this.onAddBag}
-          disabled={productAdded}
-          className={"add-to-bag bg-transparent font-medium mt-6"}>
-          {productAdded ? "ADDED" : "ADD TO BAG"}
+          disabled={productAdded || soldOut}
+          className={`add-to-bag bg-transparent font-medium mt-6 active`}>
+          {
+            soldOut ? "SOLD OUT" :
+            productAdded ? "ADDED" : "ADD TO BAG" 
+          }
         </button>
       </React.Fragment>
     );

@@ -73,7 +73,8 @@ class Index extends Component {
           }, 800);
       });
     }else{
-      done()
+      window.scrollTo(0, 0);
+      done();
     }
   }
 
@@ -99,7 +100,8 @@ class Index extends Component {
       ${showNewsletterActive ? "show-newsletter" : ''} 
       page-wrapper`}
       onClick={() => showNewsletterActive && this.props.hideNewsletter()}
-      >
+      > 
+        <div id="dark-overlay"></div>
          <LoadingPage 
           text={showLoading ? loadingText : "NIMA COPENHAGEN"}
           transparent={showLoading && transparentLoading}

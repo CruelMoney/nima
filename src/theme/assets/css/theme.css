@@ -42,6 +42,23 @@ body{
   letter-spacing: 0;
   line-height: 1.5em;
 }
+body.newsletter-showing{
+  overflow: hidden;
+}
+#dark-overlay{
+  transition: opacity 300ms ease;
+  background: black;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  pointer-events: none;
+}
+body.newsletter-showing #dark-overlay{
+  opacity: 0.5;
+}
 @media (max-width: 320px){
   body{
     font-size: 0.8em;

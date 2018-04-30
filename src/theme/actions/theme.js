@@ -25,7 +25,7 @@ export function endLoading() {
 }
 
 export function showNewsletter() {
-  document.body.style.overflow = 'hidden';
+  document.body.classList.add("newsletter-showing");
   setTimeout(() => {
     const scrolltop = document.body.scrollHeight;
     window.scroll({top: scrolltop, left:0, behavior: "smooth"});
@@ -33,6 +33,7 @@ export function showNewsletter() {
   return { type: SHOW_NEWSLETTER }
 }
 export function hideNewsletter() {
-  document.body.style.overflow = 'auto';
+  document.body.classList.remove("newsletter-showing");
+
   return { type: HIDE_NEWSLETTER }
 }
