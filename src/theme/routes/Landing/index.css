@@ -16,7 +16,7 @@
 .landingVideo.hover video{
   filter: grayscale(0%);
 }
-.landingVideo > div{
+.landingVideo > .grey{
   background: #eee;
 }
 

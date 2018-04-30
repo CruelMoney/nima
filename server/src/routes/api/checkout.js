@@ -73,13 +73,13 @@ const post = async (req, res) => {
           // add price to totalPrice
           dbPrice += dbItem.price * item.quantity;
     
-          resolve(dbItem.save);
+          resolve(dbItem);
         });
       });
     })
 
 
-    const updateTasks = await Promise.all(tasks);
+    const toBeSaved = await Promise.all(tasks);
 
     if(!!coupon_code){
         const couponQuery = { 'code': coupon_code };
@@ -96,8 +96,8 @@ const post = async (req, res) => {
           coupon: coupon
         });
         
-        // const updateCouponUses = coupon.set({ used: coupon.used+1 }).save;
-        // updateTasks.push(updateCouponUses);
+        coupon.set({ used: coupon.used+1 });
+        toBeSaved.push(coupon);
     }
 
     const DBShipping = await ShippingOption.model.findOne({ _id: shipping._id });
@@ -127,7 +127,7 @@ const post = async (req, res) => {
     console.log("saving everything");
 
     // Update stock
-    await Promise.all(updateTasks.map(t => t && t()));
+    await Promise.all(toBeSaved.map(e => !!e.save && e.save()));
 
     // Create order
     const orderItems = items.map(i => {

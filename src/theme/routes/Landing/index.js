@@ -25,7 +25,7 @@ class Landing extends Component {
           <title>{"NIMA CPH"}</title>
           <meta name="description" content={"NIMA COPENHAGEN"} />
         </Helmet>
-        <div className={`overflow-hidden w-full h-full`}>
+        <div className={`overflow-hidden w-full h-full grey`}>
           <video 
             autoPlay 
             loop 
