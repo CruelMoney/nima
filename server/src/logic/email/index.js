@@ -60,11 +60,10 @@ const sendEmail = async ({
     
     var transporter = nodemailer.createTransport(mg(auth));
     
-
     const htmlPack = await emailTemplate.getTemplate({type, order, items, coupon, shipping});
 
     const mailOptions = {
-      from: "info@nima.cude.io", // sender address
+      from: "nimacph@gmail.com", // sender address
       to: receiverEmail, // list of receivers
       ...htmlPack
     };

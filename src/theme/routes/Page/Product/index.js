@@ -42,14 +42,14 @@ class Product extends Component {
           </div>
           </div>
         </header>
-        <div className="container mx-auto mt-6 sm:mt-16">
+        <div className="container mx-auto my-6 lg:my-12">
         <article className="mb-6 sm:mb-24">
           <div className="mb-6 sm:mb-16">
-            <ImageMosaic dbKey={`${page.slug}-image-mosaic`} />
+            <ImageMosaic dbKey={`${page._id}-image-mosaic`} />
           </div>
           <div className="product-description">
             <DBWysiwyg 
-              dbKey={`${page.slug}-wysiwyg-content`}
+              dbKey={`${page._id}-wysiwyg-content`}
               wrapperClassName="wrapper-class"
               editorClassName="editor-class"
               toolbarClassName="toolbar-class"
