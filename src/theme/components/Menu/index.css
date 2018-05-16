@@ -1,4 +1,6 @@
-nav a{
+nav li > a,
+nav li > div > p{
+  margin: 0;
   text-transform: uppercase;
   font-family: "PierSans-Medium";
   font-size: 0.875em;
@@ -7,7 +9,7 @@ nav a{
 }
 
 
-.indicate-active a:after{
+.indicate-active li > a:after{
   content: "";
   position: absolute;
   bottom: -0.3em;
@@ -18,13 +20,57 @@ nav a{
   transition: transform 250ms cubic-bezier(0.215, 0.610, 0.355, 1);
   transform: scaleX(0);
 }
-.indicate-active a.active:after,
-.indicate-active a:hover:after{
+.indicate-active li > a.active:after,
+.indicate-active li > a:hover:after{
   transform:none;
 }
 
 @media (max-width: 375px){
   .header-menu nav a{
     font-size: 0.675em;
+  }
+}
+
+
+.dropdown{
+  background: white;
+  padding: 2em;
+  border: 1px solid #CDCDCD;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 100%;
+  z-index: 2;
+  font-size: 0.8em;
+  display: none;
+}
+
+.dropdown:before{
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  border-left: 1px solid #CDCDCD;
+  border-top: 1px solid #CDCDCD;
+  background: white;
+  height: 1em;
+  width: 1em;
+  transform: translateX(-50%) translateY(-50%) rotate(45deg);
+}
+
+.dropdown-wrapper{
+  padding: 1em 0;
+}
+
+.dropdown-wrapper:hover .dropdown,
+.dropdown:hover{
+  display: block;
+}
+
+@media (max-width: 1200px)  {
+  .dropdown{
+    transform: translateX(-90%);
+  }
+  .dropdown:before{
+    left: 90%;
   }
 }

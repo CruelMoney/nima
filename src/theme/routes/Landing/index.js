@@ -26,7 +26,7 @@ class Landing extends Component {
           <meta name="description" content={"NIMA COPENHAGEN"} />
         </Helmet>
         <div className={`overflow-hidden w-full h-full grey`}>
-          <video 
+          {/* <video 
             autoPlay 
             loop 
             playsInline 
@@ -37,7 +37,10 @@ class Landing extends Component {
             >
             <source src="/uploads/files/landing-video.mp4#t=0.1" type="video/mp4" />
             Your browser does not support the video tag.
-          </video>
+          </video> */}
+
+          <img src="/uploads/files/front_bg.jpg" alt=""/>
+
         </div>
         <div className="absolute pin flex justify-center items-center flex-col">
           <Logo 

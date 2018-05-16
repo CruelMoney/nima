@@ -50,7 +50,7 @@ class Bag extends Component{
         onFocus={() => this.toggleDropdown(true)}
         tabIndex='0'
       >
-        {this.state.dropdown  ? 
+        {this.state.dropdown ? 
           <div
             className="absolute bag-dropdown"
           >

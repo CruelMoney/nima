@@ -4,6 +4,7 @@ import {NavLink, Link} from 'react-router-dom';
 import Logo from '../Logo';
 import Bag from '../Bag'
 import './index.css';
+import Socials from './Socials';
 
 class Menu extends Component {
   render() {
@@ -37,6 +38,9 @@ class Menu extends Component {
                 })
                 : null}
 
+                <li key={`menu-link-social`} className="mx-2 sm:mx-4">
+                  <Socials />
+                </li>
             </ul>
           </nav>
           <div className="w-16 flex items-center justify-center">

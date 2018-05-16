@@ -7,13 +7,19 @@
 .landingVideo.loaded video{
   opacity: 1;
 }
-
-.landingVideo video{
+.landingVideo img{
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+.landingVideo video,
+.landingVideo img{
   transition: all 1000ms ease;
  // opacity: 0;
   filter: grayscale(100%);
 }
-.landingVideo.hover video{
+.landingVideo.hover video,
+.landingVideo.hover img{
   filter: grayscale(0%);
 }
 .landingVideo > .grey{
