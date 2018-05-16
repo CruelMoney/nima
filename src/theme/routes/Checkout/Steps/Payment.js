@@ -46,6 +46,15 @@ class Payment extends Component {
     loading: false
   }
 
+  constructor(props){
+    super(props);
+    const { coupon } = props;
+
+    this.setState({
+      coupon: coupon
+    })
+  }
+
   submit = () => {
     const {orderValues, onPaymentSuceeded, beginLoading, items} = this.props;
     const { coupon } = this.state;
@@ -156,16 +165,17 @@ class Payment extends Component {
 
   render() {
     const { error, couponError, loading } = this.state; 
-    const { active } = this.props;
+    const { active, coupon } = this.props;
+    const couponcode = !!coupon ? coupon.code : null;
 
-    return (
+    return ( 
         <Form
           className={!!active ? 'active' : ''}
           ref={c => { this.form = c }}
         >     
 
               <div className="flex">
-                    <Input onChange={this.checkCoupon} name="coupon" type="text" placeholder="Have coupon code?" className="w-full" />   
+                    <Input value={couponcode} onChange={this.checkCoupon} name="coupon" type="text" placeholder="Have coupon code?" className="w-full" />   
                 </div>
                 <div className="flex mb-4">
                 <span className="error">{couponError}</span>

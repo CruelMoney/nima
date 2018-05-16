@@ -112,6 +112,7 @@ class Checkout extends Component {
                 endLoading={endLoading}
                 orderValues={order} 
                 items={items}
+                coupon={coupon}
                 addCoupon={this.addCoupon}
                 onPaymentSuceeded={this.paymentSuceeded}
                 />
