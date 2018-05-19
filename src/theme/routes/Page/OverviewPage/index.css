@@ -13,6 +13,8 @@
 
 h4.page-thumb{
   color: #111111 !important;
+  font-size: .9em;
+  letter-spacing: 1.5px;
 }
 
 h4.page-thumb span{

@@ -33,7 +33,7 @@ class BagItems extends Component {
                     <div key={'bag-item-'+idx} className="bag-item">
                       <Link to={`/${item.slug}`} className="flex items-center justify-between text-black hover:text-grey-dark">
                           <div className="flex items-center w-3/5 ">
-                          <div className="fixed-ratio w-1/3">
+                          <div className="fixed-ratio w-2/5">
                               <div className="absolute pin bag-editor flex items-center justify-center">
                               <button onClick={(e)=>this.removeItem(e, item)}>-</button><button onClick={(e)=>this.addItem(e, item)}>+</button>
                             </div>
@@ -43,7 +43,7 @@ class BagItems extends Component {
                               alt={item.thumbnail.alt1}
                             />
                           </div>
-                          <p className="ml-3 mb-0">
+                          <p className="ml-3 mb-0 w-4/5">
                             {item.quantity > 1 ? item.quantity + "x" : ""} {item.title}
                             <span className="block text-xs">
                               Size: {item.variation}
