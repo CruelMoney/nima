@@ -190,7 +190,10 @@ const post = async (req, res) => {
 
 // Capture stripe payment when order isSent
 Order.schema.pre('save', function(next) {
+  console.log("saving");
   const order = this;
+  console.log(order);
+
   if (order.isModified('isSent') && order.isSent && !!order.stripeID) {
     stripe.charges.capture(order.stripeID, function(err, charge) {
       if(err){
