@@ -18,10 +18,14 @@ class Menu extends Component {
     return (
       <div className={`header-menu fixed pin-t w-full`}>
         <div className="container mx-auto h-16 flex">
-          <div className="w-16 h-full logo">
+          <div className="w-16 h-full logo relative">
             <Link to="/">
               <Logo color={"#111111"} className="h-full w-full"/>
+              <span className="logo-text">
+              NIMA COPENHAGEN
+            </span>
             </Link>
+           
           </div>
           <nav className={`${indicateActive ? "indicate-active" : ""} w-full h-full`}>
             <ul

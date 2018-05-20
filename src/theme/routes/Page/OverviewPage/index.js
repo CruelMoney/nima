@@ -23,7 +23,7 @@ class Overview extends Component {
               return(
                   <div 
                   key={`overview-item-${idx}`}
-                  className="sm:w-1/2 xl:w-1/3 page-thumb-wrapper">
+                  className="sm:w-1/2 page-thumb-wrapper">
                     <PageThumb page={page} />
                   </div>
               )

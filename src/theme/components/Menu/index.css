@@ -1,3 +1,16 @@
+.logo-text{
+  position: absolute;
+  left: 4rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #111111;
+  font-family: "PierSans-Bold";
+  line-height: 1.3em;
+  font-size: 0.8em;
+  letter-spacing: 0.1em;
+}
+
+
 nav li > a,
 nav li > div > p{
   margin: 0;
@@ -25,9 +38,17 @@ nav li > div > p{
   transform:none;
 }
 
+
 @media (max-width: 375px){
-  .header-menu nav a{
+  .header-menu nav a,
+  .header-menu nav p{
     font-size: 0.675em;
+  }
+}
+
+@media (max-width: 767px){
+  .logo-text{
+    display: none;
   }
 }
 

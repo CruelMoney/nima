@@ -110,6 +110,9 @@ class Bag extends Component{
           bulge={this.state.bulge}
           itemsCount={items.length}
         />
+        <span>
+          {items.length > 0 ? items.length : null}
+        </span>
       </div>
     )
   }

@@ -2,6 +2,13 @@
   outline: none !important;
 }
 
+.bag-wrapper span{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .bag-dropdown{
   background: white;
   padding: 2em;
