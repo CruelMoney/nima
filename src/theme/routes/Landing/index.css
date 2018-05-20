@@ -29,7 +29,7 @@
 .header-menu{
   z-index: 2;
   opacity: 1;
-  transition: opacity 10ms;
+  transition: opacity 250ms;
   transition-delay: 800ms;
   background: #FFFFFF;
 }

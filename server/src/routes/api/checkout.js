@@ -195,9 +195,9 @@ Order.schema.pre('save', function(next) {
     stripe.charges.capture(order.stripeID, function(err, charge) {
       if(err){
         var err = new Error(err.message);
+        console.log(err);
         return next(err);
       }else{
-        console.log(order)
         emailService.sendEmail({
           receiverEmail: order.email,
           type: "SHIPPING_CONFIRMATION",
@@ -207,8 +207,9 @@ Order.schema.pre('save', function(next) {
         .catch(_ => next("Could not send confirmation email, but money has been charged."));    
       }
     });
+  }else{
+    return next();
   }
-  return next();
 });
 
 
