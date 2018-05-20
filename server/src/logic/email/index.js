@@ -54,7 +54,7 @@ const sendEmail = async ({
     const auth = {
       auth: {
         api_key: key.mailgun,
-        domain: 'nima.cude.io'
+        domain: 'mg.nimacph.dk'
       }
     }
     
@@ -63,8 +63,9 @@ const sendEmail = async ({
     const htmlPack = await emailTemplate.getTemplate({type, order, items, coupon, shipping});
 
     const mailOptions = {
-      from: "nimacph@gmail.com", // sender address
-      to: receiverEmail, // list of receivers
+      "from": "noreply@nimacph.dk", // sender address
+      "to": receiverEmail, // list of receivers,
+      "h:Reply-To" : "nimacph@gmail.com",
       ...htmlPack
     };
 
