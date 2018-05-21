@@ -2,6 +2,8 @@ const keystone = require( 'keystone');
 const mongoose = require('mongoose')
 const AutoIncrement = require('mongoose-sequence')(mongoose);
 const Types = keystone.Field.Types;
+const {stripe} = require('../logic/payments');
+const emailService = require('../logic/email');
 
 const ShippingOption = new keystone.List('ShippingOption');
 const Order = new keystone.List('Order', {
@@ -51,5 +53,34 @@ Order.add(
 );
 
 Order.schema.plugin(AutoIncrement, {inc_field: 'orderID'});
+
+
+// Capture stripe payment when order isSent
+Order.schema.pre('save', function(next) {
+  console.log("saving");
+  const order = this;
+  console.log(order);
+
+  if (order.isModified('isSent') && order.isSent && !!order.stripeID) {
+    stripe.charges.capture(order.stripeID, function(err, charge) {
+      if(err){
+        var err = new Error(err.message);
+        console.log(err);
+        return next(err);
+      }else{
+        emailService.sendEmail({
+          receiverEmail: order.email,
+          type: "SHIPPING_CONFIRMATION",
+          order: order,
+        })
+        .then(_ => next())
+        .catch(_ => next("Could not send confirmation email, but money has been charged."));    
+      }
+    });
+  }else{
+    return next();
+  }
+});
+
 
 Order.register();
