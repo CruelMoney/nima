@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const AutoIncrement = require('mongoose-sequence')(mongoose);
 const Types = keystone.Field.Types;
 
+
 const ShippingOption = new keystone.List('ShippingOption');
 const Order = new keystone.List('Order', {
   map: { name: 'orderID' },
@@ -52,6 +53,28 @@ Order.add(
 
 Order.schema.plugin(AutoIncrement, {inc_field: 'orderID'});
 
+// Capture stripe payment when order isSent
+Order.schema.pre('save', function(next) {
+  const order = this;
+  if (order.isModified('isSent') && order.isSent && !!order.stripeID) {
+    //CALL API
+    fetch(process.env.PUBLIC_URL+'/api/confirm/'+order._id,{
+      method: 'GET',
+      credentials: 'include',
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
+    })
+    .then(result => {
+      return next();
+    })
+    .catch(err => {
+      return next(err);
+    });
+  }else{
+    return next();
+  }
+});
 
 
 Order.register();

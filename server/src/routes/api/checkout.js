@@ -252,35 +252,30 @@ const getPriceWithCoupon = ({price, coupon}) => {
 }
 
 
-// Capture stripe payment when order isSent
-Order.schema.pre('save', function(next) {
-  console.log("saving");
-  const order = this;
-  console.log(order);
-
-  if (order.isModified('isSent') && order.isSent && !!order.stripeID) {
-    stripe.charges.capture(order.stripeID, function(err, charge) {
-      if(err){
-        var err = new Error(err.message);
-        console.log(err);
-        return next(err);
-      }else{
-        emailService.sendEmail({
-          receiverEmail: order.email,
-          type: "SHIPPING_CONFIRMATION",
-          order: order,
-        })
-        .then(_ => next())
-        .catch(_ => next("Could not send confirmation email, but money has been charged."));    
-      }
-    });
-  }else{
-    return next();
+const confirmOrder = async (req, res) => {
+  try {
+    const order_id = req.params.order_id;
+    const order = await Order.model.findOne({ _id: order_id});
+  
+    if( order === null){
+      throw new Error('Error getting order.');
+    }
+    const stripeRes = await stripe.charges.capture(order.stripeID) 
+      await emailService.sendEmail({
+        receiverEmail: order.email,
+        type: "SHIPPING_CONFIRMATION",
+        order: order,
+      });
+  } catch (error) {
+    console.log(error)
+    error = error.message || error;
+    return res.apiError(error);
   }
-});
+}
 
 
 
 export {
-  post
+  post,
+  confirmOrder
 }

@@ -11,8 +11,8 @@ const setup = (app) => {
   
   app.get('/api/overviews/:id', pages.get);  
   app.all('/api/pages', pages.list);  
-
   app.all('/api/checkout', checkout.post);
+  app.all('/api/confirm/:order_id', checkout.confirmOrder);
   app.get('/api/coupon/:coupon_code', coupon.get);
   app.post('/api/newsletter', newsletter.post);
 
