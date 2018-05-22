@@ -58,12 +58,13 @@ Order.schema.pre('save', function(next) {
   const order = this;
   if (order.isModified('isSent') && order.isSent && !!order.stripeID) {
     //CALL API
-    fetch(process.env.PUBLIC_URL+'/api/confirm/'+order._id,{
-      method: 'GET',
+    fetch(process.env.PUBLIC_URL+'/api/confirm', {
+      method: 'POST',
       credentials: 'include',
       headers: new Headers({
         'Content-Type': 'application/json'
-      })
+      }),
+      body: JSON.stringify({order:order})
     })
     .then(result => {
       return next();

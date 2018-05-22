@@ -254,9 +254,9 @@ const getPriceWithCoupon = ({price, coupon}) => {
 
 const confirmOrder = async (req, res) => {
   try {
-    const order_id = req.params.order_id;
-    const order = await Order.model.findOne({ _id: order_id});
-  
+    const {
+      order
+    } = req.body;
     if( order === null){
       throw new Error('Error getting order.');
     }
