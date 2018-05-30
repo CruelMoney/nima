@@ -9,8 +9,7 @@ Text.add({
 key: { 
     type: String, 
     required: true, 
-    initial: true, 
-    index: { unique: true }  //only one of each key
+    initial: true
 },
 content: { type: String }
 });

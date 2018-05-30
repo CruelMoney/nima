@@ -214,7 +214,7 @@ class Payment extends Component {
             <button
                 onClick={this.back}
                 className={`w-full border-2 p-3 border-black mr-2`}>
-                  BACK
+                  TILBAGE
               </button>
               <SubmitButton
                 disabled={loading}

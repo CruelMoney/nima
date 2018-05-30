@@ -4,13 +4,13 @@ import validator from 'validator';
 export const required = (value) => {
   if (!value.toString().trim().length) {
     // We can return string or jsx as the 'error' prop for the validated Component
-    return <span className="error">Required</span>;
+    return <span className="error">Påkrævet</span>;
   }
 };
  
 export const email = (value) => {
   if (!validator.isEmail(value)) {
-    return <span className="error">Email not valid.</span>;
+    return <span className="error">Email ikke gyldig.</span>;
   }
 };
  
@@ -36,6 +36,6 @@ export const password = (value, props, components) => {
 
 export const isMobilePhone = (value) => {
   if(!validator.isMobilePhone(value, 'da-DK')){
-    return <span className="error">Not a valid phone number.</span>
+    return <span className="error">Ikke gyldigt telefonnummer.</span>
   }
 }

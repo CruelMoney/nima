@@ -21,7 +21,7 @@ class Checkout extends Component {
     error: null,
     shipping: {
       price: 0,
-      name: "Delivery"
+      name: "Levering"
     },
     order: {},
     paymentSuceeded: false
