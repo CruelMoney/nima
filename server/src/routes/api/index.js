@@ -1,6 +1,7 @@
 var keystone = require('keystone');
 var restful = require('restful-keystone-onode')(keystone);
 import * as fileupload from './fileUpload';
+import * as text from './text';
 import * as pages from './pages';
 import * as checkout from './checkout';
 import * as coupon from './coupon';
@@ -38,12 +39,14 @@ const setup = (app) => {
     ShippingOption: {
       path : "shipping",
       envelop: false,
-    },
-    Text :{
-      envelop: false,
     }
   })
   .start();
+
+  // Text
+  app.get('/api/texts', text.list);
+  app.post('/api/texts', text.post);
+  app.all('/api/texts/:id', text.update);
 
   //File Upload Route
   app.get('/api/fileupload/list', fileupload.list);
