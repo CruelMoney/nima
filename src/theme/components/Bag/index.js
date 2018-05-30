@@ -56,10 +56,10 @@ class Bag extends Component{
           >
             {
               items.length === 0 ? 
-              <div className="text-center">Your bag is empty.</div> 
+              <div className="text-center">Din kurv er tom.</div> 
               : 
               <div>
-                <h4>BAG</h4>
+                <h4>KURV</h4>
                 <hr/>
                 {
                   Object.values(itemsView).map((i, idx) => {

@@ -10,10 +10,10 @@ class Confirmation extends Component {
             <div className="mt-10 mb-16 flex">
               <article className="text-center mx-auto lg:w-1/2 checkout-flow">
 
-                <h1>Thank you</h1>
+                <h1>Tak</h1>
                 <p>
-                  You will receive a confirmation email right away. <br />
-                  When the order is shipped you will receive an email containing the tracking number of the package.
+                  Du vil modtage en bekræftelsesmail med det samme. <br />
+                  Når din ordre er afsendt, modtager du en mail med trackingnummeret.
                   <br />
                   <span className="mt-6 block font-bold">NIMA COPENHAGEN</span>
                 </p>

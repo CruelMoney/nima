@@ -31,7 +31,7 @@ class Checkout extends Component {
     let error = null;
 
     if(this.props.cart.items.length === 0){
-      error = "Your bag is empty";
+      error = "Din kurv er tom";
     }
 
     this.setState({
@@ -92,8 +92,8 @@ class Checkout extends Component {
             <div className="checkout-progress relative flex justify-between">
               <hr className="absolute pin-x my-2"/>
               <span className={`pr-3 pl-1 bg-white relative ${step === 1 && "active"}`}>INFORMATION</span>
-              <span className={`px-3 bg-white relative ${step === 2 && "active"}`}>SHIPPING</span>
-              <span className={`pl-3 bg-white relative ${step === 3 && "active"}`}>PAYMENT</span>
+              <span className={`px-3 bg-white relative ${step === 2 && "active"}`}>FORSENDELSE</span>
+              <span className={`pl-3 bg-white relative ${step === 3 && "active"}`}>BETALING</span>
             </div>
             <hr className="my-6" />
 

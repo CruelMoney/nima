@@ -25,7 +25,7 @@ class NewsletterSignup extends Component {
     } catch (error) {
       console.log(error)
       this.setState({
-        err: "Something went wrong"
+        err: "Noget gik galt"
       })
     }
   }
@@ -39,16 +39,16 @@ class NewsletterSignup extends Component {
       <div className="newsletter-signup">
       <div className="container mx-auto">
         <h3>
-          THE NIMA NEWSLETTER
+          NIMA NYHEDSBREV
         </h3>
 
         <p>
-          Sign up for the NIMA newsletter to receive news on collaborations, exclusive offers and new arrivals.
+          Tilmeld dig NIMA nyhedsbrevet for at modtage nyheder om collaborations, tilbud og nye produkter.
         </p>
         
         <Form ref={c => { this.form = c }}>
           <div className="flex flex-col sm:flex-row mb-2 sm:mb-16">
-            <Input validations={[vl.required]} name="name" type="text" placeholder="Name" className="sm:w-2/5 sm:mx-2 my-2 relative"/>
+            <Input validations={[vl.required]} name="name" type="text" placeholder="Navn" className="sm:w-2/5 sm:mx-2 my-2 relative"/>
             <Input validations={[vl.required, vl.email]} name="email" type="text" placeholder="Email" className="sm:w-2/5 my-2 sm:mx-2 relative"/>
             <SubmitButton
                 disabled={this.state.signedUp}
@@ -57,9 +57,9 @@ class NewsletterSignup extends Component {
                 className={`active border-2 p-3 border-black sm:w-1/5 sm:mx-2 my-2`}>
                  {
                    this.state.signedUp ? 
-                   "ADDED"
+                   "TILMELDT"
                    :
-                   "SIGN UP"
+                   "TILMELD"
                 }
             </SubmitButton>
           </div>

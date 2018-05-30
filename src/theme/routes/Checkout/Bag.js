@@ -19,7 +19,7 @@ class Bag extends Component {
     return (
       <React.Fragment>
                 <h2>
-                BAG
+                KURV
               </h2>
               <hr/>
               {
@@ -27,7 +27,7 @@ class Bag extends Component {
                 <BagItems items={items} />
                 : 
                 <p className="empty-message my-4">
-                  Your bag is empty.
+                  Din kurv er tom.
                 </p>
               }
                
@@ -44,7 +44,7 @@ class Bag extends Component {
                 !!coupon ?
                 <div className="checkout-bag-section text-green">
                   <p className="inline float-left text-left">
-                    Discount
+                    Rabat
                   </p>
                   <p className="inline float-right text-right">
                     {coupon.discount} {
@@ -66,7 +66,7 @@ class Bag extends Component {
               <hr/>
               <div className="checkout-bag-section">
                 <p className="inline float-left text-left">
-                  Total (incl. taxes)
+                  Total (inkl. moms)
                 </p>
                 <p className="inline float-right text-right">
                   {this.calculateTotal(shipping.price, coupon)} DKK

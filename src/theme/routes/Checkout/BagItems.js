@@ -46,7 +46,7 @@ class BagItems extends Component {
                           <p className="ml-3 mb-0 w-4/5">
                             {item.quantity > 1 ? item.quantity + "x" : ""} {item.title}
                             <span className="block text-xs">
-                              Size: {item.variation}
+                              Str. {item.variation}
                             </span>
                           </p>
                         </div>

@@ -60,7 +60,7 @@ class Payment extends Component {
     const { coupon } = this.state;
     const startTime = new Date().getTime(); 
     
-    beginLoading(false, "PLACING ORDER");
+    beginLoading(false, "BESTILLER ORDRE");
 
     this.setState({
       error: null,
@@ -175,20 +175,20 @@ class Payment extends Component {
         >     
 
               <div className="flex">
-                    <Input value={couponcode} onChange={this.checkCoupon} name="coupon" type="text" placeholder="Have coupon code?" className="w-full" />   
+                    <Input value={couponcode} onChange={this.checkCoupon} name="coupon" type="text" placeholder="Har du rabatkode?" className="w-full" />   
                 </div>
                 <div className="flex mb-4">
                 <span className="error">{couponError}</span>
                 </div>
                 <hr className="my-6" />
               <div className="flex mb-4">
-                    <Input validations={[vl.required]} name="name" type="text" placeholder="Card owner name" className="w-full"/>
+                    <Input validations={[vl.required]} name="name" type="text" placeholder="Kortholder navn" className="w-full"/>
                   </div>
                   
                 <div className="flex mt-2">
                   <div className="w-full input-box">
                       <CardNumberElement
-                        placeholder={"Card number"}
+                        placeholder={"Kort nummer"}
                        {...inputStyle}
                       />
                   </div>
@@ -202,7 +202,7 @@ class Payment extends Component {
                   </div>
                   <div className="w-1/2 ml-2 input-box">
                     <CardExpiryElement
-                        placeholder={"Card expiry MM/YY"}
+                        placeholder={"Kort udløb MM/YY"}
                        {...inputStyle}
                       />
                   </div>
@@ -221,7 +221,7 @@ class Payment extends Component {
                 onClick={this.submit}
                 onErrors={this.onErrors}
                 className={`w-full border-2 p-3 border-black ml-2`}>
-                  {loading ? "ORDERING..." : "PLACE ORDER"}
+                  {loading ? "BESTILLER..." : "BESTIL"}
               </SubmitButton> 
             </div>
             <div className="flex my-2">

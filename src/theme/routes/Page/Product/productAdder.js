@@ -10,7 +10,7 @@ class ProductAdder extends Component {
     const {selectedVariation} = this.state
 
     if(!selectedVariation){
-      alert("Please choose size first");
+      alert("Vælg størrelse først");
     }else{
       this.setState({
         productAdded:true
@@ -19,6 +19,11 @@ class ProductAdder extends Component {
         ...this.props.product,
         variation: selectedVariation
       })
+      setTimeout(() => {
+        this.setState({
+          productAdded:false
+        })
+      }, 1000);
     }
   }
 
@@ -48,8 +53,8 @@ class ProductAdder extends Component {
           disabled={productAdded || soldOut}
           className={`add-to-bag bg-transparent font-medium mt-6 active`}>
           {
-            soldOut ? "SOLD OUT" :
-            productAdded ? "ADDED" : "ADD TO BAG" 
+            soldOut ? "UDSOLGT" :
+            productAdded ? "TILFØJET" : "TILFØJ TIL KURV" 
           }
         </button>
       </React.Fragment>

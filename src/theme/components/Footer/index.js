@@ -53,7 +53,7 @@ class Footer extends Component {
               className={`lg:mx-4 w-full lg:w-auto text-center`}>
                 <a 
                 onClick={this.toggleNewsletter}
-                className="text-black hover:text-grey-dark">Newsletter</a>
+                className="text-black hover:text-grey-dark">Nyhedsbrev</a>
               </li>
             {/* <li className="lg:mx-4 w-full lg:w-auto text-center">
               <a className="text-black hover:text-grey-dark" href="https://cude.io">WEBSITE BY CUDEIO</a>
