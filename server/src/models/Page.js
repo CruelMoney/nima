@@ -31,7 +31,8 @@ BasePage.add(
 		description: {type: String},
 		slug: { type: String, readonly: true },
 		thumbnail: { type: Types.Relationship, ref: 'FileUpload', many: false, createInline: true },
-		tags: { type: Types.Relationship, ref: 'Tag', many: true, createInline: true }
+		tags: { type: Types.Relationship, ref: 'Tag', many: true, createInline: true },
+		order: {type: Types.Number },
 	}
 );
 BasePage.register();

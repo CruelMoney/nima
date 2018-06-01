@@ -11,6 +11,7 @@ exports.list = function(req, res) {
   .find()
   .populate('thumbnail')
   .populate('tags')
+  .sort('order')
   .exec(function(err, pages) {
 
     if (err) return res.apiError('database error', err);
@@ -34,6 +35,7 @@ exports.get = function(req, res) {
     .where('tags')
     .populate(['thumbnail', 'tags'])
     .in(overview.filters)
+    .sort('order')
     .exec(function(err, posts) {
       overview.children = posts	
       res.apiResponse({
