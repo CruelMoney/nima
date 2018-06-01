@@ -1,12 +1,12 @@
 .checkout-progress span{
   z-index: 1;
   font-size: 0.8em;
-  font-family: "PierSans-Light";
+  font-family: "PierSans-Light", sans-serif;
   letter-spacing: 1.91px;
   line-height: 1em;
 }
 .checkout-progress span.active{
-  font-family: "PierSans-Bold";
+  font-family: "PierSans-Bold", sans-serif;;
 }
 
 .checkout-bag h2{
@@ -29,11 +29,11 @@
 .checkout-bag-section p,
 .bag-item p,
 .empty-message{
-  font-family: "PierSans-Light";
+  font-family: "PierSans-Light", sans-serif;
   letter-spacing: 2.18px;
 }
 .checkout-bag-section:last-of-type p{
-  font-family: "PierSans-Bold";
+  font-family: "PierSans-Bold", sans-serif;
 }
 
 .checkout-flow form{

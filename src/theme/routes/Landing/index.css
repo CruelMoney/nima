@@ -61,9 +61,17 @@
   text-align: center;
 }
 .landing-button span{
+  margin-top: 0.5em;
   display: block;
 }
 
+@media (max-width: 600px){
+  .landing-button{
+    max-width: 70%;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+  }
+}
 
 @media (max-width: 462px){
   .landingVideo h1{

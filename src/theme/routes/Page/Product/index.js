@@ -55,7 +55,7 @@ class Product extends Component {
               toolbarClassName="toolbar-class"
               toolbar={{
                 fontFamily: {
-                  options: ['Pier Sans', "Wash Care Symbols"]
+                  options: ['Pier Sans, sans-serif', "Wash Care Symbols"]
                 }
               }}
             />
