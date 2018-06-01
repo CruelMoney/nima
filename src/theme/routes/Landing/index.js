@@ -47,7 +47,7 @@ class Landing extends Component {
           color={'white'} 
           shadow />
           <h1 className="mb-16 text-white text-shadow">
-            NIMA COPENHAGEN
+          nimacph.
           </h1>
           <Link
             to="/shop"

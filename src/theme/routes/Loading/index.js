@@ -143,17 +143,17 @@ export function LoadingComponent(props) {
   if (props.error) {
     // When the loader has errored
     return <Loading 
-              text={"ERROR. PLEASE REFRESH."}
+              text={"Fejl. Prøv at refresh."}
               active />
   } else if (props.timedOut) {
     // When the loader has taken longer than the timeout
     return <Loading 
-              text={"STILL LOADING"}
+              text={"Loader stadig"}
               active />
   } else if (props.pastDelay) {
     // When the loader has taken longer than the delay
     return  <Loading 
-              text={"NIMA COPENHAGEN"}
+              text={"nimacph."}
               active />
   } else {
     // When the loader has just started

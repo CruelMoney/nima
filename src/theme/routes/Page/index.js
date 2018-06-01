@@ -59,6 +59,6 @@ export default fetcher(
     '/api/pages', 
     true, 
     <Loading 
-      text={"NIMA COPENHAGEN"}
+      text={"nimacph."}
       active />
   );

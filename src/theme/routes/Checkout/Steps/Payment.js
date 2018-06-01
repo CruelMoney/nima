@@ -60,7 +60,7 @@ class Payment extends Component {
     const { coupon } = this.state;
     const startTime = new Date().getTime(); 
     
-    beginLoading(false, "BESTILLER ORDRE");
+    beginLoading(false, "Bestiller");
 
     this.setState({
       error: null,
