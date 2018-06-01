@@ -22,7 +22,7 @@ class Menu extends Component {
             <Link to="/">
               <Logo color={"#111111"} className="h-full w-full"/>
               <span className="logo-text">
-              NIMA COPENHAGEN
+              nimacph.
             </span>
             </Link>
            

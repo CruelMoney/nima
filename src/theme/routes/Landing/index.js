@@ -23,7 +23,7 @@ class Landing extends Component {
       <div className={`landingVideo p-8 lg:p-16 ${hover && "hover"} ${videoLoaded && 'loaded'}`}>
         <Helmet>
           <title>{"nimacph."}</title>
-          <meta name="description" content={"NIMA COPENHAGEN"} />
+          <meta name="description" content={"Nimacph er et lille, lokalt økologisk brand startet i København. Brandet blev lanceret i en røgfyldt lejlighed på Vesterbro 2018 af Nikolaj og Mads. To meget blege drenge med en stor kærlighed for verden, mellemøsten og de små ting. Vores produkter blev derfor et mix af skandinavirens enkelthed og arabisk skrift."} />
         </Helmet>
         <div className={`overflow-hidden w-full h-full grey`}>
           {/* <video 
