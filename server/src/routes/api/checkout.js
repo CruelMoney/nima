@@ -261,11 +261,11 @@ const confirmOrder = async (req, res) => {
       throw new Error('Error getting order.');
     }
     const stripeRes = await stripe.charges.capture(order.stripeID) 
-    await emailService.sendEmail({
-      receiverEmail: order.email,
-      type: "SHIPPING_CONFIRMATION",
-      order: order,
-    });
+    // await emailService.sendEmail({
+    //   receiverEmail: order.email,
+    //   type: "SHIPPING_CONFIRMATION",
+    //   order: order,
+    // });
     return res.apiResponse();
 
   } catch (error) {

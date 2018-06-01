@@ -54,7 +54,10 @@ class Landing extends Component {
             onMouseEnter={()=>this.setState({hover:true})}
             onMouseLeave={()=>this.setState({hover:false})}
             className={`landing-button bg-transparent hover:bg-white  text-white font-medium hover:text-black py-4 lg:px-24 px-12 border-2 border-white hover:border-transparent`}>
-              WEBSHOP
+              GÅ TIL WEBSHOP
+              <span>
+                BRUG KODEN "RELEASE" OG FÅ 25%
+              </span>
           </Link>
         </div>
       </div>

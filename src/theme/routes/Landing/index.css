@@ -32,6 +32,11 @@
   transition: opacity 250ms;
   transition-delay: 800ms;
   background: #FFFFFF;
+  display: none;
+}
+
+.header-menu.loaded{
+  display: block;
 }
 
 .home .header-menu{
@@ -53,6 +58,10 @@
   font-size: 18px;
   color: #FFFFFF;
   letter-spacing: 1.5px;
+  text-align: center;
+}
+.landing-button span{
+  display: block;
 }
 
 

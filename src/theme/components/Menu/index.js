@@ -7,16 +7,29 @@ import './index.css';
 import Socials from './Socials';
 
 class Menu extends Component {
+  state={
+    mounted: false
+  }
+
+  componentDidMount(){
+    setTimeout(() => {
+      this.setState({
+        mounted: true
+      })
+    }, 200);
+  }
+
   render() {
     const {data, indicateActive} = this.props;
     const {results} = data;
+    const { mounted } = this.state;
     const menu = results && results.find(menu => menu.name === "Header menu");
     const menuItems = menu
       ? menu.pages
       : [];
 
     return (
-      <div className={`header-menu fixed pin-t w-full`}>
+      <div className={`header-menu fixed pin-t w-full ${mounted ? "loaded" : ""}`}>
         <div className="container mx-auto h-16 flex">
           <div className="w-16 h-full logo relative">
             <Link to="/">
