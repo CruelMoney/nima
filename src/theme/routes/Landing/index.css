@@ -73,10 +73,11 @@
   }
 }
 
+
 @media (max-width: 462px){
   .landingVideo h1{
     font-size: 0.8em;
-    margin-bottom: 10em;
+    margin-bottom: 4em;
   }
   .landingVideo svg{
     height: 100px  !important;

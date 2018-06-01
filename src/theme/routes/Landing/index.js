@@ -46,14 +46,14 @@ class Landing extends Component {
           <Logo 
           color={'white'} 
           shadow />
-          <h1 className="mb-16 text-white text-shadow">
+          <h1 className="sm:mb-16 mb-0 text-white text-shadow">
           nimacph.
           </h1>
           <Link
             to="/shop"
             onMouseEnter={()=>this.setState({hover:true})}
             onMouseLeave={()=>this.setState({hover:false})}
-            className={`landing-button bg-transparent hover:bg-white  text-white font-medium hover:text-black py-4 lg:px-24 px-12 border-2 border-white hover:border-transparent`}>
+            className={`mb-16 sm:mb-0 landing-button bg-transparent hover:bg-white  text-white font-medium hover:text-black py-4 lg:px-24 px-12 border-2 border-white hover:border-transparent`}>
               GÅ TIL WEBSHOP
               <span>
                 BRUG KODEN "RELEASE" OG FÅ 25%
