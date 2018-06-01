@@ -7,8 +7,8 @@ const {setupUniversal} = require('./app');
 console.log(process.env)
 
 keystone.init({
-  'name': 'NIMA CPH',
-  'brand': 'NIMA CPH',
+  'name': 'nimacph.',
+  'brand': 'nimacph.',
   'auto update': true,
   'mongo': process.env.MONGO_URL || 'mongodb://localhost/database',
   'session': true,

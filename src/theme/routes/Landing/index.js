@@ -22,7 +22,7 @@ class Landing extends Component {
     return (
       <div className={`landingVideo p-8 lg:p-16 ${hover && "hover"} ${videoLoaded && 'loaded'}`}>
         <Helmet>
-          <title>{"NIMA CPH"}</title>
+          <title>{"nimacph."}</title>
           <meta name="description" content={"NIMA COPENHAGEN"} />
         </Helmet>
         <div className={`overflow-hidden w-full h-full grey`}>

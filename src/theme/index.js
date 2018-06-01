@@ -147,7 +147,6 @@ class Index extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state)
   const isFetchingData = Object.keys(state.apiData).some(
     key => state.apiData[key].fetching === true
   ); 
