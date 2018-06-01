@@ -41,7 +41,7 @@ class ProductAdder extends Component {
           {product.description}
         </p>
         <p>
-          Price: { product.price } DKK
+          Pris: { product.price } DKK
         </p>
         <ButtonOptions
           editMode={editMode}

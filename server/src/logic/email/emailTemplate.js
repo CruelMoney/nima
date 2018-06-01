@@ -11,19 +11,19 @@ const getTemplate = async ({
     case "ORDER_CONFIRMATION":
       return {
         html: await _getHTML("ORDER_CONFIRMATION").then( e => _interpolateEmail(e, order, items, shipping)),
-        subject: "Thanks for your order!"
+        subject: "Tak for din ordre!"
       }
     
     case "SHIPPING_CONFIRMATION":
       return{
         html: await _getHTML("SHIPPING_CONFIRMATION").then( e => _interpolateDeliveryEmail(e, order)),
-        subject: "Your NIMA order has been shipped"
+        subject: "Din nimacph ordre er afsendt"
       }
 
     case "COUPON":
       return{
         html: await _getHTML("COUPON").then( e => _interpolateCouponEmail(e, order, coupon)),
-        subject: "Your free NIMA coupon"
+        subject: "Din nimacph. rabatkode"
       }
 
     default:
@@ -108,9 +108,9 @@ const _orderToHtml = (order, items, shippingPrice) => {
   return `
   <table>
     <tr>
-      <th>Item description</th>
-      <th>Quantity</th> 
-      <th>Price per unit</th>
+      <th>Beskrivelse</th>
+      <th>Kvantitet</th> 
+      <th>Pris pr. stk</th>
     </tr>
 
     ${
@@ -137,8 +137,8 @@ const _orderToHtml = (order, items, shippingPrice) => {
       <td></td>
       <td></td>
       <td>
-        ${!!usedCouponCode && usedCouponCode !== "false" ? `<p>Used coupon: ${usedCouponCode}</p>` : ''}
-        <p>Shipping ${shippingPrice} DKK</p>
+        ${!!usedCouponCode && usedCouponCode !== "false" ? `<p>Brugt coupon: ${usedCouponCode}</p>` : ''}
+        <p>Levering ${shippingPrice} DKK</p>
         <p>
           <strong>
             Total ${totalPrice} DKK
