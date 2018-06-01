@@ -95,3 +95,7 @@ nav li > div > p{
     left: 90%;
   }
 }
+
+.socials .dropdown{
+  padding-bottom: 1em;
+}

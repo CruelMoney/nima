@@ -27,7 +27,7 @@ class Socials extends Component {
     const renderSocials = !!social ?  Object.entries(social) : [];
 
     return (
-      <div className="relative dropdown-wrapper">
+      <div className="relative dropdown-wrapper socials">
         <div
           className="absolute dropdown"
         >

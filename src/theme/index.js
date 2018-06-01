@@ -103,7 +103,7 @@ class Index extends Component {
       > 
         <div id="dark-overlay"></div>
          <LoadingPage 
-          text={showLoading ? loadingText : "NIMA COPENHAGEN"}
+          text={showLoading ? loadingText : "nimacph."}
           transparent={showLoading && transparentLoading}
           active={this.state.loadingScreen} />
         <Menu indicateActive />
