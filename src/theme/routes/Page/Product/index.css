@@ -24,3 +24,14 @@ button.add-to-bag {
 .product-description img{
   margin-bottom: 3em;
 }
+
+.product header img,
+.product .image-mosaic img{
+  cursor: zoom-in;
+  transition: transform 300ms ease;
+}
+
+.product header img.zoomed,
+.product .image-mosaic img.zoomed{
+  cursor: zoom-out;
+}

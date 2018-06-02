@@ -4,6 +4,8 @@ import "./index.css";
 
 class ImageMosaic extends Component {
   render() {
+    const {onImgClick} = this.props;
+    console.log(onImgClick)
     return (
       <div className="image-mosaic">
         <div className="flex flex-col sm:flex-row">
@@ -11,14 +13,18 @@ class ImageMosaic extends Component {
           <div className="w-full">
             <div className="fixed-ratio">
               <div className="fixed-ratio-content">
-              <DBImage dbKey={this.props.dbKey+"-1"} />
+              <DBImage 
+              onClick={onImgClick}
+              dbKey={this.props.dbKey+"-1"} />
               </div>
             </div>
             </div>
             <div className="w-full">
             <div className="fixed-ratio">
               <div className="fixed-ratio-content">
-              <DBImage dbKey={this.props.dbKey+"-2"} />
+              <DBImage 
+                onClick={onImgClick}
+              dbKey={this.props.dbKey+"-2"} />
               </div>
             </div>
             </div>
@@ -26,7 +32,9 @@ class ImageMosaic extends Component {
           <div className="w-full sm:w-2/3">
             <div className="fixed-ratio">
               <div className="fixed-ratio-content">
-              <DBImage dbKey={this.props.dbKey+"-3"} />
+              <DBImage 
+                onClick={onImgClick}
+              dbKey={this.props.dbKey+"-3"} />
               </div>
             </div>
           </div>
