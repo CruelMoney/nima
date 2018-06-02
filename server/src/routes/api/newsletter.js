@@ -12,8 +12,6 @@ const post = async (req, res) => {
     ...rest
   } = req.body;
 
-  console.log(email, name)
-
   try {
     await emailService.addCustomer({
       email, 
