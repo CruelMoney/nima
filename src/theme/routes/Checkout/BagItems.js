@@ -33,8 +33,8 @@ class BagItems extends Component {
                     <div key={'bag-item-'+idx} className="bag-item">
                       <Link to={`/${item.slug}`} className="flex items-center justify-between text-black hover:text-grey-dark">
                           <div className="flex items-center w-3/5 ">
-                          <div className="fixed-ratio w-2/5">
-                              <div className="absolute pin bag-editor flex items-center justify-center">
+                          <div className="fixed-ratio w-3/5">
+                            <div className="absolute pin bag-editor flex items-center justify-center">
                               <button onClick={(e)=>this.removeItem(e, item)}>-</button><button onClick={(e)=>this.addItem(e, item)}>+</button>
                             </div>
                             <img 
@@ -50,7 +50,7 @@ class BagItems extends Component {
                             </span>
                           </p>
                         </div>
-                        <p className="text-right w-2/5 mb-0">
+                        <p className="text-right w-1/5 md:w-2/5 mb-0">
                         {item.quantity > 1 ? item.quantity + "x" : ""} {item.price} DKK
                         </p>
                       </Link>

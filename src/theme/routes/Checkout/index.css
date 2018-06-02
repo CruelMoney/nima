@@ -81,3 +81,17 @@
 .bag-item:hover .bag-editor{
   opacity: 1;
 }
+
+
+@media (max-width: 462px){
+  .bag-editor, .fixed-ratio, .fixed-ratio:before{
+    opacity: 1;
+    background: transparent !important;
+  }
+  .bag-editor button{
+    border: 1px solid #b1b1b1;
+  }
+  .bag-item img{
+    display: none;
+  }
+}
