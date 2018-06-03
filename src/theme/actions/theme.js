@@ -1,3 +1,5 @@
+import ReactGA from 'react-ga'
+
 /*
  * action types
  */
@@ -30,6 +32,8 @@ export function showNewsletter() {
     const scrolltop = document.body.scrollHeight;
     window.scroll({top: scrolltop, left:0, behavior: "smooth"});
   }, 300);
+  ReactGA.modalview(window.location.pathname + "#newsletter");
+
   return { type: SHOW_NEWSLETTER }
 }
 export function hideNewsletter() {

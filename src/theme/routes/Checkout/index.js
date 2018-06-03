@@ -12,6 +12,7 @@ import Payment from './Steps/Payment';
 import Confirmation from './Steps/Confirmation';
 import {configurationProvider} from 'cude-cms';
 import withTracker from '../../utils/withTracker'
+import ReactGA from 'react-ga'
 import './index.css';
 
 
@@ -25,6 +26,10 @@ class Checkout extends Component {
     },
     order: {},
     paymentSuceeded: false
+  }
+
+  componentDidMount(){
+    ReactGA.pageview('/checkout#step1');
   }
 
   
@@ -45,6 +50,9 @@ class Checkout extends Component {
         items: this.props.cart.items
       }
     }, _ => window.scrollTo(0, 0));
+    if(!error){
+      ReactGA.pageview('/checkout#step'+(this.state.step+1).toString());
+    }
   }
 
   updateState = (values) => {

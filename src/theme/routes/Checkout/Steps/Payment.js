@@ -12,7 +12,6 @@ import {
 import * as vl from '../../../utils/validators';
 import throttle from 'lodash.throttle';
 import * as priceCalc from '../priceCalculator';
-import scrolltoElement from 'scrollto-element'
 
 const itemsToOrder = (items) => {
     const itemsView = {};

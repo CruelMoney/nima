@@ -2,7 +2,7 @@ import React from "react";
 import './icon.css';
 
 const Bag = props => {
-  const showCircle = props.itemsCount > 0
+  // const showCircle = props.itemsCount > 0
 
   return(
   <svg className={"bag-icon " + props.className} width={26} height={31} viewBox="0 0 26 31">

@@ -1,9 +1,9 @@
 
+import ReactGA from 'react-ga'
+
 /*
  * action types
  */
-
-
 
 export function signup(data) {
   return fetch('/api/newsletter',{
@@ -19,6 +19,10 @@ export function signup(data) {
       if(!!data.error){
         throw data.error;
       }else{
+        ReactGA.event({
+          category: 'User',
+          action: 'Newsletter signup'
+        });
         return data;
       }
     })

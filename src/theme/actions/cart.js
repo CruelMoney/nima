@@ -1,3 +1,4 @@
+import ReactGA from 'react-ga'
 
 /*
  * action types
@@ -17,10 +18,18 @@ export const EMPTY_CART = 'EMPTY_CART';
  */
 
 export function addToCart(product) {
+  ReactGA.event({
+    category: 'User',
+    action: 'Add to cart'
+  });
   return { type: ADD_TO_CART, item:product }
 }
 
 export function removeFromCart(product) {
+  ReactGA.event({
+    category: 'User',
+    action: 'Remove from cart'
+  });
   return { type: REMOVE_FROM_CART, item:product }
 }
 
@@ -42,6 +51,11 @@ export function checkout(order) {
       if(!!data.error){
         throw data.error;
       }else{
+        ReactGA.event({
+          category: 'User',
+          action: 'Checkout complete',
+          value: order.total_price
+        });
         return data;
       }
     })
@@ -63,6 +77,10 @@ export function getCoupon({coupon_code}) {
       if(!!data.error){
         throw data.error;
       }else{
+        ReactGA.event({
+          category: 'User',
+          action: 'Entered coupon'
+        });
         return JSON.parse(data);
       }
     })

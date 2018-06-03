@@ -4,7 +4,6 @@ import ImageMosaic from '../../../components/ImageMosaic';
 import ProductAdder from './productAdder';
 import './index.css'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import {Animate} from 'cude-animations';
 
 
 // // these are relative to the viewport, i.e. the window
