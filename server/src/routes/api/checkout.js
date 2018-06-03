@@ -124,7 +124,6 @@ const post = async (req, res) => {
       description: "Charge for " + email
     });
 
-    console.log("saving everything");
 
     // Update stock
     await Promise.all(toBeSaved.map(e => !!e.save && e.save()));
@@ -157,7 +156,6 @@ const post = async (req, res) => {
       }, 
       usedCouponCode: coupon_code
     });
-    console.log("saving order");
 
     await order.save();
 
@@ -169,8 +167,13 @@ const post = async (req, res) => {
       order,
       shipping: DBShipping
     });
-
-    console.log("applying campaign");
+    emailService.sendEmail({
+      receiverEmail: "nimacph@gmail.com",
+      type: "ORDER_CONFIRMATION",
+      items: orderItems,
+      order,
+      shipping: DBShipping
+    });
 
     applyCampaigns({
       order,
