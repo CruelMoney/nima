@@ -9,7 +9,6 @@ class WithGoogleAnalytics extends Component {
     const {configuration} = this.props;
     const keys = !!configuration.APIs ? configuration.APIs.key : { };
     const { analytics, facebookPixel } = keys;
-    console.log(keys)
 
     if(!!analytics){
       ReactGA.initialize(analytics,  {
