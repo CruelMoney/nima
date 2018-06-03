@@ -22,6 +22,7 @@ ShippingOption.add({
   deliveryDescription: { type: String },
   description: { type: String },
   price: { type: Types.Money, format: '0.0,00 DKK' },
+  pickupPoint: { type: Boolean, note:"This will make the shipping option show pickup points to choose as delivery address." },
 });
 
 ShippingOption.register();

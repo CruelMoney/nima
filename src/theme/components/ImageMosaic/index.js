@@ -5,7 +5,6 @@ import "./index.css";
 class ImageMosaic extends Component {
   render() {
     const {onImgClick} = this.props;
-    console.log(onImgClick)
     return (
       <div className="image-mosaic">
         <div className="flex flex-col sm:flex-row">

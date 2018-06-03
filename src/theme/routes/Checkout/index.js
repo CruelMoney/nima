@@ -26,6 +26,8 @@ class Checkout extends Component {
     order: {},
     paymentSuceeded: false
   }
+
+  
   
   continueStep = (values) => {
     let error = null;
@@ -98,7 +100,13 @@ class Checkout extends Component {
             <hr className="my-6" />
 
              <Information active={step === 1} onSubmit={this.continueStep} />
-            <Shipping active={step === 2} stepBack={this.stepBack} onSubmit={this.continueStep} onChange={this.updateState}/>
+            <Shipping 
+              order={order}
+              active={step === 2} 
+              stepBack={this.stepBack} 
+              onSubmit={this.continueStep} 
+              onChange={this.updateState}
+              />
             
 
             { // stripeprovider cant be server rendered, so only render on active step

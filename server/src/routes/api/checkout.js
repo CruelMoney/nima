@@ -276,8 +276,38 @@ const confirmOrder = async (req, res) => {
 }
 
 
+const deliveryPoints = async (req, res) =>  {
+  const {zip, city, street} = req.body;
+
+  const requesturl =  
+  'https://api2.postnord.com'+
+  '/rest/businesslocation/v1/servicepoint/findNearestByAddress.json?'+
+  'apikey=69fdacac1f8eb433fe6dd0e10680cf90'+
+  '&countryCode=DK'+
+  '&postalCode='+encodeURI(zip)+
+  '&city='+encodeURI(city)+
+  '&streetName='+encodeURI(street)
+
+  console.log(req.body)
+
+  return fetch(requesturl ,{
+      method: 'GET',
+      headers: {
+        'content-type': 'application/json'
+      }
+    })
+    .then(result => result.json())
+    .then(data => {
+     return res.apiResponse(data)
+    })
+    .catch((error)=>{
+      return res.apiError(error);
+    })
+}
+
 
 export {
   post,
-  confirmOrder
+  confirmOrder,
+  deliveryPoints
 }
