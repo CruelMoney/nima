@@ -1,5 +1,6 @@
 import ReactGA from 'react-ga'
-
+import ReactPixel from 'react-facebook-pixel';
+ 
 /*
  * action types
  */
@@ -22,6 +23,7 @@ export function addToCart(product) {
     category: 'User',
     action: 'Add to cart'
   });
+  ReactPixel.track('AddToCart');
   return { type: ADD_TO_CART, item:product }
 }
 
@@ -56,6 +58,11 @@ export function checkout(order) {
           action: 'Checkout complete',
           value: order.total_price
         });
+        ReactPixel.track(
+          'Purchase', {
+          value: 1,
+          currency: 'DKK',
+        })
         return data;
       }
     })

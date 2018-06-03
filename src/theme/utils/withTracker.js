@@ -4,6 +4,7 @@
 
 import React, { Component } from 'react';
 import ReactGA from 'react-ga'
+import ReactPixel from 'react-facebook-pixel';
 
 export default function withTracker(WrappedComponent, options = {}) {
   const trackPage = (page) => {
@@ -12,6 +13,7 @@ export default function withTracker(WrappedComponent, options = {}) {
       ...options
     });
     ReactGA.pageview(page);
+    ReactPixel.pageView(); 
   };
 
   const HOC = class extends Component {

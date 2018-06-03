@@ -1,5 +1,6 @@
 
 import ReactGA from 'react-ga'
+import ReactPixel from 'react-facebook-pixel';
 
 /*
  * action types
@@ -23,6 +24,7 @@ export function signup(data) {
           category: 'User',
           action: 'Newsletter signup'
         });
+        ReactPixel.track('Lead')
         return data;
       }
     })

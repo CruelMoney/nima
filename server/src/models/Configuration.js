@@ -38,6 +38,7 @@ APIsConfiguration.add({
     name: {type: String, default: "APIs", noedit:true, hidden:true},
     key: {
         analytics: { type: String},
+        facebookPixel: { type: String},
         twitter: { type: String },
         instagram: { type: String },
         stripePublic: { type: String },

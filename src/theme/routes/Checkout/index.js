@@ -13,6 +13,7 @@ import Confirmation from './Steps/Confirmation';
 import {configurationProvider} from 'cude-cms';
 import withTracker from '../../utils/withTracker'
 import ReactGA from 'react-ga'
+import ReactPixel from 'react-facebook-pixel';
 import './index.css';
 
 
@@ -30,6 +31,7 @@ class Checkout extends Component {
 
   componentDidMount(){
     ReactGA.pageview('/checkout#step1');
+    ReactPixel.track('InitiateCheckout');
   }
 
   
