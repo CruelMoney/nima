@@ -18,12 +18,14 @@ class Landing extends Component {
 
   render() {
     const { videoLoaded, hover } = this.state;
-
+    const description = "The blessing of organic clothing";
     return (
       <div className={`landingVideo p-8 lg:p-16 ${hover && "hover"} ${videoLoaded && 'loaded'}`}>
         <Helmet>
-          <title>{"nimacph."}</title>
-          <meta name="description" content={"Nimacph er et lille, lokalt økologisk brand startet i København. Brandet blev lanceret i en røgfyldt lejlighed på Vesterbro 2018 af Nikolaj og Mads. To meget blege drenge med en stor kærlighed for verden, mellemøsten og de små ting. Vores produkter blev derfor et mix af skandinavirens enkelthed og arabisk skrift."} />
+          <title>{"Nimacph - Webshop"}</title>
+          <meta name="description" content={description} />
+          <meta name="og:description" content={description} />
+          <meta name="og:image" content={"https://nimacph.dk/uploads/files/Nima_Cph_labels.jpg"} />
         </Helmet>
         <div className={`overflow-hidden w-full h-full grey`}>
           {/* <video 
