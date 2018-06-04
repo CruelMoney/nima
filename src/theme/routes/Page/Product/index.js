@@ -74,9 +74,9 @@ class Product extends Component {
     const oX = (e.clientX-left)/width; 
     const oY = (e.clientY-top)/height;
 
-    img.style.transformOrigin = `${oX*100}% ${oY*100}%`
 
     if(!img.style.transform){
+      img.style.transformOrigin = `${oX*100}% ${oY*100}%`
       img.style.transform = `scale(2)`;    
     }else if(img.style.transform === `scale(2)`){
       img.style.transform = `scale(4)`;
