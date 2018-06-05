@@ -6,6 +6,9 @@
 .post-page .content-wrapper p{
   padding-right: 50%;
 }
+.post-page .content-wrapper p span{
+  line-height: 1.5em;
+}
 
 @media (max-width: 768px){
   #root .post-page .content-wrapper img{
