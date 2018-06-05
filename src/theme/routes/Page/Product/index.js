@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { DBWysiwyg, fetcher } from 'cude-cms'
 import ImageMosaic from '../../../components/ImageMosaic';
 import ProductAdder from './productAdder';
+import * as tracker from '../../../components/WithAnalytics/ProductTracker';
 import './index.css'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
@@ -85,7 +86,12 @@ class Product extends Component {
       img.style.transform = '';
       img.classList.remove("zoomed");
     }
+  }
 
+  componentDidMount(){
+    const {page} = this.props;
+    tracker.addProduct({product:page, quantity:1});
+    tracker.detailView();
   }
 
   render() {

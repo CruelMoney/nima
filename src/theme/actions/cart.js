@@ -1,6 +1,7 @@
 import ReactGA from 'react-ga'
 import ReactPixel from 'react-facebook-pixel';
- 
+import * as tracker from '../components/WithAnalytics/ProductTracker';
+
 /*
  * action types
  */
@@ -19,6 +20,8 @@ export const EMPTY_CART = 'EMPTY_CART';
  */
 
 export function addToCart(product) {
+  tracker.addProduct({product:product, quantity: 1});
+  tracker.addToCart();
   ReactGA.event({
     category: 'User',
     action: 'Add to cart'
@@ -28,6 +31,8 @@ export function addToCart(product) {
 }
 
 export function removeFromCart(product) {
+  tracker.addProduct({product:product, quantity: 1});
+  tracker.removeFromCart();
   ReactGA.event({
     category: 'User',
     action: 'Remove from cart'
@@ -53,10 +58,12 @@ export function checkout(order) {
       if(!!data.error){
         throw data.error;
       }else{
+        tracker.purchase({...order, ...data});
         ReactGA.event({
           category: 'User',
           action: 'Checkout complete',
-          value: order.total_price
+          value: order.total_price,
+          currency: 'DKK',
         });
         ReactPixel.track(
           'Purchase', {

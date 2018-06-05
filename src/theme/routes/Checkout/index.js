@@ -14,6 +14,7 @@ import {configurationProvider} from 'cude-cms';
 import withTracker from '../../utils/withTracker'
 import ReactGA from 'react-ga'
 import ReactPixel from 'react-facebook-pixel';
+import * as tracker from '../../components/WithAnalytics/ProductTracker';
 import './index.css';
 
 
@@ -38,13 +39,13 @@ class Checkout extends Component {
   
   continueStep = (values) => {
     let error = null;
-
+    const {step} = this.state;
     if(this.props.cart.items.length === 0){
       error = "Din kurv er tom";
     }
 
     this.setState({
-      step: error ? this.state.step : this.state.step+1,
+      step: error ? step : step+1,
       error: error,
       order: {
         ...this.state.order,
@@ -53,8 +54,19 @@ class Checkout extends Component {
       }
     }, _ => window.scrollTo(0, 0));
     if(!error){
-      ReactGA.pageview('/checkout#step'+(this.state.step+1).toString());
+      tracker.addProducts(this.props.cart.items);
+      tracker.setCheckoutStepComplete({step:step});
+      ReactGA.pageview('/checkout#step'+(step+1).toString());
     }
+  }
+
+  continueShippingStep = (values) =>{
+    const {step} = this.state;
+    tracker.setCheckoutOption({
+      step: step,
+      option: values.shipping.name
+    });
+    this.continueStep(values);
   }
 
   updateState = (values) => {
@@ -114,7 +126,7 @@ class Checkout extends Component {
               order={order}
               active={step === 2} 
               stepBack={this.stepBack} 
-              onSubmit={this.continueStep} 
+              onSubmit={this.continueShippingStep} 
               onChange={this.updateState}
               />
             

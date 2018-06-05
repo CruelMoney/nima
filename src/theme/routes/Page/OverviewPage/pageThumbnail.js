@@ -1,12 +1,22 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
+import * as tracker from '../../../components/WithAnalytics/ProductTracker';
 
 class PageThumb extends Component {
+  
+  trackProductClick = () => {
+    const { page } = this.props;
+    tracker.addProduct({
+      product:page,
+      quantity:1
+    });
+    tracker.click();
+  }
+
   render() {
     const { page } = this.props;
-
     return (
-      <Link to={page.slug}>
+      <Link onClick={this.trackProductClick} to={page.slug}>
         <div className="page-thumb fixed-ratio">
           <img 
           className={`object-fit-cover h-full w-full fixed-ratio-content`}
