@@ -31,10 +31,10 @@
   src:  url('../fonts/PierSans-Light.otf') format('opentype');
 }
 
-a{
-  text-decoration: none;
-}
 
+*{
+  font-family: "PierSans-Regular", sans-serif; 
+}
 body{
   font-family: "PierSans-Regular", sans-serif;
   font-size: 1em;
@@ -68,6 +68,12 @@ body.newsletter-showing #dark-overlay{
 
 p{
   margin-bottom: 1.5em;
+  font-family: "PierSans-Regular", sans-serif;
+}
+a{
+  text-decoration: none;
+  color: #8D0E20;
+
 }
 
 h1{
@@ -83,6 +89,7 @@ h2{
   font-family: "PierSans-Regular", sans-serif;
   font-size: 2.25em;
   letter-spacing: 2px;
+  line-height: 1.5em;
 }
 
 ::selection {

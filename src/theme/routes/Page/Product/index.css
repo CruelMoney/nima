@@ -15,11 +15,7 @@ button.add-to-bag {
   max-width: 40em;
   white-space: pre-line;
 }
-.product-description h2,
-.product-description span,
-.product-description p{
-  font-family: "PierSans-Regular", sans-serif !important;
-}
+
 
 .product-description img{
   margin-bottom: 3em;
