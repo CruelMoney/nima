@@ -93,7 +93,9 @@ h2{
   background: #8D0E20; 
   color: white;
 }
-
+strong{
+  font-family: "PierSans-Medium", sans-serif;
+}
 /* TYPOGRAPHY END */
 
 ul, ol{

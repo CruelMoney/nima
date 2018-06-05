@@ -20,7 +20,7 @@ class Menu extends Component {
   }
 
   render() {
-    const {data, indicateActive} = this.props;
+    const {history, data, indicateActive} = this.props;
     const {results} = data;
     const { mounted } = this.state;
     const menu = results && results.find(menu => menu.name === "Header menu");
@@ -30,7 +30,8 @@ class Menu extends Component {
 
     return (
       <div className={`header-menu fixed pin-t w-full ${mounted ? "loaded" : ""}`}>
-        <div className="container mx-auto h-16 flex">
+        <div className="container mx-auto h-16 flex relative">
+        <span onClick={history.goBack} className="go-back-button" >TILBAGE</span>
           <div className="w-16 h-full logo relative">
             <Link to="/">
               <Logo color={"#111111"} className="h-full w-full"/>

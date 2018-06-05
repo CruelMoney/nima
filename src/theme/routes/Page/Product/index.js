@@ -95,7 +95,7 @@ class Product extends Component {
   }
 
   render() {
-    const { page, editMode } = this.props;
+    const { page, editMode, publicURL } = this.props;
     const { thumbnail } = this.props.data
     let { stock } = page
     stock = !!stock ? JSON.parse(stock) : [];
@@ -119,6 +119,7 @@ class Product extends Component {
           <div className="lg:w-1/2 lg:m-0 mt-6 lg:pr-4">
             <ProductAdder 
               editMode={editMode}
+              publicURL={publicURL}
               product={
                 {
                   ...page,

@@ -87,6 +87,42 @@ nav li > div > p{
   display: block;
 }
 
+.go-back-button{
+  position: absolute;
+  position: absolute;
+  left: -4em;
+  top: 50%;
+  transform: translate(-100%, -50%);
+  letter-spacing: 0.1em;
+  font-size: 0.8em;
+  color: #bbb;
+  cursor: pointer;
+  transition: opacity 250ms ease;
+}
+.shop .go-back-button,
+.home .go-back-button{
+  opacity: 0;
+}
+.go-back-button:before{
+  content: "";
+  position: absolute;
+  width: 1em;
+  border-bottom: 2px solid #bbb;
+  left: -1.5em;
+  top: 0.85em;
+}
+.go-back-button:after{
+  content: "";
+  position: absolute;
+  width: 0.6em;
+  height: 0.6em;
+  border-left: 2px solid #bbb;
+  border-bottom: 2px solid #bbb;
+  left: -1.5em;
+  top: 0.59em;
+  transform: rotate(45deg);
+}
+
 @media (max-width: 1200px)  {
   .dropdown{
     transform: translateX(-90%);

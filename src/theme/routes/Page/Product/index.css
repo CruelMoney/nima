@@ -35,3 +35,29 @@ button.add-to-bag {
 .product .image-mosaic img.zoomed{
   cursor: zoom-out;
 }
+
+ul.alternate-actions{
+  font-family: "PierSans-Medium", sans-serif;  
+  font-size: 0.8em;
+  letter-spacing: 0.1em;
+  margin-bottom: 2em;
+}
+ul.alternate-actions li{
+  margin-right: 1em;
+  
+}
+
+.accordion{
+  cursor: pointer;
+  overflow: hidden;
+}
+.accordion ul{
+  max-height: 0;
+  font-family: "PierSans-Regular", sans-serif;  
+  transition: max-height 250ms ease;
+
+}
+
+.accordion.active ul{
+  max-height: 4em;
+}

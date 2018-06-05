@@ -12,7 +12,7 @@ class WithGoogleAnalytics extends Component {
 
     if(!!analytics){
       ReactGA.initialize(analytics,  {
-        //testMode: process.env.NODE_ENV === 'development'
+        testMode: process.env.NODE_ENV === 'development'
       });
       ReactGA.plugin.require('ec');
     }

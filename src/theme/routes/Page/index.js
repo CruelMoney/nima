@@ -47,6 +47,7 @@ class Page extends Component {
           }
         </Helmet>
         <PageComponent
+          publicURL={publicURL}
           page={page}
         />
       </React.Fragment>

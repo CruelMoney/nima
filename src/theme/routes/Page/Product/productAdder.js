@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../../actions/cart';
 import ButtonOptions from '../../../components/Options';
+import Accordion from './accordion'
+import {
+  FacebookShareButton
+} from 'react-share';
 
 class ProductAdder extends Component {
   state={productAdded: false}
@@ -28,10 +32,10 @@ class ProductAdder extends Component {
   }
 
   render() {
-    const { product, editMode } = this.props;
+    const { product, editMode, publicURL } = this.props;
     const { productAdded } = this.state;
     const soldOut = product.stock.every(o => o.stock <= 0);
-
+    const url = publicURL + "/" + product.slug;
     return (
       <React.Fragment>
         <h1 className="xl:text-6xl text-5xl">
@@ -41,8 +45,23 @@ class ProductAdder extends Component {
           {product.description}
         </p>
         <p>
+          <strong>
           Pris: { product.price } DKK
+          </strong>
         </p>
+        <ul className="alternate-actions">
+          <li>
+            <Accordion 
+              label={"FORSENDELSE"}
+            />
+          </li>
+          <li><FacebookShareButton 
+            url={url}
+           >
+            DEL
+            </FacebookShareButton>
+          </li>
+        </ul>
         <ButtonOptions
           editMode={editMode}
           options={product.stock}

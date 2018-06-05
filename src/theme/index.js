@@ -89,7 +89,7 @@ class Index extends Component {
 
 
   render() {
-    const { location, transparentLoading, loadingText, showLoading, showNewsletterActive} = this.props;
+    const { history, location, transparentLoading, loadingText, showLoading, showNewsletterActive} = this.props;
     const currentKey = location.pathname.split('/')[1] || 'home';
 
     return (
@@ -106,7 +106,7 @@ class Index extends Component {
           text={showLoading ? loadingText : "nimacph."}
           transparent={showLoading && transparentLoading}
           active={this.state.loadingScreen} />
-        <Menu indicateActive />
+        <Menu history={history} indicateActive />
         <TransitionGroup 
           component={'main'}
         >
