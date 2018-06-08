@@ -313,7 +313,6 @@ const deliveryPoints = async (req, res) =>  {
     })
     .then(result => result.json())
     .then(data => {
-      console.log(data)
      return res.apiResponse(data)
     })
     .catch((error)=>{

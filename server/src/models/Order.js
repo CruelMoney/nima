@@ -70,7 +70,12 @@ Order.schema.pre('save', function(next) {
       }),
       body: JSON.stringify({order:order})
     })
-    .then(result => {
+    .then(result => result.json())
+    .then(data => {
+      const {error} = data;
+      if(!!error){
+        throw new Error(error);
+      }
       return next();
     })
     .catch(err => {
