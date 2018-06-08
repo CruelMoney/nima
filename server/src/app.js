@@ -9,7 +9,6 @@ const React = require('react');
 const {default: App} = require('../../src/App');
 const {configureStoreServer} = require('../../src/store');
 const {StaticRouter} = require('react-router-dom')
-const createRoutes = require('./routes');
 const {Helmet} = require('react-helmet');
 
 const getStoreFromRequest = (req, res) =>{
@@ -102,7 +101,6 @@ const addHelmetData = (htmlString) => {
 }
 
 const setupUniversal = (app) => {
-  createRoutes(app);
   staticLoader(app, { clientBuildPath });
   universalLoader(app, {
     universalRender: handleUniversalRender,

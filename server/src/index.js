@@ -3,6 +3,7 @@ require('isomorphic-fetch');
 const keystone = require('keystone');
 keystone.import('models');
 const {setupUniversal} = require('./app');
+const createRoutes = require('./routes');
 
 console.log(process.env)
 
@@ -41,7 +42,9 @@ keystone.init({
   }
 });
 
+
 keystone.set('pre:routes', (app) => {
+  createRoutes(app);
   setupUniversal(app);
 });
 
