@@ -6,6 +6,7 @@ import * as pages from './pages';
 import * as checkout from './checkout';
 import * as coupon from './coupon';
 import * as newsletter from './newsletter';
+import * as shipping from './shipping';
 
 const setup = (app) => {
   app.all('/api*', keystone.middleware.api);
@@ -13,10 +14,15 @@ const setup = (app) => {
   app.get('/api/overviews/:id', pages.get);  
   app.all('/api/pages', pages.list);  
   app.all('/api/checkout', checkout.post);
-  app.all('/api/deliveryPoints', checkout.deliveryPoints);
+  app.post('/api/deliveryPoints', checkout.deliveryPoints);
   app.post('/api/confirm', checkout.confirmOrder);
   app.get('/api/coupon/:coupon_code', coupon.get);
   app.post('/api/newsletter', newsletter.post);
+
+
+  // app.get('/api/shipping/:id', shipping.get);
+  // app.get('/api/shipping', shipping.getAll);
+  // app.post('/api/shipping', shipping.post);
 
   restful.expose({
     BasePage : {
