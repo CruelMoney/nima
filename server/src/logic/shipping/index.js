@@ -37,7 +37,7 @@ const orderToShipping = (order) => {
       "target2XOffset": 0
     },
     "shipment": {
-      "freeText1": JSON.parse(items).map(i => i.SKU).join(', '),
+      "freeText1": JSON.parse(items).map(i => `${i.quantity}x${i.SKU}`).join(', '),
       "sender": {
         "phone": "+46 29 70 65 68",
         "email": "nimacph@gmail.com",
