@@ -19,7 +19,6 @@ const setup = (app) => {
   app.get('/api/coupon/:coupon_code', coupon.get);
   app.post('/api/newsletter', newsletter.post);
 
-
   // app.get('/api/shipping/:id', shipping.get);
   // app.get('/api/shipping', shipping.getAll);
   // app.post('/api/shipping', shipping.post);

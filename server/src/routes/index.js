@@ -10,6 +10,7 @@ const adminBuildPath = path.resolve(__dirname, 'admin');
 // Bind Routes
 const controllers = (app) => {
   app.use('/', middleware.initLocals);
+  app.use('/admin', middleware.adminOnly);
   app.use('/admin', express.static(adminBuildPath));
   api.setup(app);
 };

@@ -1,0 +1,30 @@
+
+.ReactTable{
+  border: none;
+}
+
+.ReactTable .rt-thead.-header{
+  box-shadow: none;
+  /* Rectangle 2: */
+  background: rgba(242,244,250,0.72);
+}
+.ReactTable .rt-thead.-header .rt-tr{
+text-align: left;
+}
+.ReactTable .rt-th{
+  display: flex;
+  align-items: center;
+  min-height: 3em;
+}
+.ReactTable .rt-tbody .rt-tr{
+  display: flex;
+  align-items: center;
+  min-height: 4em;
+}
+
+.ReactTable .rt-thead .rt-th, .ReactTable .rt-thead .rt-td{
+  border-right: none;
+}
+.rt-td:first-child, .ReactTable .rt-thead .rt-th:first-child{
+  padding-left: 1em;
+}

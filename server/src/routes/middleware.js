@@ -1,4 +1,4 @@
-const apiAuthenticate = (req, res, next) => {
+const adminOnly = (req, res, next) => {
   if(!res.locals.user || !res.locals.user.canAccessKeystone){
     res.status(401).json({ 'error': 'no access' });
   }
@@ -12,6 +12,6 @@ const initLocals = function(req, res, next) {
 };
 
 exports = module.exports = {
-  apiAuthenticate,
+  adminOnly,
   initLocals
 }
