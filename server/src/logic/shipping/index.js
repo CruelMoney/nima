@@ -1,3 +1,7 @@
+import fs from 'fs-extra';
+const path = require('path');
+const savePath = path.resolve(__dirname, `public/labels/`);
+
 const domain = "https://api.unifaun.com/rs-extapi/v1";
 const key = "XJ522I4AVICQFOVX-IIWR2XMRK5JS5SOD7TA2PEE5";
 
@@ -75,6 +79,10 @@ const orderToShipping = (order) => {
   }  
 } 
 
+const saveLabel = async (orderID, data) => {
+  
+}
+
 const getOrderShipment =  async (order) => {
   const shipment = orderToShipping(order);
   try {
@@ -93,9 +101,13 @@ const getOrderShipment =  async (order) => {
     }else{ 
       const data = d[0];
       const labelBase64 = data.pdfs[0].pdf;
+      const basePath = `/uploads/labels/${order._id}.pdf`
+      const outPath = savePath+`/${order._id}.pdf`;
+      await fs.outputFile(outPath, labelBase64, {encoding: 'base64'});
+      const labelLink = process.env.PUBLIC_URL+basePath;
       return {
         id: data.id,
-        label: labelBase64
+        label: labelLink
       }
     }
   } catch (error) {
