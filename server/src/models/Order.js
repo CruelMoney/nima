@@ -22,6 +22,7 @@ ShippingOption.add({
   deliveryDescription: { type: String },
   description: { type: String },
   price: { type: Types.Money, format: '0.0,00 DKK' },
+  pacsoftCode: { type: String },
   pickupPoint: { type: Boolean, note:"This will make the shipping option show pickup points to choose as delivery address." },
 });
 
@@ -50,6 +51,8 @@ Order.add(
   {totalPrice: { type: Types.Money, format: '0.0,00 DKK', required: true, initial: true }},
   {items: { type: String, noedit:true, required: true, initial: true }}, // need to be string to contain information about amount
   {stripeID: { type: String, noedit:true, required: true, initial: true }},
+  {shippingID: { type: String, noedit:true }},
+  {shippingLabel: { type: String, noedit:true }},
 );
 
 Order.schema.plugin(AutoIncrement, {inc_field: 'orderID'});
@@ -67,7 +70,12 @@ Order.schema.pre('save', function(next) {
       }),
       body: JSON.stringify({order:order})
     })
-    .then(result => {
+    .then(result => result.json())
+    .then(data => {
+      const {error} = data;
+      if(!!error){
+        throw new Error(error);
+      }
       return next();
     })
     .catch(err => {

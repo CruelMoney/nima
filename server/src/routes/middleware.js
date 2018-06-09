@@ -1,8 +1,8 @@
 const apiAuthenticate = (req, res, next) => {
   if(!res.locals.user || !res.locals.user.canAccessKeystone){
-     return res.apiNotAllowed('Authentication error', {message:"You are not authenticated to modify content."});
+    res.status(401).json({ 'error': 'no access' });
   }
-  next()
+  next();
 }
 
 const initLocals = function(req, res, next) {

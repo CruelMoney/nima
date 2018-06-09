@@ -7,6 +7,7 @@ var Campaign = keystone.list('Campaign');
 var ShippingOption = keystone.list('ShippingOption');
 const {stripe} = require('../../logic/payments');
 const emailService = require('../../logic/email');
+const shipping = require('../../logic/shipping');
 
 /**
  * checkout
@@ -136,7 +137,8 @@ const post = async (req, res) => {
         variation: i.variation,
         quantity: i.quantity,
         price: i.price,
-        link: process.env.PUBLIC_URL + '/' + i.slug
+        link: process.env.PUBLIC_URL + '/' + i.slug,
+        SKU: i.SKU + i.variation
       }
     });
     const order = new Order.model({
@@ -263,13 +265,25 @@ const confirmOrder = async (req, res) => {
     if( order === null){
       throw new Error('Error getting order.');
     }
-    const stripeRes = await stripe.charges.capture(order.stripeID) 
+    const dbOrder = await Order.model.findOne({ _id: order._id }).populate('delivery.type');
+    if( dbOrder === null){
+      throw new Error('Error getting order from database.');
+    }
+    if(!dbOrder.shippingID){
+      const shipment = await shipping.getOrderShipment(dbOrder);
+      dbOrder.set({ 
+        shippingID: shipment.id,
+        shippingLabel: shipment.label
+      });
+      await dbOrder.save();
+    }
+    const stripeRes = await stripe.charges.capture(dbOrder.stripeID) 
     // await emailService.sendEmail({
     //   receiverEmail: order.email,
     //   type: "SHIPPING_CONFIRMATION",
     //   order: order,
     // });
-    return res.apiResponse();
+    return res.apiResponse(dbOrder);
 
   } catch (error) {
     console.log(error)
@@ -290,8 +304,6 @@ const deliveryPoints = async (req, res) =>  {
   '&postalCode='+encodeURI(zip)+
   '&city='+encodeURI(city)+
   '&streetName='+encodeURI(street)
-
-  console.log(req.body)
 
   return fetch(requesturl ,{
       method: 'GET',

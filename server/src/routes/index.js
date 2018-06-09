@@ -6,6 +6,7 @@ import adminRoutes from './admin';
 const path = require('path');
 const adminBuildPath = path.resolve(__dirname, 'admin');
 
+
 // Bind Routes
 const controllers = (app) => {
   app.use('/', middleware.initLocals);
