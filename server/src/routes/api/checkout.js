@@ -269,7 +269,7 @@ const confirmOrder = async (req, res) => {
     if( dbOrder === null){
       throw new Error('Error getting order from database.');
     }
-    if(!dbOrder.shippingID || true){
+    if(!dbOrder.shippingID){
       const shipment = await shipping.getOrderShipment(dbOrder);
       dbOrder.set({ 
         shippingID: shipment.id,
@@ -277,7 +277,7 @@ const confirmOrder = async (req, res) => {
       });
       await dbOrder.save();
     }
-  //  const stripeRes = await stripe.charges.capture(dbOrder.stripeID) 
+    const stripeRes = await stripe.charges.capture(dbOrder.stripeID) 
     // await emailService.sendEmail({
     //   receiverEmail: order.email,
     //   type: "SHIPPING_CONFIRMATION",
