@@ -6,6 +6,10 @@ const adminOnly = (req, res, next) => {
 }
 
 const initLocals = function(req, res, next) {
+  if(process.env.NODE_ENV === "development"){
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  }
   var locals = res.locals;
   locals.user = req.user 
   next();

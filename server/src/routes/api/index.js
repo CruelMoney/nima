@@ -45,6 +45,9 @@ const setup = (app) => {
     ShippingOption: {
       path : "shipping",
       envelop: false,
+    },
+    Order : {
+      path: 'admin/orders',
     }
   })
   .start();
