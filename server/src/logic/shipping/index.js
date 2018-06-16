@@ -3,6 +3,8 @@ const path = require('path');
 const publicPath = path.resolve(__dirname, 'public');
 const domain = "https://api.unifaun.com/rs-extapi/v1";
 const key = "XJ522I4AVICQFOVX-IIWR2XMRK5JS5SOD7TA2PEE5";
+var cache = require('memory-cache');
+
 
 // Shipment status
 // printed (Shipment is printed. Intial status).
@@ -78,8 +80,18 @@ const orderToShipping = (order) => {
   }  
 } 
 
-const saveLabel = async (orderID, data) => {
-  
+const getCacheElseFetch = async (url) => {
+  let data = JSON.parse(cache.get(url));
+  if(!!data) return data;
+  data = await fetch(url, {
+    method: 'GET',
+    headers: new Headers({
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + key,
+    })
+  }).then(result => result.json());
+  return cache.put(url, JSON.stringify(data), 1000*60*5); // Save for 5 minutes
 }
 
 const getOrderShipment =  async (order) => {
@@ -113,8 +125,16 @@ const getOrderShipment =  async (order) => {
   }
 } 
 
-const getOrderShippingStatus = (order) => {
-
+const getOrderShippingStatus = async (orderID, fetchId=0) => {
+  const data = await getCacheElseFetch(domain+'/shipments?fetchId='+fetchId);
+  if(!data.shipments){throw new Error('Shipment not found')};
+  const shipment = data.shipments.find(s=>s.id === orderID);
+  if(!!shipment){
+    return shipment.status;
+  }
+  if(!data.done && fetchId !== data.fetchId){
+    return getOrderShippingStatus(orderID, data.fetchId);
+  }
 }
 
 
@@ -130,19 +150,22 @@ const getShippings = () => {
 } 
 
 const getShipping = (id) => {
-  return fetch("https://api.unifaun.com/rs-extapi/v1/shipments/5571604/pdfs?inlinePdf=true", {
+  return fetch(domain+'/shipments/'+id+'/pdfs', {
     method: 'GET',
-    headers: {
+    headers: new Headers({
       'Accept': 'application/json',
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + key,
-    }
-  }).then(result => result.json());
+    })
+  }).then(result =>{
+    console.log(result)
+    return result.json()});
 }
 
 
 export{
   getOrderShipment,
+  getOrderShippingStatus,
   getShipping,
   getShippings
 }

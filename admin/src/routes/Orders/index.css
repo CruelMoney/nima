@@ -1,0 +1,32 @@
+.status{
+  background: #eee;
+  padding: 0.5em 1em;
+  border-radius: 50%;
+  border-radius: 2em;
+  display: inline-block;
+  text-transform: capitalize;
+}
+.status[data-status="succeeded"] {
+  background: #469776;
+  color:white;
+}
+.status[data-status="printed"],
+.status[data-status="uncaptured"] {
+  background: #E4A236;
+  color:white;
+}
+
+
+.action-dropdown{
+  display: relative;
+}
+.action-dropdown .popup{
+  display: none;
+  position: absolute;
+  padding: 1em;
+  background: white;
+  box-shadow: 0 7px 24px 0 rgba(0,0,0,0.31);
+}
+.action-dropdown .popup.active{
+  display: block;
+}

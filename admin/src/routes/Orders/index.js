@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import DataTable from '../../components/DataTable';
 import provideOrders from './provideOrders';
+import ActionDropdown from './actionDropdown';
+import './index.css';
 
 const columns = [{
   Header: 'Order',
@@ -18,11 +20,19 @@ const columns = [{
   accessor: d => `${d.delivery.firstName} ${d.delivery.lastName}`  // Custom value accessors!
 },{
   Header: 'Shipping status',
-  accessor: 'shippingStatus' // String-based value accessors!
+  accessor: 'shippingStatus', // String-based value accessors!
+  Cell: props => {
+    const val = !!props.value ? props.value.toLowerCase() : "";
+    return <span className='status' data-status={val}>{val}</span>
+} 
 },
 {
   Header: 'Payment status',
-  accessor: 'paymentStatus' // String-based value accessors!
+  accessor: 'paymentStatus', // String-based value accessors!,
+  Cell: props => {
+    const val = !!props.value ? props.value.toLowerCase() : "";
+    return <span className='status' data-status={val}>{val}</span>
+} 
 },
 {
   id: 'totalPrice', // Required because our accessor is not a string
@@ -33,17 +43,14 @@ const columns = [{
   Header: 'Actions',
   accessor: '_id', // String-based value accessors!
   Cell: props => {
-    return <button className=''>...</button>
+    console.log(props);
+    return <ActionDropdown />
   }
 },]
 
 class Orders extends Component {
   fetchData = (state, instance) =>{
     const {fetchOrders} = this.props;
-    console.log(state.page,
-    state.pageSize,
-    state.sorted,
-    state.filtered)
     let sort = !!state.sorted ? state.sorted[0] : {};
     sort = !!sort ? sort : {};
     fetchOrders({
@@ -55,7 +62,6 @@ class Orders extends Component {
   
   render() {
     const {orders, totalPages} = this.props;
-    console.log(orders)
     return (
       <div>
         <h1>
