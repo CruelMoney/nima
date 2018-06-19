@@ -20,6 +20,7 @@ const setup = (app) => {
   app.get('/api/coupon/:coupon_code', coupon.get);
   app.post('/api/newsletter', newsletter.post);
   app.get('/api/payment/:chargeID', order.getPaymentStatus)
+  app.post('/api/admin/refund', order.refund);
 
   app.get('/api/shipment/:id', shipping.get);
   // app.get('/api/shipping', shipping.getAll);

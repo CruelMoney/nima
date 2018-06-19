@@ -1,6 +1,7 @@
 var async = require('async'),
 keystone = require('keystone');
 var Order = keystone.list('Order');
+var Product = keystone.list('Product');
 const {stripe} = require('../../logic/payments');
 
 
@@ -19,7 +20,71 @@ const getPaymentStatus = async (req, res) => {
   }
 }
 
+/**
+ * cancel
+ */
+const cancel = async (req, res) => {
+  try {
+    return res.apiResponse();
+  } catch (error) {
+    console.log(error)
+    error = error.message || error;
+    return res.apiError(error);
+  }
+}
+
+
+/**
+ * refund
+ */
+const refund = async (req, res) => {
+  try {
+    const {
+      amount,
+      extendedReason,
+      reason,
+      updateStock,
+      order
+    } = req.body;
+    
+    // refund stripe
+    const refund = await stripe.refunds.create({
+      charge: order.stripeID,
+      amount: amount*100,
+      reason,
+      metadata: { extendedReason }
+    });
+
+    // update stock if set
+    if(updateStock){
+      const orderedItems = order.items;
+      for (let item of orderedItems){
+        const product = await Product.model.findById(item._id).exec();
+        if(!product){
+          throw new Error('Error getting product.');
+        }
+        const stock = JSON.parse(product.stock);
+        const newStock = stock.map(v =>{
+          if(v.label === item.variation){
+            return {...v, stock : v.stock + item.quantity}
+          }else{
+            return v;
+          }
+        });
+        product.set({ stock: JSON.stringify(newStock) });
+        await product.save();
+      }
+    }
+
+    return res.apiResponse(order);
+  } catch (error) {
+    console.log(error)
+    error = error.message || error;
+    return res.apiError(error);
+  }
+}
 
 export {
-  getPaymentStatus
+  getPaymentStatus,
+  refund
 }
