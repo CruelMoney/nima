@@ -16,17 +16,21 @@
   color:white;
 }
 
-
+.action-dropdown li{
+  cursor: pointer;
+}
+.action-dropdown li:hover{
+  opacity: 0.6;
+}
 .action-dropdown{
-  display: relative;
+  margin: 0;
+  padding: 0;
 }
-.action-dropdown .popup{
-  display: none;
-  position: absolute;
-  padding: 1em;
-  background: white;
-  box-shadow: 0 7px 24px 0 rgba(0,0,0,0.31);
+.modal{
+  padding: 3em;
+  border-radius: 4px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,.07), 0 2px 15px rgba(84,96,103,.25);
 }
-.action-dropdown .popup.active{
-  display: block;
+.modal-background{
+  background: rgba(82,95,127,.25);
 }

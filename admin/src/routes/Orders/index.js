@@ -41,10 +41,10 @@ const columns = [{
 },
 {
   Header: 'Actions',
-  accessor: '_id', // String-based value accessors!
+  id: '_id',
+  accessor: o=>o, // String-based value accessors!
   Cell: props => {
-    console.log(props);
-    return <ActionDropdown />
+    return <ActionDropdown  order={props.value} />
   }
 },]
 

@@ -21,9 +21,12 @@ text-align: left;
   align-items: center;
   min-height: 4em;
 }
-
+.ReactTable .rt-td{
+  overflow: visible;
+}
 .ReactTable .rt-thead .rt-th, .ReactTable .rt-thead .rt-td{
   border-right: none;
+  
 }
 .rt-td:first-child, .ReactTable .rt-thead .rt-th:first-child{
   padding-left: 1em;

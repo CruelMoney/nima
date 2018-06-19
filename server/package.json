@@ -23,6 +23,7 @@
     "@cra-express/core": "^0.2.0",
     "babel-plugin-dynamic-import-node": "^1.1.0",
     "connect-mongo": "^2.0.0",
+    "cors": "^2.8.4",
     "create-react-app-express": "1.1.0",
     "dotenv": "^4.0.0",
     "fs-extra": "^6.0.1",
