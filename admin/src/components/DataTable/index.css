@@ -2,7 +2,10 @@
 .ReactTable{
   border: none;
 }
-
+.ReactTable .rt-tbody,
+.ReactTable .rt-table{
+  overflow: visible;
+}
 .ReactTable .rt-thead.-header{
   box-shadow: none;
   /* Rectangle 2: */

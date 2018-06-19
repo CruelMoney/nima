@@ -55,6 +55,7 @@ export default class RefundForm extends Component {
   render() {
     const {order} = this.props;
     const {submitting, success} = this.state;
+    const items = JSON.parse(order.items);
 
     return (
       <div>
@@ -64,18 +65,33 @@ export default class RefundForm extends Component {
         You can specify a smaller amount to charge the customer, than the original price.
       </p>
       <p>
-      The customer will be notified that the order is on the way.
+      The customer will be notified that the order is on the way, when you confirm.
       </p>
         <Form
         onSubmit={this.confirmOrder}>
           {formApi => (
             <form onSubmit={formApi.submitForm} id="confirm-order-form" >
+              
               <div className="form-group">
-                <label htmlFor="text-input-amount">Amount</label>
+                <label>Items</label>
+                <div className="order-items">
+                {items.map(item=>{
+                  return (
+                    <span key={item.SKU} className="pill">{item.quantity+"x"+item.SKU}</span>
+                  )
+                })}
+                </div>
+                
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="text-input-amount">Charge</label>
                 <Text 
                 defaultValue={order.totalPrice}
                 type="number" field="amount" id="text-input-amount" />
               </div>
+
+
              
               <div className="form-group">
                 <button 

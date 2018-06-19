@@ -60,7 +60,6 @@ const refund = async (req, res) => {
     if(updateStock){
       const orderedItems = JSON.parse(order.items);
       for (let item of orderedItems){
-        console.log({item})
         const product = await Product.model.findOne({_id:item._id});
         if(!product){
           throw new Error('Error getting product.');

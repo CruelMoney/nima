@@ -376,3 +376,12 @@ template {
 .form-group > label{
   width: 50%;
 }
+
+.pill{
+  background: #eee;
+  padding: 0.5em 1em;
+  border-radius: 50%;
+  border-radius: 2em;
+  display: inline-block;
+  text-transform: capitalize;
+}
