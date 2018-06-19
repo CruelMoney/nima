@@ -1,20 +1,30 @@
 import React, { Component } from 'react';
 import Dropdown from '../../components/Dropdown';
 import Modal from 'react-responsive-modal';
+import RefundForm from '../../components/RefundForm';
 
 export default class ActionDropdown extends Component {
   state={
-    modal:false
+    modal:{
+      refund:false,
+      contact:false
+    }
   }
 
-  openModal = () => {
+  openModal = (val) => {
     this.setState({
-      modal:true
+      modal:{
+        ...this.state.modal,
+        [val]: true
+      }
     });
   }
-  closeModal = () => {
+  closeModal = (val) => {
     this.setState({
-      modal:false
+      modal:{
+        ...this.state.modal,
+        [val]: false
+      }
     });
   }
 
@@ -44,23 +54,39 @@ export default class ActionDropdown extends Component {
             {!shippingLabel ? <li onClick={this.confirmOrder}>Ship order</li> : null }
             {!shippingLabel ? null : <li><a target={'_blank'} href={shippingLabel}>Print label</a></li>}
             <li 
-              onClick={this.openModal}>
+              onClick={()=>this.openModal('contact')}>
               Contact customer
             </li>
-            <li>Refund</li>
+            <li
+             onClick={()=>this.openModal('refund')}>
+              Refund
+            </li>
           </ul>
           <Modal 
           classNames={{
             modal: 'modal',
             overlay: 'modal-background'
           }}
-          open={modal}
-          onClose={this.closeModal} 
+          open={modal.contact}
+          onClose={()=>this.closeModal('contact')} 
           center>
             <h3>Contact {delivery.firstName}</h3>
             <a href={`mailto: ${email}`}>{email}</a>
             <br/>
             <a href={`tel:${phone}`}>{phone}</a>
+          </Modal>
+          <Modal 
+            classNames={{
+              modal: 'modal',
+              overlay: 'modal-background'
+            }}
+            open={modal.refund}
+            onClose={()=>this.closeModal('refund')} 
+            center>
+            <RefundForm
+              order={order}
+              reset={()=>this.closeModal('refund')} 
+            />
           </Modal>
        </Dropdown>
     )

@@ -237,6 +237,7 @@ label {
 
 button {
   border-radius: 0;
+  cursor: pointer;
 }
 
 button:focus {

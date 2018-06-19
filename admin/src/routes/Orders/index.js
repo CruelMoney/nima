@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import DataTable from '../../components/DataTable';
 import provideOrders from './provideOrders';
 import ActionDropdown from './actionDropdown';
+import currencyFormatter from 'currency-formatter';
+
 import './index.css';
 
 const columns = [{
@@ -37,7 +39,7 @@ const columns = [{
 {
   id: 'totalPrice', // Required because our accessor is not a string
   Header: 'Total',
-  accessor: d => `${d.totalPrice} DKK` 
+  accessor: d => currencyFormatter.format(d.totalPrice, { code: 'DKK' })
 },
 {
   Header: 'Actions',
