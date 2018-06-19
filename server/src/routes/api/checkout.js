@@ -41,6 +41,7 @@ const post = async (req, res) => {
       receivesNewsletter: newsletter_subscribe
     });
 
+    const productCache = {};
 
     // Tasks for updating db items and validate price
     const tasks = items.map(item=>{
@@ -48,6 +49,10 @@ const post = async (req, res) => {
         Product.model.findById(item._id).exec((err, dbItem)=>{
           if(err || dbItem === null){
             return reject('Error getting product.');
+          }
+
+          if(!!productCache[item._id]){
+            dbItem = productCache[item._id]
           }
 
           const stock = JSON.parse(dbItem.stock);
@@ -73,7 +78,9 @@ const post = async (req, res) => {
 
           // add price to totalPrice
           dbPrice += dbItem.price * item.quantity;
-    
+          
+          productCache[item._id] = dbItem;
+          
           resolve(dbItem);
         });
       });
@@ -260,7 +267,8 @@ const getPriceWithCoupon = ({price, coupon}) => {
 const confirmOrder = async (req, res) => {
   try {
     const {
-      order
+      order,
+      charge
     } = req.body;
     if( order === null){
       throw new Error('Error getting order.');
@@ -277,7 +285,12 @@ const confirmOrder = async (req, res) => {
       });
       await dbOrder.save();
     }
-    const stripeRes = await stripe.charges.capture(dbOrder.stripeID) 
+    const sendCharge = { }
+    if(!!charge && !!charge.amount){
+      sendCharge.amount = charge.amount*100;
+    }
+
+    const stripeRes = await stripe.charges.capture(dbOrder.stripeID, sendCharge); 
     // await emailService.sendEmail({
     //   receiverEmail: order.email,
     //   type: "SHIPPING_CONFIRMATION",

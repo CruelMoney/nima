@@ -46,7 +46,7 @@ const columns = [{
   id: '_id',
   accessor: o=>o, // String-based value accessors!
   Cell: props => {
-    return <ActionDropdown  order={props.value} />
+    return <ActionDropdown order={props.value} />
   }
 },]
 
@@ -69,6 +69,9 @@ class Orders extends Component {
         <h1>
           Orders
         </h1>
+        <button>
+          Print all labels
+        </button>
         <DataTable
           manual
           noDataText="Not available"

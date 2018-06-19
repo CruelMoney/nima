@@ -82,7 +82,11 @@ const orderToShipping = (order) => {
 
 const getCacheElseFetch = async (url) => {
   let data = JSON.parse(cache.get(url));
-  if(!!data) return data;
+  if(!!data){
+    console.log("using shipping cache");
+    return data;
+  }
+  console.log("Fetching shipping");
   data = await fetch(url, {
     method: 'GET',
     headers: new Headers({
@@ -91,7 +95,7 @@ const getCacheElseFetch = async (url) => {
       'Authorization': 'Bearer ' + key,
     })
   }).then(result => result.json());
-  return cache.put(url, JSON.stringify(data), 1000*60*5); // Save for 5 minutes
+  return cache.put(url, JSON.stringify(data), 1000*60*10); // Save for 10 minutes
 }
 
 const getOrderShipment =  async (order) => {
@@ -127,6 +131,9 @@ const getOrderShipment =  async (order) => {
 
 const getOrderShippingStatus = async (orderID, fetchId=0) => {
   const data = await getCacheElseFetch(domain+'/shipments?fetchId='+fetchId);
+  console.log(fetchId)
+  console.log(data)
+
   if(!data.shipments){throw new Error('Shipment not found')};
   const shipment = data.shipments.find(s=>s.id === orderID);
   if(!!shipment){

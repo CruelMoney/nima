@@ -11,7 +11,8 @@ const {stripe} = require('../../logic/payments');
 const getPaymentStatus = async (req, res) => {
   try {
     const charge = await stripe.charges.retrieve(req.params.chargeID);
-    const status = !charge.captured ? 'Uncaptured' : charge.status;
+    let status = !charge.captured ? 'Uncaptured' : charge.status;
+    status = !charge.amount_refunded ? status : ('Refunded: ' + charge.amount_refunded/100);
     return res.apiResponse(status);
   } catch (error) {
     console.log(error)
@@ -57,9 +58,10 @@ const refund = async (req, res) => {
 
     // update stock if set
     if(updateStock){
-      const orderedItems = order.items;
+      const orderedItems = JSON.parse(order.items);
       for (let item of orderedItems){
-        const product = await Product.model.findById(item._id).exec();
+        console.log({item})
+        const product = await Product.model.findOne({_id:item._id});
         if(!product){
           throw new Error('Error getting product.');
         }

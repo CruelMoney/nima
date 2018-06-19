@@ -11,7 +11,7 @@
   color:white;
 }
 .status[data-status="printed"],
-.status[data-status="uncaptured"] {
+.status[data-status="uncaptured"]{
   background: #E4A236;
   color:white;
 }
@@ -27,6 +27,7 @@
   padding: 0;
 }
 .modal{
+  max-width: 500px;
   padding: 3em;
   border-radius: 4px;
   box-shadow: 0 0 0 1px rgba(0,0,0,.07), 0 2px 15px rgba(84,96,103,.25);

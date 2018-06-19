@@ -23,8 +23,56 @@ const refundReasons = [
 ]
 
 export default class RefundForm extends Component {
+  state={
+    error: null,
+    submitting:false,
+    success: false
+  }
+
+  refundOrder = async (refund) => { 
+    this.setState({
+      submitting:true
+    });
+    const {order} = this.props;
+    return await fetch('http://0.0.0.0:3001/api/admin/refund', {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        ...refund,
+        order:order
+      })
+    })
+    .then(result => result.json())
+    .then( res => {
+      if(res.error){
+        throw new Error(res.error)
+      }
+      this.setState({
+        error: null,
+        success: "Order refunded"
+      });
+      order.fetchPayment();
+    })
+    .catch(error=>{
+      error = error.message || error;
+
+      this.setState({
+        error
+      });
+    })
+    .finally(()=>{
+      this.setState({
+        submitting:false
+      });
+    })
+  }
+
   render() {
     const {order} = this.props;
+    const {submitting, success} = this.state;
 
     return (
       <div>
@@ -33,7 +81,7 @@ export default class RefundForm extends Component {
         Refunds take 5-10 days to appear on a customer's statement.
       </p>
         <Form
-        onSubmit={console.log}>
+        onSubmit={this.refundOrder}>
           {formApi => (
             <form onSubmit={formApi.submitForm} id="refund-form" >
               <div className="form-group">
@@ -55,7 +103,7 @@ export default class RefundForm extends Component {
 
               <div className="form-group">
                 <label>
-                  Items are put back in stock:
+                  Items are returned to stock:
                 </label>
                 <Checkbox
                     field="updateStock"
@@ -68,14 +116,21 @@ export default class RefundForm extends Component {
                 type="reset">
                   Cancel
                 </button>
-                <button type="submit">
-                  Refund {currencyFormatter.format(formApi.values.amount, { code: 'DKK' })}
+                <button 
+                disabled={submitting || !!success}
+                type="submit">
+                {submitting ? "Refunding..." : ("Refund " + currencyFormatter.format(formApi.values.amount, { code: 'DKK' }))}
                 </button>
               </div>
-              
             </form>
           )}
         </Form>
+        <span className="error">
+          {this.state.error}
+        </span>
+        <span className="success">
+          {success}
+        </span>
       </div>
     )
   }

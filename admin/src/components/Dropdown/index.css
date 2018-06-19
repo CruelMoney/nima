@@ -3,6 +3,7 @@
   position: relative;
 }
 .dropdown .popup{
+  z-index: 1;
   left: -100%;
   top: 100%;
   display: none;

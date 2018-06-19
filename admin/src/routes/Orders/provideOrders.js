@@ -43,6 +43,8 @@ export default (WrappedComponent) => {
     parseOrder = (order) => {
       this.fetchPayment(order);
       this.fetchShipment(order);
+      order.fetchPayment = () => this.fetchPayment(order);
+      order.fetchShipment = () => this.fetchShipment(order);
       return order;
     }
   
@@ -68,19 +70,6 @@ export default (WrappedComponent) => {
       this.fetchOrders({page:1,perPage:10});
     }
 
-    confirmOrder = async (order) => {
-      const confirmedOrder = await fetch('http://0.0.0.0:3001/api/confirm', {
-        method: 'POST',
-        credentials: 'include',
-        headers: new Headers({
-          'Content-Type': 'application/json'
-        }),
-        body: JSON.stringify({order:order})
-      }).then(result => result.json());
-
-      this.fetchPayment(confirmedOrder);
-      this.fetchShipment(confirmedOrder);
-    }
 
     getData = () => {
       const {orders, payments, shipments} = this.state;
@@ -100,7 +89,6 @@ export default (WrappedComponent) => {
           {...this.state}
           orders={this.getData()}
           fetchOrders={this.fetchOrders}
-          confirmOrder={this.confirmOrder}
           />
       )
     }
