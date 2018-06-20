@@ -15,7 +15,7 @@ export default class RefundForm extends Component {
       submitting:true
     });
     const {order} = this.props;
-    return await fetch('http://0.0.0.0:3001/api/confirm', {
+    return await fetch('/api/confirm', {
       method: 'POST',
       credentials: 'include',
       headers: {

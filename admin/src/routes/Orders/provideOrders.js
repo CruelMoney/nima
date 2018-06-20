@@ -11,7 +11,7 @@ export default (WrappedComponent) => {
 
     fetchShipment =  async (order) => {
       if(order.shippingID){
-        let status = await fetch(`http://0.0.0.0:3001/api/shipment/${order.shippingID}`).then(r => r.json());
+        let status = await fetch(`/api/shipment/${order.shippingID}`).then(r => r.json());
         if(!status.error){
           return this.setState({
             shipments:{
@@ -31,7 +31,7 @@ export default (WrappedComponent) => {
     }
 
     fetchPayment =  async (order) => {
-      let status = await fetch(`http://0.0.0.0:3001/api/payment/${order.stripeID}`).then(r => r.json());
+      let status = await fetch(`/api/payment/${order.stripeID}`).then(r => r.json());
       this.setState({
         payments:{
           ...this.state.payments,
@@ -53,7 +53,7 @@ export default (WrappedComponent) => {
         this.setState({
           loading:true
         });
-        let data = await fetch(`http://0.0.0.0:3001/api/admin/orders?page=${page}&perPage=${perPage}&sort=${sort}`);
+        let data = await fetch(`/api/admin/orders?page=${page}&perPage=${perPage}&sort=${sort}`);
         data = await data.json();
         const {results, ...rest} = data.orders;
         this.setState({
