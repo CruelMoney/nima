@@ -27,7 +27,8 @@ WORKDIR /app/admin
 RUN yarn install
 RUN yarn build
 WORKDIR /app
-RUN mv admin/build dist/build/admin
+RUN mkdir -p dist/build/admin
+RUN mv admin/build/* dist/build/admin
 
 # Go to dist and install packages
 WORKDIR /app/dist

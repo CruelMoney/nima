@@ -34,7 +34,7 @@ export default class ActionDropdown extends Component {
   render() {
     const {order} = this.props;
     const {modal} = this.state;
-    const {shippingLabel, delivery, email, phone, paymentStatus} = order;
+    const {shippingLabel, paymentStatus} = order;
 
     return (
       

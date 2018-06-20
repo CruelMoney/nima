@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Text, Checkbox, TextArea, Select } from 'react-form';
+import { Form, Text } from 'react-form';
 import OrderItems from '../OrderItems';
 import './index.css';
 

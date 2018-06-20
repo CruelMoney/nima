@@ -14,7 +14,9 @@ const corsOptions = {
 
 // Bind Routes
 const controllers = (app) => {
-  app.use(cors(corsOptions));
+  if(process.env.NODE_ENV === 'development'){
+    app.use(cors(corsOptions));
+  }
 
   app.use('/', middleware.initLocals);
   app.use('/admin', middleware.adminOnly);
