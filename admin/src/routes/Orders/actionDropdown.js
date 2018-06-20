@@ -3,12 +3,13 @@ import Dropdown from '../../components/Dropdown';
 import Modal from 'react-responsive-modal';
 import RefundForm from '../../components/RefundForm';
 import ConfirmForm from '../../components/ConfirmOrderForm';
+import OrderDetails from '../../components/OrderDetails';
 
 export default class ActionDropdown extends Component {
   state={
     modal:{
       refund:false,
-      contact:false,
+      details:false,
       confirm:false
     }
   }
@@ -34,7 +35,6 @@ export default class ActionDropdown extends Component {
     const {order} = this.props;
     const {modal} = this.state;
     const {shippingLabel, delivery, email, phone, paymentStatus} = order;
-    console.log(order);
 
     return (
       
@@ -46,8 +46,8 @@ export default class ActionDropdown extends Component {
             </li> : null }
             {!shippingLabel ? null : <li><a target={'_blank'} href={shippingLabel}>Print label</a></li>}
             <li 
-              onClick={()=>this.openModal('contact')}>
-              Contact customer
+              onClick={()=>this.openModal('details')}>
+              Order details
             </li>
             <li
              onClick={()=>this.openModal('refund')}>
@@ -59,13 +59,10 @@ export default class ActionDropdown extends Component {
             modal: 'modal',
             overlay: 'modal-background'
           }}
-          open={modal.contact}
-          onClose={()=>this.closeModal('contact')} 
+          open={modal.details}
+          onClose={()=>this.closeModal('details')} 
           center>
-            <h3>Contact {delivery.firstName}</h3>
-            <a href={`mailto: ${email}`}>{email}</a>
-            <br/>
-            <a href={`tel:${phone}`}>{phone}</a>
+            <OrderDetails order={order} />
           </Modal>
           <Modal 
             classNames={{

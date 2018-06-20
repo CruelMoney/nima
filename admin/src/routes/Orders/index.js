@@ -8,6 +8,8 @@ import './index.css';
 
 const columns = [{
   Header: 'Order',
+  id: 'orderID',
+  width: 80,
   accessor: 'orderID' // String-based value accessors!
 }, {
   Header: 'Date',
@@ -44,6 +46,7 @@ const columns = [{
 {
   Header: 'Actions',
   id: '_id',
+  width: 100,
   accessor: o=>o, // String-based value accessors!
   Cell: props => {
     return <ActionDropdown order={props.value} />
@@ -63,17 +66,19 @@ class Orders extends Component {
   }
   
   render() {
-    const {orders, totalPages} = this.props;
+    const {orders, totalPages, loading} = this.props;
     return (
       <div>
         <h1>
           Orders
         </h1>
-        <button>
-          Print all labels
-        </button>
         <DataTable
           manual
+          defaultSorted={[{
+            id   : 'orderID',
+            desc : true,
+          }]}
+          loading={loading}
           noDataText="Not available"
           data={orders}
           columns={columns}

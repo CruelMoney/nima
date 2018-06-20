@@ -50,17 +50,21 @@ export default (WrappedComponent) => {
   
     fetchOrders = async ({page, perPage, sort}) => {
       try {
+        this.setState({
+          loading:true
+        });
         let data = await fetch(`http://0.0.0.0:3001/api/admin/orders?page=${page}&perPage=${perPage}&sort=${sort}`);
         data = await data.json();
-        console.log(data)
         const {results, ...rest} = data.orders;
         this.setState({
           ...rest,
           orders: results.map(this.parseOrder),
-          error: null
+          error: null,
+          loading: false
         });
       } catch (error) {
         this.setState({
+          loading: false,
           error: !!error.message ? error.message : error
         });
       }

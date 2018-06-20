@@ -1,10 +1,14 @@
 import fs from 'fs-extra';
+import { selectLimit } from 'async';
 const path = require('path');
 const publicPath = path.resolve(__dirname, 'public');
 const domain = "https://api.unifaun.com/rs-extapi/v1";
 const key = "XJ522I4AVICQFOVX-IIWR2XMRK5JS5SOD7TA2PEE5";
 var cache = require('memory-cache');
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 // Shipment status
 // printed (Shipment is printed. Intial status).
@@ -129,18 +133,19 @@ const getOrderShipment =  async (order) => {
   }
 } 
 
+
 const getOrderShippingStatus = async (orderID, fetchId=0) => {
   const data = await getCacheElseFetch(domain+'/shipments?fetchId='+fetchId);
-  console.log(fetchId)
-  console.log(data)
-
   if(!data.shipments){throw new Error('Shipment not found')};
   const shipment = data.shipments.find(s=>s.id === orderID);
   if(!!shipment){
     return shipment.status;
   }
   if(!data.done && fetchId !== data.fetchId){
-    return getOrderShippingStatus(orderID, data.fetchId);
+    if(data.minDelay){
+      await sleep(data.minDelay);
+    }
+    return await getOrderShippingStatus(orderID, data.fetchId);
   }
 }
 

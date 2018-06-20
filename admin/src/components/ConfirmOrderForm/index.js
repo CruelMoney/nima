@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Text, Checkbox, TextArea, Select } from 'react-form';
-import currencyFormatter from 'currency-formatter';
+import OrderItems from '../OrderItems';
 import './index.css';
 
 export default class RefundForm extends Component {
@@ -55,7 +55,6 @@ export default class RefundForm extends Component {
   render() {
     const {order} = this.props;
     const {submitting, success} = this.state;
-    const items = JSON.parse(order.items);
 
     return (
       <div>
@@ -74,14 +73,7 @@ export default class RefundForm extends Component {
               
               <div className="form-group">
                 <label>Items</label>
-                <div className="order-items">
-                {items.map(item=>{
-                  return (
-                    <span key={item.SKU} className="pill">{item.quantity+"x"+item.SKU}</span>
-                  )
-                })}
-                </div>
-                
+                <OrderItems order={order} />                
               </div>
 
               <div className="form-group">

@@ -1,0 +1,14 @@
+.order-details-modal{
+  min-width: 400px;
+}
+.order-details-modal h3{
+  position: relative;
+}
+.order-details-modal h3 span{
+  font-size: 0.8em;
+  position:absolute;
+  bottom:0;
+  right: 0;
+  font-weight: 500;
+  color: #afafaf;
+}
