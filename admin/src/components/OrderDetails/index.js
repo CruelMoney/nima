@@ -11,7 +11,7 @@ export default class OrderDetails extends Component {
       phone
     } = order; 
     const createdAt = new Date(order.createdAt);
-    console.log(order)
+
     return (
       <div className="order-details-modal">
         <h3>Order #{order.orderID} <span>{createdAt.toLocaleDateString() + " " + createdAt.toLocaleTimeString()}</span></h3>
@@ -37,7 +37,6 @@ export default class OrderDetails extends Component {
             </div>
           </div>
 
-
           <div className="form-group">
             <label>Items</label>
             <OrderItems order={order} />
@@ -49,8 +48,6 @@ export default class OrderDetails extends Component {
             {order.usedCouponCode}
             </p>
           </div>
-
-        
          
       </div>
     )

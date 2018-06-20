@@ -9,9 +9,9 @@ export default class Layout extends Component {
     return (
       <div className="layout">
         <header>
-          <span>
+          <h1>
             NIMA
-          </span>
+          </h1>
           <SiteMenu />
         </header>
         <section>
