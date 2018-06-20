@@ -13,7 +13,7 @@ const getPaymentStatus = async (req, res) => {
     const charge = await stripe.charges.retrieve(req.params.chargeID);
     let status = !charge.captured ? 'Uncaptured' : charge.status;
     status = !charge.amount_refunded ? status : ('Refunded: ' + charge.amount_refunded/100);
-    return res.apiResponse(status);
+    return res.apiResponse(status.toLowerCase());
   } catch (error) {
     console.log(error)
     error = error.message || error;

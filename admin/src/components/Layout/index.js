@@ -10,7 +10,7 @@ export default class Layout extends Component {
       <div className="layout">
         <header>
           <h1>
-            NIMA
+            nima admin
           </h1>
           <SiteMenu />
         </header>

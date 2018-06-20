@@ -26,7 +26,7 @@ const columns = [{
   Header: 'Shipping status',
   accessor: 'shippingStatus', // String-based value accessors!
   Cell: props => {
-    const val = (!!props.value && !!props.value.toLowerCase) ? props.value.toLowerCase() : "Not available";
+    const val = !!props.value ? props.value : "Not available";
     return <span className='status' data-status={val}>{val}</span>
 } 
 },
@@ -34,7 +34,7 @@ const columns = [{
   Header: 'Payment status',
   accessor: 'paymentStatus', // String-based value accessors!,
   Cell: props => {
-    const val = (!!props.value && !!props.value.toLowerCase) ? props.value.toLowerCase() : "Not available";
+    const val = !!props.value ? props.value : "Not available";
     return <span className='status' data-status={val}>{val}</span>
 } 
 },

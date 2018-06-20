@@ -138,8 +138,8 @@ const getOrderShippingStatus = async (orderID, fetchId=0) => {
   const data = await getCacheElseFetch(domain+'/shipments?fetchId='+fetchId);
   if(!data.shipments){throw new Error('Shipment not found')};
   const shipment = data.shipments.find(s=>s.id === orderID);
-  if(!!shipment){
-    return shipment.status;
+  if(!!shipment && !!shipment.status){
+    return shipment.status.toLowerCase();
   }
   if(!data.done && fetchId !== data.fetchId){
     if(data.minDelay){
