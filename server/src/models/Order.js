@@ -40,8 +40,6 @@ Order.add(
     city: { type: String, required: true, initial: true },
     zip:  {type: String, required: true, initial: true },
     country: { type: String, required: true, initial: true },
-    trackingCode: { type: String },
-    estimatedDelivery: { type: String }
   }},
   {usedCouponCode: { type: String, noedit:true }},
   {isSent: { type: Boolean, default: false, note:"Checking this will charge the money on the customers card." }},
@@ -53,6 +51,7 @@ Order.add(
   {stripeID: { type: String, noedit:true, required: true, initial: true }},
   {shippingID: { type: String, noedit:true }},
   {shippingLabel: { type: String, noedit:true }},
+  {parcelNumber: { type: String }},
 );
 
 Order.schema.plugin(AutoIncrement, {inc_field: 'orderID'});

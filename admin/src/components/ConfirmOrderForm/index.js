@@ -3,7 +3,8 @@ import { Form, Text } from 'react-form';
 import OrderItems from '../OrderItems';
 import './index.css';
 
-const domain = process.env.REACT_APP_PUBLIC_URL;
+let domain = process.env.REACT_APP_PUBLIC_URL;
+domain = !!domain ? domain : 'https://nimacph.dk';
 
 export default class RefundForm extends Component {
   state={

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
-const domain = process.env.REACT_APP_PUBLIC_URL;
+let domain = process.env.REACT_APP_PUBLIC_URL;
+domain = !!domain ? domain : 'https://nimacph.dk';
 
 export default (WrappedComponent) => {
   return class OrdersProvider extends Component {

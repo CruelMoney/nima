@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+let domain = process.env.REACT_APP_PUBLIC_URL;
+domain = !!domain ? domain : 'https://nimacph.dk';
 
 export default class SiteMenu extends Component {
   render() {
-    const domain = process.env.PUBLIC_URL;
-
     return (
       <ul className="menu">
         <li>

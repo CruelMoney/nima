@@ -3,7 +3,8 @@ import { Form, Text, Checkbox, TextArea, Select } from 'react-form';
 import currencyFormatter from 'currency-formatter';
 import './index.css';
 
-const domain = process.env.REACT_APP_PUBLIC_URL;
+let domain = process.env.REACT_APP_PUBLIC_URL;
+domain = !!domain ? domain : 'https://nimacph.dk';
 
 const refundReasons = [
   {
