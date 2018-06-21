@@ -3,6 +3,8 @@ import { Form, Text } from 'react-form';
 import OrderItems from '../OrderItems';
 import './index.css';
 
+const domain = process.env.REACT_APP_PUBLIC_URL;
+
 export default class RefundForm extends Component {
   state={
     error: null,
@@ -15,7 +17,7 @@ export default class RefundForm extends Component {
       submitting:true
     });
     const {order} = this.props;
-    return await fetch('/api/confirm', {
+    return await fetch(domain+'/api/confirm', {
       method: 'POST',
       credentials: 'include',
       headers: {

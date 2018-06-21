@@ -3,6 +3,8 @@ import { Form, Text, Checkbox, TextArea, Select } from 'react-form';
 import currencyFormatter from 'currency-formatter';
 import './index.css';
 
+const domain = process.env.REACT_APP_PUBLIC_URL;
+
 const refundReasons = [
   {
     label: 'Duplicate',
@@ -34,7 +36,7 @@ export default class RefundForm extends Component {
       submitting:true
     });
     const {order} = this.props;
-    return await fetch('/api/admin/refund', {
+    return await fetch(domain+'/api/admin/refund', {
       method: 'POST',
       credentials: 'include',
       headers: {

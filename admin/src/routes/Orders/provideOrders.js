@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+const domain = process.env.REACT_APP_PUBLIC_URL;
+
 export default (WrappedComponent) => {
   return class OrdersProvider extends Component {
     state={
@@ -11,33 +13,42 @@ export default (WrappedComponent) => {
 
     fetchShipment =  async (order) => {
       if(order.shippingID){
-        let status = await fetch(`/api/shipment/${order.shippingID}`).then(r => r.json());
-        if(!status.error){
-          return this.setState({
-            shipments:{
-              ...this.state.shipments,
-              [order._id]: status
-            }
-          });
+        let status = "Not available";
+        try {
+          const response = await fetch(domain+`/api/shipment/${order.shippingID}`).then(r => r.json());
+          if(!response.error && typeof response === 'string'){
+            status = response;
+          }
+        } catch (error) {
+          console.log(error)
         }
+        return this.setState({
+          shipments:{
+            ...this.state.shipments,
+            [order._id]: status
+          }
+        });
       }
-
-      this.setState({
-        shipments:{
-          ...this.state.shipments,
-          [order._id]: 'Not available'
-        }
-      });
     }
 
     fetchPayment =  async (order) => {
-      let status = await fetch(`/api/payment/${order.stripeID}`).then(r => r.json());
-      this.setState({
-        payments:{
-          ...this.state.payments,
-          [order._id]: status
+      if(order.stripeID){
+        let status = "Not available";
+        try {
+          const response = await fetch(domain+`/api/payment/${order.stripeID}`).then(r => r.json());
+          if(!response.error && typeof response === 'string'){
+            status = response;
+          }
+        } catch (error) {
+          console.log(error)
         }
-      });
+        return this.setState({
+          payments:{
+            ...this.state.payments,
+            [order._id]: status
+          }
+        });
+      }
     }
 
     parseOrder = (order) => {
@@ -53,7 +64,7 @@ export default (WrappedComponent) => {
         this.setState({
           loading:true
         });
-        let data = await fetch(`/api/admin/orders?page=${page}&perPage=${perPage}&sort=${sort}`);
+        let data = await fetch(domain+`/api/admin/orders?page=${page}&perPage=${perPage}&sort=${sort}`);
         data = await data.json();
         const {results, ...rest} = data.orders;
         this.setState({
