@@ -1,6 +1,7 @@
 const adminOnly = (req, res, next) => {
   if(!res.locals.user || !res.locals.user.canAccessKeystone){
-    res.status(401).json({ 'error': 'no access' });
+  return res.redirect('/keystone');
+   // res.status(401).json({ 'error': 'no access' });
   }
   next();
 }
