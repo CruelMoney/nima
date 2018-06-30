@@ -27,6 +27,10 @@
   grid-area: sd;
 }
 
+.side .menu li{
+  margin-bottom: 1em;
+}
+
 .layout main{
   grid-area: main;
   background: #FFFFFF;

@@ -13,7 +13,7 @@ export default class SiteMenu extends Component {
           <a href={domain+"/keystone"}>CMS</a>
         </li>
         <li>
-          <a href={domain+"/logout"}>Logout</a>
+          <a href={domain+"/keystone/signout"}>Logout</a>
         </li>
       </ul>
     )

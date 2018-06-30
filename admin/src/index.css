@@ -4,3 +4,27 @@ body {
   font-family: sans-serif;
   color: #111111;
 }
+
+a{
+  color: #111111;
+}
+a:hover{
+  opacity: 0.6;
+}
+a.active{
+  font-weight: 700;
+  color: #6772e5;
+}
+
+.icon {
+  margin-right: 0.3em;
+}
+.icon svg{
+  position: relative;
+  top: 0.3em;
+  right: 0.1em;
+  filter: grayscale(0.7);
+}
+a.active .icon svg{
+  filter: none;
+}

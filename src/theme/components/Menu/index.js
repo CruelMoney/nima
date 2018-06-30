@@ -15,7 +15,7 @@ class Menu extends Component {
     setTimeout(() => {
       this.setState({
         mounted: true
-      })
+      });
     }, 200);
   }
 

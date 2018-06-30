@@ -14,7 +14,7 @@ export default class Layout extends Component {
           </h1>
           <SiteMenu />
         </header>
-        <section>
+        <section className="side">
           <AdminMenu/>
         </section>
         <main>
