@@ -1,5 +1,5 @@
 .layout {
-  margin: 2em;
+  padding: 2em;
   display: grid;
   grid-gap: 2em;
   grid-template-columns: repeat(12, 1fr);
@@ -8,12 +8,20 @@
     "hd hd hd   hd hd hd  hd hd hd  hd hd hd"
     "sd sd main  main main main   main main main  main main main"
     ;
+    overflow: scroll;
+    position: relative;
+    max-height: 100vh;
 }
 
 .layout header{
   grid-area: hd;
   display: flex;
   justify-content: space-between;
+  position: fixed;
+  width: 100%;
+  background: #eeeeee;
+  z-index: 1;
+  padding: 1em 2em;
 }
 .layout header .menu li{
   display: inline-block;
@@ -25,8 +33,12 @@
 }
 .layout section{
   grid-area: sd;
+  position: relative;
 }
 
+.side .menu{
+  position: fixed;
+}
 .side .menu li{
   margin-bottom: 1em;
 }
@@ -34,7 +46,7 @@
 .layout main{
   grid-area: main;
   background: #FFFFFF;
-  box-shadow: 0 7px 24px 0 rgba(0,0,0,0.31);
+  box-shadow: 0 7px 14px 0 rgba(50,50,93,.1), 0 3px 6px 0 rgba(0,0,0,.07);
   border-radius: 8px;
 }
 .layout main h1{
