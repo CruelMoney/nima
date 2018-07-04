@@ -101,6 +101,10 @@ class Product extends Component {
     stock = !!stock ? JSON.parse(stock) : [];
     options = !!options ? JSON.parse(options) : [];
     variants = !!variants ? JSON.parse(variants) : [];
+    variants = variants.map(v => ({
+      ...v, 
+      combination: v.combination.map(c => c.id)
+    }));
 
     return (
       <div className="product">

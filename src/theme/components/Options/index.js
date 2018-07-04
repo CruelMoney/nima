@@ -96,7 +96,6 @@ class Options extends Component {
   render() {
     const { options, selected, isExistingOption } = this.state;
     const { editMode } = this.props;
-
     return (
       <div>
         <ul className="flex flex-wrap">
@@ -104,15 +103,15 @@ class Options extends Component {
             options.map( o => {
               return <li key={o.label}>
                 <button
-                className={`${o.label === selected ? 'active' : ''} option-button relative bg-transparent font-medium py-2 px-6 mr-2 my-1 w-auto`}
+                className={`${o === selected ? 'active' : ''} option-button relative bg-transparent font-medium py-2 px-6 mr-2 my-1 w-auto`}
                 onClick={()=>{
                   if(editMode){
                     this.editOption(o.label)
                   }else{
-                    this.onChange(o.label)
+                    this.onChange(o)
                   }
                 }}
-                disabled={o.stock <= 0 && !editMode}
+                disabled={o.disabled}
                 >      
                 {o.label}
               </button>

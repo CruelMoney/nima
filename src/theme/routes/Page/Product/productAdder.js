@@ -6,22 +6,37 @@ import Accordion from './accordion'
 import {
   FacebookShareButton
 } from 'react-share';
+import intersect from 'lodash.intersection';
+import difference from 'lodash.difference';
+
+const getPossibleOptionCombinations = ({variants}) => {
+  return variants.filter(v => v.used && v.inventory > 0).map(v => v.combination);
+}
 
 class ProductAdder extends Component {
-  state={productAdded: false}
+  state={
+    productAdded: false,
+    selectedOptions: {}
+  }
+
 
   onAddBag = () => {
-    const {selectedVariation} = this.state
+    const {product} = this.props;
+    const {selectedOptions, chosenVariation} = this.state;
 
-    if(!selectedVariation){
-      alert("Vælg størrelse først");
+    if(!chosenVariation){
+      const a1 = Object.keys(product.options); 
+      const a2 = Object.keys(selectedOptions); 
+      const dif = difference(a1,a2);
+
+      alert(`Vælg ${dif.join(' og ')} først.`);
     }else{
       this.setState({
         productAdded:true
       })
       this.props.addToCart({
         ...this.props.product,
-        variation: selectedVariation
+        variation: chosenVariation
       })
       setTimeout(() => {
         this.setState({
@@ -31,12 +46,49 @@ class ProductAdder extends Component {
     }
   }
 
+  selectOption = (optionName, optionValue) => {
+    this.setState(state=>({
+        selectedOptions:{
+          ...state.selectedOptions,
+          chosenVariation: null,
+          [optionName] : optionValue
+        }
+      }), ()=>{
+        const {product} = this.props;
+        let {selectedOptions} = this.state;
+        const a1 = Object.keys(product.options); 
+        const a2 = Object.keys(selectedOptions); 
+        const dif = difference(a1,a2);
+        if (dif.length === 0){
+          // set new variation as selected
+          selectedOptions = Object.values(selectedOptions);
+          const variation = product.variants.find(v => {
+            return intersect(v.combination, selectedOptions).length === a1.length;
+          })
+          this.setState({
+            chosenVariation : variation
+          })
+        }
+      }
+    );
+  }
+
+  optionIsPossible = (option) => {
+    const { product } = this.props;
+    const possibleVariants = getPossibleOptionCombinations(product);
+    let { selectedOptions } = this.state;
+    selectedOptions = [...Object.values(selectedOptions), option.id];
+    const isPossible = possibleVariants.some(c => intersect(c, selectedOptions).length > 0);
+
+    return isPossible;
+  }
+
   render() {
     const { product, editMode, publicURL } = this.props;
-    const { productAdded } = this.state;
+    const { productAdded, chosenVariation } = this.state;
     const soldOut = product.stock.every(o => o.stock <= 0);
     const url = publicURL + "/" + product.slug;
-
+    const price = !chosenVariation ? product.price : chosenVariation.price;
     const options = Object.values(product.options);
     return (
       <React.Fragment>
@@ -48,7 +100,7 @@ class ProductAdder extends Component {
         </p>
         <p>
           <strong>
-          Pris: { product.price } DKK
+          Pris: { price } DKK
           </strong>
         </p>
         <ul className="alternate-actions">
@@ -66,11 +118,19 @@ class ProductAdder extends Component {
         </ul>
         {
          !!options && options.map(o =>(
+           <React.Fragment>
+             <h4>
+               {o.name}:
+             </h4>
             <ButtonOptions
               editMode={editMode}
-              options={o.variants}
-              onChange={v => this.setState({selectedVariation: v})}
+              options={o.variants.map(option => ({
+                ...option,
+                disabled: !this.optionIsPossible(option)
+              }))}
+              onChange={oVal => this.selectOption(o.name, oVal.id)}
             />
+          </React.Fragment>
          ))
         }
         
