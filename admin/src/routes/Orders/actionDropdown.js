@@ -40,7 +40,7 @@ export default class ActionDropdown extends Component {
       
       <Dropdown>
           <ul className="action-dropdown">
-            {!!paymentStatus === 'uncaptured' ? <li 
+            {paymentStatus === 'uncaptured' ? <li 
              onClick={()=>this.openModal('confirm')}>
               Confirm order
             </li> : null }

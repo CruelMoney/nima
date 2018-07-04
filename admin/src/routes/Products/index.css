@@ -1,0 +1,20 @@
+.status[data-status="stocked up"] {
+  background: #469776;
+  color:white;
+}
+.status[data-status="low variant"]{
+  background: #E4A236;
+  color:white;
+}
+.status[data-status="empty variant"]{
+  background: #a32d2d;
+  color:white;
+}
+
+
+.variants-editor{
+  width: 700px;
+  max-width: 700px;
+  overflow: scroll;
+  max-height: 90vh;
+}

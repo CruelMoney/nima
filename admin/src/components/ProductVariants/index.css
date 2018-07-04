@@ -1,0 +1,94 @@
+.variants{
+  border: 1px solid #ddd;
+  padding: 0.2em;
+}
+.variants .status{
+  margin: 0 0.2em 0.2em 0;
+}
+
+.variants input{
+  width: 100%;
+  outline: none;
+  border: none;
+  line-height: 2em;
+}
+.status.variant {
+  color: white;
+  border-radius: 4px;
+  position: relative;
+  padding-right: 2em;
+}
+.status.variant span{
+  cursor: pointer;
+  position: absolute;
+  right: 3px;
+  top: 3px;
+  width: 1.2em;
+  display: inline-block;
+  height: 1em;
+  font-size: 0.8em;
+}
+.status.variant span:before,
+.status.variant span:after
+{
+  content: "";
+  border-left: 2px solid white;
+  position: absolute;
+  left: 0.5em;
+  top: 0px;
+  height: 1em;
+  transform: rotate(45deg);
+}
+.status.variant span:after
+{
+  transform: rotate(-45deg);
+}
+
+.form-group.option{
+  margin-left: -0.5em;
+  margin-right: -0.5em;
+}
+.form-group.option > *{
+  flex: 4;
+  margin: 0 0.5em;
+}
+
+.form-group.option > :last-child{
+  flex: 1;
+  justify-content: flex-end;
+  display: flex;
+}
+
+.form-group.option > :first-child{
+  flex: 2;
+}
+
+.aggregated-variants{
+  margin-top: 2em;
+}
+
+.form-group.option label{
+  font-weight: 600;
+}
+
+.combination{
+  text-transform: capitalize;
+}
+
+.final-variant.not-used{
+  opacity: 0.6;
+}
+
+
+.form-group.final-variant > div{
+  flex: 1;
+}
+
+.variants-editor .buttons{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.variants-editor .buttons button{
+  margin-left: 1em;
+}

@@ -29,3 +29,57 @@ a.active{
 a.active .icon svg{
   filter: none;
 }
+
+
+
+.action-dropdown li{
+  cursor: pointer;
+}
+.action-dropdown li:hover{
+  opacity: 0.6;
+}
+.action-dropdown{
+  margin: 0;
+  padding: 0;
+}
+.modal{
+  max-width: 500px;
+  padding: 3em;
+  border-radius: 4px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,.07), 0 2px 15px rgba(84,96,103,.25);
+}
+.modal-background{
+  background: rgba(82,95,127,.25);
+}
+
+
+button{
+  background: #6772e5;
+  color: white;
+  padding: 0.4em 1em;
+  border: none;
+  border-radius: 4px !important;
+  transition: all 100ms ease;
+}
+button.transparent{
+  border: 2px solid #6772e5;
+  background: transparent;
+  color: #6772e5;
+}
+button.light{
+  
+  background: #b5b9e3
+}
+button.light:hover{
+  background: #6772e5;
+}
+button.warning{
+  color: white;
+  border-color: hsla(351, 60%, 80%, 1);
+  background-color: hsla(351, 60%, 80%, 1); 
+}
+button.warning:hover{
+  color: white;
+  background-color: #8D0E20;
+  border-color: #8D0E20;
+}

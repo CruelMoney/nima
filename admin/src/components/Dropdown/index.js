@@ -26,7 +26,7 @@ export default class ActionDropdown extends Component {
       <ClickOutside 
         action={this.close}
         className="dropdown">
-        <button onClick={this.toggle}>...</button>
+        <button className="transparent" onClick={this.toggle}>...</button>
         <div
         className={`popup ${this.state.active ? 'active' : ''}`}>
          {this.props.children}

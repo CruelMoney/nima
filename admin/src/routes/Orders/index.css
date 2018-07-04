@@ -15,23 +15,3 @@
   background: #E4A236;
   color:white;
 }
-
-.action-dropdown li{
-  cursor: pointer;
-}
-.action-dropdown li:hover{
-  opacity: 0.6;
-}
-.action-dropdown{
-  margin: 0;
-  padding: 0;
-}
-.modal{
-  max-width: 500px;
-  padding: 3em;
-  border-radius: 4px;
-  box-shadow: 0 0 0 1px rgba(0,0,0,.07), 0 2px 15px rgba(84,96,103,.25);
-}
-.modal-background{
-  background: rgba(82,95,127,.25);
-}

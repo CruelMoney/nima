@@ -51,7 +51,11 @@ const setup = (app) => {
     },
     Order : {
       path: 'admin/orders',
-    }
+    },
+    Product : {
+      path: 'admin/products',
+      populate : ["tags", 'thumbnail'],
+    },
   })
   .start();
 

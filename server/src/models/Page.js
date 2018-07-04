@@ -56,6 +56,8 @@ var Product = new keystone.List('Product', {
 Product.add({
 	price: { type: Types.Money, format: '0.0,00 DKK'},
 	stock: { type: Types.Text },
+	options: { type: Types.Text },
+	variants: { type: Types.Text },
 	SKU: { type: String, required: true, initial:true },
 	// stock format:
 	// {
