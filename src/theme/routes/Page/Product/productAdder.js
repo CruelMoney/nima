@@ -36,6 +36,8 @@ class ProductAdder extends Component {
     const { productAdded } = this.state;
     const soldOut = product.stock.every(o => o.stock <= 0);
     const url = publicURL + "/" + product.slug;
+
+    const options = Object.values(product.options);
     return (
       <React.Fragment>
         <h1 className="xl:text-6xl text-5xl">
@@ -62,11 +64,16 @@ class ProductAdder extends Component {
             </FacebookShareButton>
           </li>
         </ul>
-        <ButtonOptions
-          editMode={editMode}
-          options={product.stock}
-          onChange={v => this.setState({selectedVariation: v})}
-        />
+        {
+         !!options && options.map(o =>(
+            <ButtonOptions
+              editMode={editMode}
+              options={o.variants}
+              onChange={v => this.setState({selectedVariation: v})}
+            />
+         ))
+        }
+        
         <button
           onClick={this.onAddBag}
           disabled={productAdded || soldOut}

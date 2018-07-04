@@ -21,6 +21,7 @@ export default (WrappedComponent) => {
 
     inventoryToDescription = (inventory) => {
       const val = inventory.reduce((acc, v) => {
+        if (!v.used) return acc;
         return {
           ts: acc.ts + parseInt(v.inventory),
           tv: acc.tv + 1
@@ -32,6 +33,7 @@ export default (WrappedComponent) => {
     
     inventoryToStatus = (inventory) => {
       const lowest = inventory.reduce((acc, v) => {
+        if (!v.used) return acc;
         return v.inventory < acc ? parseInt(v.inventory) : acc;
       }, Number.POSITIVE_INFINITY);
 

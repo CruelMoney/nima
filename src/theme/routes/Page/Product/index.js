@@ -97,8 +97,10 @@ class Product extends Component {
   render() {
     const { page, editMode, publicURL } = this.props;
     const { thumbnail } = this.props.data
-    let { stock } = page
+    let { stock, options, variants } = page
     stock = !!stock ? JSON.parse(stock) : [];
+    options = !!options ? JSON.parse(options) : [];
+    variants = !!variants ? JSON.parse(variants) : [];
 
     return (
       <div className="product">
@@ -124,7 +126,9 @@ class Product extends Component {
                 {
                   ...page,
                   thumbnail: thumbnail,
-                  stock: stock
+                  stock,
+                  options,
+                  variants
                 }
               }
             />

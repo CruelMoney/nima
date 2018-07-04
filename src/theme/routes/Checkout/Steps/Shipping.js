@@ -88,7 +88,6 @@ class Shipping extends Component {
   render() {
     const { error, shipping, fetching, servicePoints} = this.state; 
     const { active, data } = this.props;
-    console.log(data)
     const deliveryOptions = !!data.results ? data.results : [];
 
     return (
