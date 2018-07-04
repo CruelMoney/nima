@@ -5,7 +5,7 @@ import ProductVariants from "../../components/ProductVariants";
 export default class ActionDropdown extends Component {
   state={
     modal:{
-      variants:true
+      variants:false
     }
   }
 

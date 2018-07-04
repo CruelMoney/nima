@@ -60,6 +60,7 @@ class Products extends Component {
   
   render() {
     const {products, totalPages, loading} = this.props;
+    const pageSize = products.length >= 10 ? 10 : products.length;
     return (
       <div>
         <h1>
@@ -74,7 +75,7 @@ class Products extends Component {
           noDataText="Not available"
           data={products}
           columns={columns}
-          defaultPageSize={10}
+          defaultPageSize={pageSize}
           pages={totalPages}
           onFetchData={this.fetchData}
         />
