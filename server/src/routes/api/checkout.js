@@ -55,29 +55,28 @@ const post = async (req, res) => {
             dbItem = productCache[item._id]
           }
 
-          const stock = JSON.parse(dbItem.stock);
+          const variants = JSON.parse(dbItem.variants);
 
           // check if stock is available
-          const stockQuantity = stock.find(v => v.label === item.variation).stock;
-          if(stockQuantity < item.quantity){
-            if(stockQuantity === 0){
-              return reject(`Sorry, no ${dbItem.title}s in ${item.variation} left.`);
+          const variantsQuantity = variants.find(v => v.sku === item.variation.sku).inventory;
+          if(variantsQuantity < item.quantity){
+            if(variantsQuantity === 0){
+              return reject(`Sorry, no ${dbItem.title}s left.`);
             }
-            return reject(`Sorry, only ${stockQuantity} ${dbItem.title}s in ${item.variation} left.`);
+            return reject(`Sorry, only ${variantsQuantity} ${dbItem.title}s left.`);
           }
 
-          const newStock = stock.map(v =>{
-            if(v.label === item.variation){
-              return {...v, stock : v.stock - item.quantity}
+          const newStock = variants.map(v =>{
+            if(v.sku === item.variation.sku){
+              // add price to totalPrice
+              dbPrice += v.price * item.quantity;
+              return {...v, inventory : v.inventory - item.quantity}
             }else{
               return v;
             }
           });
 
-          dbItem.set({ stock: JSON.stringify(newStock) });
-
-          // add price to totalPrice
-          dbPrice += dbItem.price * item.quantity;
+          dbItem.set({ variants: JSON.stringify(newStock) });
           
           productCache[item._id] = dbItem;
           
@@ -143,9 +142,9 @@ const post = async (req, res) => {
         description: i.title, 
         variation: i.variation,
         quantity: i.quantity,
-        price: i.price,
+        price: i.variation.price,
         link: process.env.PUBLIC_URL + '/' + i.slug,
-        SKU: i.SKU + i.variation
+        SKU: i.variation.sku
       }
     });
     const order = new Order.model({

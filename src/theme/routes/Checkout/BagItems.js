@@ -21,14 +21,17 @@ class BagItems extends Component {
 
     // Mapping items to render multiple items on same line
     for (const item of items) {
-      const key = item.title+item.variation;
+      const key = item.variation.sku;
       const viewItem = itemsView[key];
       itemsView[key] = !!viewItem ? {...viewItem, quantity: viewItem.quantity + 1} : { ...item, quantity: 1 };
     }
 
+   
+
     return (
       <div className="bag-items">
                 {Object.values(itemsView).map((item, idx)=>{
+                  
                   return(
                     <div key={'bag-item-'+idx} className="bag-item">
                       <Link to={`/${item.slug}`} className="flex items-center justify-between text-black hover:text-grey-dark">
@@ -45,13 +48,13 @@ class BagItems extends Component {
                           </div>
                           <p className="ml-3 mb-0 w-4/5">
                             {item.quantity > 1 ? item.quantity + "x" : ""} {item.title}
-                            <span className="block text-xs">
-                              Str. {item.variation}
+                            <span className="capitalize block">
+                              {item.variation.combination.map(c => c.label).join(', ')}
                             </span>
                           </p>
                         </div>
                         <p className="text-right w-1/5 md:w-2/5 mb-0">
-                        {item.quantity > 1 ? item.quantity + "x" : ""} {item.price} DKK
+                        {item.quantity > 1 ? item.quantity + "x" : ""} {item.variation.price} DKK
                         </p>
                       </Link>
                     </div>

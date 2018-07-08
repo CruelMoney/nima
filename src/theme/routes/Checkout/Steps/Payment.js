@@ -17,7 +17,7 @@ const itemsToOrder = (items) => {
     const itemsView = {};
 
     for (const item of items) {
-      const key = item.title+item.variation;
+      const key = item.variation.sku;
       const viewItem = itemsView[key];
       itemsView[key] = !!viewItem ? {...viewItem, quantity: viewItem.quantity + 1} : { ...item, quantity: 1 };
     }

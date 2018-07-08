@@ -35,10 +35,10 @@ class Bag extends Component{
   render(){
     const { items } = this.props.cart
     let itemsView = {}
-
+console.log(items)
     // Mapping items to render multiple items on same line
     for (const item of items) {
-      const key = item.title+item.variation;
+      const key = item.variation.sku;
       const viewItem = itemsView[key];
       itemsView[key] = !!viewItem ? {...viewItem, quantity: viewItem.quantity + 1} : { ...item, quantity: 1 };
     }
@@ -66,10 +66,10 @@ class Bag extends Component{
                     return(
                       <Link to={`/${i.slug}`} key={'bag-item-'+idx} className="bag-section text-black hover:text-grey-dark">
                         <p className="inline float-left text-left">
-                        {i.quantity > 1 ? i.quantity + "x" : ""} {i.title} ({i.variation})
+                        {i.quantity > 1 ? i.quantity + "x" : ""} {i.title} 
                         </p>
                         <p className="inline float-right text-right">
-                        {i.quantity > 1 ? i.quantity + "x" : ""} {i.price} DKK
+                        {i.quantity > 1 ? i.quantity + "x" : ""} {i.variation.price} DKK
                         </p>
                       </Link>
                     )
@@ -90,7 +90,7 @@ class Bag extends Component{
                     Total
                   </p>
                   <p className="inline float-right text-right">
-                    {items.reduce((acc, i)=>acc+i.price, 0)} DKK
+                    {items.reduce((acc, i)=>acc+parseFloat(i.variation.price), 0)} DKK
                   </p>
                 </div> 
                 <div className="flex justify-center w-full mt-4">

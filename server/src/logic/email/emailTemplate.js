@@ -119,7 +119,7 @@ const _orderToHtml = (order, items, shippingPrice) => {
           <tr class="order-item">
             <td>
               <a href="${item.link}">
-                ${item.description} (${item.variation})
+                ${item.description} (${item.variation.combination.map(c => c.label).join(', ')})
               </a>
             </td>
             <td>

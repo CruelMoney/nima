@@ -10,7 +10,7 @@ import intersect from 'lodash.intersection';
 import difference from 'lodash.difference';
 
 const getPossibleOptionCombinations = ({variants}) => {
-  return variants.filter(v => v.used && v.inventory > 0).map(v => v.combination);
+  return variants.filter(v => v.used && v.inventory > 0).map(v => v.combinationIds);
 }
 
 class ProductAdder extends Component {
@@ -63,7 +63,7 @@ class ProductAdder extends Component {
           // set new variation as selected
           selectedOptions = Object.values(selectedOptions);
           const variation = product.variants.find(v => {
-            return intersect(v.combination, selectedOptions).length === a1.length;
+            return intersect(v.combinationIds, selectedOptions).length === a1.length;
           })
           this.setState({
             chosenVariation : variation

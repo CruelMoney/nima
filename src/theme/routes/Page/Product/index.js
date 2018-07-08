@@ -102,8 +102,8 @@ class Product extends Component {
     options = !!options ? JSON.parse(options) : [];
     variants = !!variants ? JSON.parse(variants) : [];
     variants = variants.map(v => ({
-      ...v, 
-      combination: v.combination.map(c => c.id)
+      ...v,
+      combinationIds: v.combination.map(c=>c.id)
     }));
 
     return (
