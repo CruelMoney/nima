@@ -43,6 +43,7 @@ ul.alternate-actions li{
 .accordion{
   cursor: pointer;
   overflow: hidden;
+  display: inline-block;
 }
 .accordion ul{
   max-height: 0;
