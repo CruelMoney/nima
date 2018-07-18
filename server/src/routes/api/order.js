@@ -64,15 +64,15 @@ const refund = async (req, res) => {
         if(!product){
           throw new Error('Error getting product.');
         }
-        const stock = JSON.parse(product.stock);
-        const newStock = stock.map(v =>{
-          if(v.label === item.variation){
-            return {...v, stock : v.stock + item.quantity}
+        const variants = JSON.parse(product.variants);
+        const newStock = variants.map(v =>{
+          if(v.sku === item.variation.sku){
+            return {...v, inventory : v.inventory + item.quantity}
           }else{
             return v;
           }
         });
-        product.set({ stock: JSON.stringify(newStock) });
+        product.set({ variants: JSON.stringify(newStock) });
         await product.save();
       }
     }

@@ -50,9 +50,10 @@ class ProductAdder extends Component {
     this.setState(state=>({
         selectedOptions:{
           ...state.selectedOptions,
-          chosenVariation: null,
           [optionName] : optionValue
-        }
+        },
+        chosenVariation: null,
+
       }), ()=>{
         const {product} = this.props;
         let {selectedOptions} = this.state;
@@ -73,12 +74,22 @@ class ProductAdder extends Component {
     );
   }
 
-  optionIsPossible = (option) => {
+  optionIsPossible = (option, optionCategory) => {
     const { product } = this.props;
-    const possibleVariants = getPossibleOptionCombinations(product);
     let { selectedOptions } = this.state;
-    selectedOptions = [...Object.values(selectedOptions), option.id];
-    const isPossible = possibleVariants.some(c => intersect(c, selectedOptions).length > 0);
+    const possibleVariants = getPossibleOptionCombinations(product);
+
+    // If option already in selectedOptions, override it as this is a new selection
+    selectedOptions = {
+      ...selectedOptions,
+      [optionCategory.name] : option.id
+    }
+    
+    // get only id's
+    selectedOptions = Object.values(selectedOptions);
+
+    // Check if there's a complete intersection with the possibleVariants
+    const isPossible = possibleVariants.some(c => intersect(c, selectedOptions).length === selectedOptions.length);
 
     return isPossible;
   }
@@ -118,16 +129,21 @@ class ProductAdder extends Component {
         </ul>
         {
          !!options && options.map(o =>(
-           <React.Fragment>
+           <React.Fragment 
+           key={"option-"+o.name}
+           >
              <h4>
                {o.name}:
              </h4>
             <ButtonOptions
               editMode={editMode}
-              options={o.variants.map(option => ({
-                ...option,
-                disabled: !this.optionIsPossible(option)
-              }))}
+              options={o.variants.map(option => {
+                const disabled = !this.optionIsPossible(option, o)
+                  return {
+                  ...option,
+                  disabled 
+                }}
+              )}
               onChange={oVal => this.selectOption(o.name, oVal.id)}
             />
           </React.Fragment>
