@@ -482,6 +482,7 @@ textarea::placeholder {
 button,
 [role=button] {
   cursor: pointer;
+  display: inline-block;
 }
 
 /**
