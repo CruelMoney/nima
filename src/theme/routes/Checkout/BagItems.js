@@ -46,9 +46,9 @@ class BagItems extends Component {
                               alt={item.thumbnail.alt1}
                             />
                           </div>
-                          <p className="ml-3 mb-0 w-4/5">
+                          <p className="text-sm ml-3 mb-0 w-4/5">
                             {item.quantity > 1 ? item.quantity + "x" : ""} {item.title}
-                            <span className="capitalize block">
+                            <span className="capitalize block text-xs">
                               {item.variation.combination.map(c => c.label).join(', ')}
                             </span>
                           </p>
