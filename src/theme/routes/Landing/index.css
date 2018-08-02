@@ -84,4 +84,8 @@
     width: 120px !important;
     margin-bottom: 1em;
   }
+  .landingVideo video,
+  .landingVideo img{
+    filter: grayscale(0%);
+  }
 }

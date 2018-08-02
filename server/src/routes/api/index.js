@@ -34,6 +34,7 @@ const setup = (app) => {
     },
     Configuration: {
       path: 'configuration',
+      populate : ["siteMeta.image"],
       envelop: false
     },
     Overview : {

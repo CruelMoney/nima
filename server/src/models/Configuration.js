@@ -57,6 +57,11 @@ var GeneralConfiguration = new keystone.List('GeneralConfiguration', {
 });
 GeneralConfiguration.add({ 
     name: {type: String, default: "General", noedit:true, hidden:true},
+    siteMeta: {
+        title: {type: String},
+        description: {type: String},
+        image: { type: Types.Relationship, ref: 'FileUpload', many: false, createInline: true },
+    },
     contact:{
         email: {type: Types.Email, displayGravatar: true},
         phone: {type: String},
