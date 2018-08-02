@@ -1,0 +1,17 @@
+.status{
+  background: #eee;
+  padding: 0.5em 1em;
+  border-radius: 50%;
+  border-radius: 2em;
+  display: inline-block;
+  text-transform: capitalize;
+}
+.status[data-status="succeeded"] {
+  background: #469776;
+  color:white;
+}
+.status[data-status="printed"],
+.status[data-status="uncaptured"]{
+  background: #E4A236;
+  color:white;
+}

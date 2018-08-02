@@ -70,7 +70,7 @@ export default (WrappedComponent) => {
         });
         let data = await fetch(domain+`/api/admin/products?page=${page}&perPage=${perPage}&sort=${sort}`);
         data = await data.json();
-        const {results, ...rest} = data.products;
+        const {results, ...rest} = data;
         this.setState({
           ...rest,
           products: results.map(this.parseProduct),

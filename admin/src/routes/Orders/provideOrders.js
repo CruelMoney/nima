@@ -67,7 +67,7 @@ export default (WrappedComponent) => {
         });
         let data = await fetch(domain+`/api/admin/orders?page=${page}&perPage=${perPage}&sort=${sort}`);
         data = await data.json();
-        const {results, ...rest} = data.orders;
+        const {results, ...rest} = data;
         this.setState({
           ...rest,
           orders: results.map(this.parseOrder),

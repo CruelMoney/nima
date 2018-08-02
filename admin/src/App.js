@@ -4,6 +4,8 @@ import Layout from './components/Layout';
 import { BrowserRouter, Route } from 'react-router-dom'
 import Orders from './routes/Orders';
 import Products from './routes/Products';
+import Customers from './routes/Customers';
+import Discounts from './routes/Discounts';
 
 class App extends Component {
   render() {
@@ -12,6 +14,8 @@ class App extends Component {
         <Layout>
           <Route path="/admin/orders" component={(Orders)}/>
           <Route path="/admin/inventory" component={(Products)}/>
+          <Route path="/admin/customers" component={(Customers)}/>
+          <Route path="/admin/discounts" component={(Discounts)}/>
         </Layout>
       </BrowserRouter>
     );

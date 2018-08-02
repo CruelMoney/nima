@@ -51,9 +51,19 @@ const setup = (app) => {
       envelop: false,
     },
     Order : {
+      envelop: false,
       path: 'admin/orders',
     },
+    Coupon : {
+      envelop: false,
+      path: 'admin/discounts',
+    },
+    User : {
+      envelop: false,
+      path: 'admin/customers',
+    },
     Product : {
+      envelop: false,
       path: 'admin/products',
       populate : ["tags", 'thumbnail'],
     },
