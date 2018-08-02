@@ -73,7 +73,6 @@ p{
 a{
   text-decoration: none;
   color: #8D0E20;
-  
 }
 
 h1{
@@ -98,11 +97,11 @@ h3{
 }
 
 ::selection {
-  background: #8D0E20; 
+  background: #ad8d72; 
   color: white;
 }
 ::-moz-selection {
-  background: #8D0E20; 
+  background: #ad8d72; 
   color: white;
 }
 strong{

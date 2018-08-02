@@ -6,7 +6,7 @@ import Product from './Product';
 import NotFound from './NotFound';
 import Loading from '../Loading';
 import { Helmet } from 'react-helmet';
-
+import Lookbook from './Lookbook';
 
 class Page extends Component {
   render() {
@@ -24,6 +24,9 @@ class Page extends Component {
     }else if(page.__t === 'Product'){
       PageComponent = Product;
       type = "product";
+    }else if(page.__t === 'Lookbook'){
+      PageComponent = Lookbook;
+      type = "article";
     }else{
       PageComponent = Post;
       type = "article";

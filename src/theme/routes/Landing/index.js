@@ -26,7 +26,7 @@ class Landing extends Component {
     const conf = data.results && data.results.find( c => c.__t === "GeneralConfiguration");
     if (!!conf) return {
       ...conf.siteMeta,
-      image: publicURL + '/uploads/files/'+conf.siteMeta.image.file.filename
+      image: publicURL + conf.siteMeta.image.url
     }; 
     return {};
   }

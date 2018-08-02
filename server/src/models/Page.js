@@ -71,6 +71,11 @@ Product.add({
 Product.register();
 
 
+var Lookbook = new keystone.List('Lookbook', { 
+	inherits: BasePage, 
+	defaultColumns: "title",
+});
+Lookbook.register();
 
 
 

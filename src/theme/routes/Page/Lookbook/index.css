@@ -1,0 +1,30 @@
+
+.lookbook-page .content-wrapper  img{
+  width: 66.666% !important;
+  margin-bottom: 1.5em;
+}
+.lookbook-page .content-wrapper p{
+  padding-right: 50%;
+}
+.lookbook-page .content-wrapper p span{
+  line-height: 1.5em;
+}
+
+.lookbook-page{
+  min-height: 800px;
+}
+
+.vertical-text {
+	transform: translateX(-100%) rotate(-90deg);
+  transform-origin: right top 0;
+  text-align: right;
+}
+
+@media (max-width: 768px){
+  #root .lookbook-page .content-wrapper img{
+    width: 100% !important;
+  }
+  .lookbook-page p{
+    padding-right: 0% !important;
+  }
+}

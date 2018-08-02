@@ -1,6 +1,6 @@
 var keystone = require('keystone');
 var Types = keystone.Field.Types;
-
+var namefunctions = require('keystone-storage-namefunctions')
 /**
  * File Upload Model
  * ===========
@@ -8,16 +8,20 @@ var Types = keystone.Field.Types;
  */
 
 var FileUpload = new keystone.List('FileUpload');
+var Adapter = keystone.Storage.Adapters.FS;
 
 var myStorage = new keystone.Storage({
-    adapter: keystone.Storage.Adapters.FS,
+    adapter: Adapter,
     fs: {
         path: keystone.expandPath('public/uploads/files'), // required; path where the files should be stored
         publicPath: '/uploads/files', // path where files will be served
-        whenExists: 'overwrite',
-        generateFilename: (file, attempt, cb)=> {
-            cb(null, file.originalname)
-        },
+        whenExists: "overwrite",
+        generateFilename: function(filename, callback){
+            console.log({filename})
+            return namefunctions.contentHashFilename(filename, callback)
+        }
+        
+       
     },
 });
 
