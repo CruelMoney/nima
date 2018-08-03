@@ -38,6 +38,12 @@ FileUpload.add({
   fileType: {type: String}
 });
 
+// Capture stripe payment when order isSent
+FileUpload.schema.pre('save', function(next) {
+    this.url = ('/uploads/files/'+this.file.filename);
+    next();
+});
+
 
 FileUpload.defaultColumns = 'name';
 FileUpload.register();
