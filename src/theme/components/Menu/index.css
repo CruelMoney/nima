@@ -100,7 +100,8 @@ nav li > div > p{
   transition: opacity 250ms ease;
 }
 .shop .go-back-button,
-.home .go-back-button{
+.home .go-back-button,
+div[class*=lookbook] .go-back-button{
   opacity: 0;
 }
 .go-back-button:before{
