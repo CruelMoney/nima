@@ -16,7 +16,11 @@ var myStorage = new keystone.Storage({
         path: keystone.expandPath('public/uploads/files'), // required; path where the files should be stored
         publicPath: '/uploads/files', // path where files will be served
         whenExists: "overwrite",
-        generateFilename: namefunctions.contentHashFilename   
+        generateFilename: function(file, i, callback){
+            const name = namefunctions.contentHashFilename(file, i, callback);
+            console.log({name, file});
+            return name;
+        }  
     }
 });
 

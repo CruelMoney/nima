@@ -15,19 +15,19 @@ class Lookbook extends Component {
   }
 
   scrollHandler = (e) => {
-    
-    e.preventDefault();
-    if(!!this.scroller){
-      this.scroller.scrollLeft += e.deltaX + e.deltaY;
+    const { editmode } = this.props
+    if(!editmode){
+      e.preventDefault();
+      if(!!this.scroller){
+        this.scroller.scrollLeft += e.deltaX + e.deltaY;
+      }
     }
   }
 
   render() {
-    console.log(this.props)
-    const { page } = this.props
+    const { page, editmode } = this.props
     return (
-      <div className="lookbook-page">
-     
+      <div className={`lookbook-page ${editmode ? "editmode" : ""}`}>
         <div className="vertical-text-wrapper">
         <div className="container mx-auto">
         <div className="vertical-text">
