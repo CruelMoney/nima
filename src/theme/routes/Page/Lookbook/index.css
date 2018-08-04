@@ -86,7 +86,7 @@
 
 
 @media (max-width: 462px){
-  .lookbook-page{
+  .lookbook-page:not(.edit-mode){
     display: block;
     height: auto;
     width: auto;
@@ -109,9 +109,10 @@
   .vertical-text h1{
     font-size: 2em;
   }
-  .lookbook-page .horizontal-scroll{
+  .lookbook-page:not(.edit-mode) .horizontal-scroll{
     height: 70vh;
     padding-left: 1em;
+    margin-bottom: 2em;
   }
   .horizontal-scroll .content-wrapper > *:last-child{
     padding-right: 1em;

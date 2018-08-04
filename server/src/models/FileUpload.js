@@ -10,6 +10,11 @@ var namefunctions = require('keystone-storage-namefunctions')
 var FileUpload = new keystone.List('FileUpload');
 var Adapter = keystone.Storage.Adapters.FS;
 
+function getFileExtension(filename) {
+    return filename.slice((filename.lastIndexOf(".") - 1 >>> 0) + 2);
+  }
+  
+
 var myStorage = new keystone.Storage({
     adapter: Adapter,
     fs: {
@@ -17,9 +22,8 @@ var myStorage = new keystone.Storage({
         publicPath: '/uploads/files', // path where files will be served
         whenExists: "overwrite",
         generateFilename: function(file, i, callback){
-            const name = namefunctions.contentHashFilename(file, i, callback);
-            console.log({name, file});
-            return name;
+            file.extension = getFileExtension(file.originalname);
+            namefunctions.contentHashFilename(file, i, callback);
         }  
     }
 });
