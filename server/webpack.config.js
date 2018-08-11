@@ -6,16 +6,24 @@ function isProd(valProd, valDev) {
   return process.env.NODE_ENV === 'production' ? valProd : valDev;
 }
 
+const output = isProd({
+  path: __dirname + '/build',
+  filename: 'bundle.js',
+  chunkFilename: isProd('[id].[hash].chunk.js', '[id].chunk.js'),
+}, {
+  path: __dirname + '/build',
+  filename: 'bundle.js',
+  library: 'keystone',
+  libraryTarget: 'umd',
+  umdNamedDefine: true
+})
+
 module.exports = {
   entry: './src/index.js',
   resolve: {
     extensions: ['.js', '.jsx']
   },
-  output: {
-    path: __dirname + '/build',
-    filename: 'bundle.js',
-    chunkFilename: isProd('[id].[hash].chunk.js', '[id].chunk.js'),
-  },
+  output,
   target: 'node',
   externals: [
     nodeExternals()

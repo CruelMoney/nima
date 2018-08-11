@@ -235,7 +235,7 @@ label {
   margin-bottom: .5rem;
 }
 
-button {
+button, .button-look {
   border-radius: 0;
   cursor: pointer;
 }
@@ -249,7 +249,8 @@ input,
 button,
 select,
 optgroup,
-textarea {
+textarea,
+.button-look {
   margin: 0;
   font-family: inherit;
   font-size: inherit;
@@ -257,16 +258,19 @@ textarea {
 }
 
 button,
+.button-look,
 input {
   overflow: visible;
 }
 
 button,
+.button-look,
 select {
   text-transform: none;
 }
 
 button,
+.button-look,
 html [type="button"],
 [type="reset"],
 [type="submit"] {

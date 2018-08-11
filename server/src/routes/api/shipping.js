@@ -4,7 +4,7 @@ const shipping = require('../../logic/shipping');
 const get = async (req, res) => {
   const id = req.params.id;
   try {
-    const shipment = await shipping.getOrderShippingStatus(id);
+    const shipment = await shipping.getShippingStatus({parcelID:id});
     if (!shipment) throw new Error("No shipment.");
     return res.apiResponse(shipment);
   } catch (error) {

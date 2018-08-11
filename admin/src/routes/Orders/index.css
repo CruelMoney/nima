@@ -15,3 +15,19 @@
   background: #E4A236;
   color:white;
 }
+
+.shipping-modal{
+  max-width: 700px;
+}
+.shipping-modal tr{
+  border-bottom: 1px solid #eee;
+}
+.shipping-modal th,
+.shipping-modal td{
+  padding: 1em;
+  min-width: 100px;
+}
+
+.status.delivery{
+  cursor: pointer;
+}

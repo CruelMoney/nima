@@ -2,7 +2,8 @@
 .dropdown{
   position: relative;
 }
-.dropdown .popup{
+
+.popup{
   z-index: 1;
   left: -100%;
   top: 100%;

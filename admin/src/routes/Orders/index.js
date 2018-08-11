@@ -3,6 +3,7 @@ import DataTable from '../../components/DataTable';
 import provideOrders from './provideOrders';
 import ActionDropdown from './actionDropdown';
 import currencyFormatter from 'currency-formatter';
+import ShippingModal from './shippingModal';
 
 import './index.css';
 
@@ -26,9 +27,8 @@ const columns = [{
   Header: 'Shipping status',
   accessor: 'shippingStatus', // String-based value accessors!
   Cell: props => {
-    const val = !!props.value ? props.value : "Not available";
-    return <span className='status' data-status={val}>{val}</span>
-} 
+    return <ShippingModal shipping={props.value} />
+  } 
 },
 {
   Header: 'Payment status',

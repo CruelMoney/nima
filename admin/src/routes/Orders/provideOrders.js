@@ -13,12 +13,16 @@ export default (WrappedComponent) => {
     }
 
     fetchShipment =  async (order) => {
-      if(order.shippingID){
-        let status = "Not available";
+      if(!!order.parcelID){
+        let status = false;
         try {
-          const response = await fetch(domain+`/api/shipment/${order.shippingID}`).then(r => r.json());
-          if(!response.error && typeof response === 'string'){
-            status = response;
+          const response = await fetch(domain+`/api/shipment/${order.parcelID}`).then(r => r.json());
+          if(!response.error && response.status){
+            status = {
+              status: response.status,
+              ...response.statusText,
+              events: response.items[0].events
+            };
           }
         } catch (error) {
           console.log(error)
@@ -57,6 +61,7 @@ export default (WrappedComponent) => {
       this.fetchShipment(order);
       order.fetchPayment = () => this.fetchPayment(order);
       order.fetchShipment = () => this.fetchShipment(order);
+      order.fetchUpdate = () => this.fethcOrder(order._id);
       return order;
     }
   
@@ -74,6 +79,29 @@ export default (WrappedComponent) => {
           error: null,
           loading: false
         });
+      } catch (error) {
+        this.setState({
+          loading: false,
+          error: !!error.message ? error.message : error
+        });
+      }
+    }
+
+    fethcOrder = async ({orderID}) => {
+      try {
+        this.setState({
+          loading:true
+        });
+        let data = await fetch(domain+`/api/admin/orders/${orderID}`);
+        const order = await data.json();
+        this.setState(state=>({
+          orders: state.orders.map(o => {
+            if(o._id === order._id) return this.parseOrder(order);
+            return o;
+          }),
+          error: null,
+          loading: false
+        }));
       } catch (error) {
         this.setState({
           loading: false,
@@ -105,6 +133,7 @@ export default (WrappedComponent) => {
           {...this.state}
           orders={this.getData()}
           fetchOrders={this.fetchOrders}
+          fethcOrder={this.fethcOrder}
           />
       )
     }

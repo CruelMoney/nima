@@ -3,7 +3,9 @@ import { selectLimit } from 'async';
 const path = require('path');
 const publicPath = path.resolve(__dirname, 'public');
 const domain = "https://api.unifaun.com/rs-extapi/v1";
-const key = "XJ522I4AVICQFOVX-IIWR2XMRK5JS5SOD7TA2PEE5";
+const unifaunKey = "XJ522I4AVICQFOVX-IIWR2XMRK5JS5SOD7TA2PEE5";
+const postNordKey = '69fdacac1f8eb433fe6dd0e10680cf90';
+const postNordDomain = 'https://api2.postnord.com';
 var cache = require('memory-cache');
 
 function sleep(ms) {
@@ -96,7 +98,7 @@ const getCacheElseFetch = async (url) => {
     headers: new Headers({
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + key,
+      'Authorization': 'Bearer ' + unifaunKey,
     })
   }).then(result => result.json());
   return cache.put(url, JSON.stringify(data), 1000*60*10); // Save for 10 minutes
@@ -110,7 +112,7 @@ const getOrderShipment =  async (order) => {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + key,
+        'Authorization': 'Bearer ' + unifaunKey,
       },
       body: JSON.stringify(shipment)
     })
@@ -123,7 +125,12 @@ const getOrderShipment =  async (order) => {
       const basePath = `/labels/${order._id}.pdf`;
       await fs.outputFile(`${publicPath}${basePath}`, labelBase64, {encoding: 'base64'});
       const labelLink = process.env.PUBLIC_URL+basePath;
+      
+      const parcels = data.parcels;
+      const parcelID = parcels.length !== 0 ? parcels[0].parcelNo : undefined;
+
       return {
+        parcelID: parcelID,
         id: data.id,
         label: labelLink
       }
@@ -156,7 +163,7 @@ const getShippings = () => {
     headers: new Headers({
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + key,
+      'Authorization': 'Bearer ' + unifaunKey,
     })
   }).then(result => result.json());
 } 
@@ -167,11 +174,56 @@ const getShipping = (id) => {
     headers: new Headers({
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + key,
+      'Authorization': 'Bearer ' + unifaunKey,
     })
   }).then(result =>{
-    console.log(result)
     return result.json()});
+}
+
+
+const getShippingStatus = async ({parcelID}) => {
+  const requesturl =  
+    postNordDomain +
+    '/rest/shipment/v1/trackandtrace/findByIdentifier.json?' +
+    'apikey=' + postNordKey + 
+    '&id=' + encodeURI(parcelID) +
+    '&locale=da';
+
+    return fetch(requesturl ,{
+      method: 'GET',
+      headers: {
+        'content-type': 'application/json'
+      }
+    })
+    .then(result => result.json())
+    .then(data => {
+      const shipments = data.TrackingInformationResponse.shipments;
+      if(shipments.length === 0){
+        throw new Error("No shipments found");
+      }
+      return shipments[0];
+    })
+    .catch(error => error);
+}
+
+const getDeliveryPoints = ({zip, city, street}) => {
+  const requesturl =  
+    postNordDomain +
+    '/rest/businesslocation/v1/servicepoint/findNearestByAddress.json?'+
+    'apikey=' + postNordKey +
+    '&countryCode=DK'+
+    '&postalCode='+encodeURI(zip) +
+    '&city='+encodeURI(city) +
+    '&streetName='+encodeURI(street);
+
+  return fetch(requesturl ,{
+      method: 'GET',
+      headers: {
+        'content-type': 'application/json'
+      }
+    })
+    .then(result => result.json())
+    .catch(error => error);
 }
 
 
@@ -179,5 +231,7 @@ export{
   getOrderShipment,
   getOrderShippingStatus,
   getShipping,
-  getShippings
+  getShippings,
+  getShippingStatus,
+  getDeliveryPoints
 }

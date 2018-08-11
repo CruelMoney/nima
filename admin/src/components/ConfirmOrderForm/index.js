@@ -10,7 +10,8 @@ export default class RefundForm extends Component {
   state={
     error: null,
     submitting:false,
-    success: false
+    success: false,
+    confirmedOrder: {}
   }
 
   confirmOrder = async (charge) => { 
@@ -36,7 +37,8 @@ export default class RefundForm extends Component {
       }
       this.setState({
         error: null,
-        success: "Order confirmed"
+        success: "Order confirmed",
+        confirmedOrder: res
       });
       order.fetchPayment();
       order.fetchShipment();
@@ -57,7 +59,7 @@ export default class RefundForm extends Component {
 
   render() {
     const {order} = this.props;
-    const {submitting, success} = this.state;
+    const {submitting, success, confirmedOrder} = this.state;
 
     return (
       <div>
@@ -95,8 +97,8 @@ export default class RefundForm extends Component {
                   Cancel
                 </button>
                 {
-                  success ? 
-                    <a className="button-look" target={'_blank'} href={order.shippingLabel}>Shipping label</a>
+                  success && confirmedOrder ? 
+                    <a className="button-look" target={'_blank'} href={confirmedOrder.shippingLabel}>Shipping label</a>
                   :
                   <button 
                   disabled={submitting}

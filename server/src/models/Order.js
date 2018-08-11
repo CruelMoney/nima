@@ -50,8 +50,8 @@ Order.add(
   {items: { type: String, noedit:true, required: true, initial: true }}, // need to be string to contain information about amount
   {stripeID: { type: String, noedit:true, required: true, initial: true }},
   {shippingID: { type: String, noedit:true }},
+  {parcelID: { type: String }},
   {shippingLabel: { type: String, noedit:true }},
-  {parcelNumber: { type: String }},
 );
 
 Order.schema.plugin(AutoIncrement, {inc_field: 'orderID'});

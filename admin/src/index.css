@@ -53,7 +53,8 @@ a.active .icon svg{
 }
 
 
-button{
+button, .button-look{
+  text-align: center;
   background: #6772e5;
   color: white;
   padding: 0.4em 1em;
@@ -61,25 +62,54 @@ button{
   border-radius: 4px !important;
   transition: all 100ms ease;
 }
-button.transparent{
+button.transparent, .button-look.transparent{
   border: 2px solid #6772e5;
   background: transparent;
   color: #6772e5;
 }
-button.light{
+button.light, .button-look.light{
   
   background: #b5b9e3
 }
-button.light:hover{
+button.light:hover, .button-look.light:hover{
   background: #6772e5;
 }
-button.warning{
+button.warning, .button-look.warning{
   color: white;
   border-color: hsla(351, 60%, 80%, 1);
   background-color: hsla(351, 60%, 80%, 1); 
 }
-button.warning:hover{
+button.warning:hover, .button-look.warning:hover{
   color: white;
   background-color: #8D0E20;
   border-color: #8D0E20;
+}
+
+/* Tooltip container */
+.tooltip {
+  position: relative;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  width: 400px;
+  word-wrap: break-word;
+  height: auto;
+  overflow: auto;
+  overflow-wrap: break-word;
+}
+.tooltip .tooltiptext p {
+  margin: 0;
+  widows: 100%;
+  white-space:normal;
+}
+
+
+.tooltip .tooltiptext strong {
+  display: block;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  display: block;
 }

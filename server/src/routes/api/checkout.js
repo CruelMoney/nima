@@ -27,6 +27,8 @@ const post = async (req, res) => {
     ...rest
   } = req.body;
 
+  console.log(JSON.stringify(req.body))
+
   let dbPrice = 0;
 
   try {
@@ -190,6 +192,7 @@ const post = async (req, res) => {
 
 
     // return new product stock
+    res.status(201);
     return res.apiResponse(order);
 
   } catch (error) {
@@ -280,7 +283,8 @@ const confirmOrder = async (req, res) => {
       const shipment = await shipping.getOrderShipment(dbOrder);
       dbOrder.set({ 
         shippingID: shipment.id,
-        shippingLabel: shipment.label
+        shippingLabel: shipment.label,
+        parcelID: shipment.parcelID
       });
       await dbOrder.save();
     }
@@ -307,27 +311,12 @@ const confirmOrder = async (req, res) => {
 
 const deliveryPoints = async (req, res) =>  {
   const {zip, city, street} = req.body;
-
-  const requesturl =  
-  'https://api2.postnord.com'+
-  '/rest/businesslocation/v1/servicepoint/findNearestByAddress.json?'+
-  'apikey=69fdacac1f8eb433fe6dd0e10680cf90'+
-  '&countryCode=DK'+
-  '&postalCode='+encodeURI(zip)+
-  '&city='+encodeURI(city)+
-  '&streetName='+encodeURI(street)
-
-  return fetch(requesturl ,{
-      method: 'GET',
-      headers: {
-        'content-type': 'application/json'
-      }
-    })
-    .then(result => result.json())
+  return shipping.getDeliveryPoints({zip, city, street})
     .then(data => {
-     return res.apiResponse(data)
+      return res.apiResponse(data)
     })
     .catch((error)=>{
+      console.log({error})
       return res.apiError(error);
     })
 }
