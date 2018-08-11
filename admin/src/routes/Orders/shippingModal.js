@@ -23,12 +23,13 @@ class shippingModal extends PureComponent {
     const { modal } = this.state;
 
     const defaultStatus = {
-      status: "Not available",
+      status: "...fetching",
       body: "",
       header: "",
       events: []
     };
     let status = !!shipping ? shipping : defaultStatus
+    const displayStatus = status.status.toLowerCase();
     
     return( 
       <div>
@@ -71,8 +72,11 @@ class shippingModal extends PureComponent {
             }
            </table>
         </Modal>
-      <div onClick={this.openModal} className='status delivery tooltip' data-status={status.status}>
-        {status.status}
+      <div 
+        onClick={_ => !!status.header && this.openModal()} 
+        className={`status ${!!status.header ? "delivery" : ""} tooltip`} 
+        data-status={displayStatus}>
+        {displayStatus}
         {
           !!status.header ? 
           <div class="tooltiptext popup">

@@ -13,8 +13,14 @@ export default (WrappedComponent) => {
     }
 
     fetchShipment =  async (order) => {
+     
+      let status = {
+        status: "Not available",
+        body: "",
+        header: "",
+        events: []
+      };
       if(!!order.parcelID){
-        let status = false;
         try {
           const response = await fetch(domain+`/api/shipment/${order.parcelID}`).then(r => r.json());
           if(!response.error && response.status){
@@ -27,13 +33,13 @@ export default (WrappedComponent) => {
         } catch (error) {
           console.log(error)
         }
-        return this.setState({
-          shipments:{
-            ...this.state.shipments,
-            [order._id]: status
-          }
-        });
       }
+      this.setState({
+        shipments:{
+          ...this.state.shipments,
+          [order._id]: status
+        }
+      });
     }
 
     fetchPayment =  async (order) => {

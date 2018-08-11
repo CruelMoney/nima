@@ -44,6 +44,8 @@ a.active .icon svg{
 }
 .modal{
   max-width: 500px;
+  max-height: 90vh;
+  overflow: scroll;
   padding: 3em;
   border-radius: 4px;
   box-shadow: 0 0 0 1px rgba(0,0,0,.07), 0 2px 15px rgba(84,96,103,.25);
@@ -96,11 +98,11 @@ button.warning:hover, .button-look.warning:hover{
   word-wrap: break-word;
   height: auto;
   overflow: auto;
+  color: #111;
   overflow-wrap: break-word;
 }
 .tooltip .tooltiptext p {
   margin: 0;
-  widows: 100%;
   white-space:normal;
 }
 

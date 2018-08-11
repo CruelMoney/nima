@@ -1,23 +1,27 @@
 .status{
-  background: #eee;
+  background: #E4A236;
+  color:white;
   padding: 0.5em 1em;
   border-radius: 50%;
   border-radius: 2em;
   display: inline-block;
   text-transform: capitalize;
 }
+.status[data-status="delivered"],
 .status[data-status="succeeded"] {
   background: #469776;
   color:white;
 }
-.status[data-status="printed"],
-.status[data-status="uncaptured"]{
-  background: #E4A236;
-  color:white;
+.status[data-status="not available"],
+.status[data-status="...fetching"]
+{
+  background: #eee;
+  color:#111;
 }
 
 .shipping-modal{
   max-width: 700px;
+  color: #111;
 }
 .shipping-modal tr{
   border-bottom: 1px solid #eee;
