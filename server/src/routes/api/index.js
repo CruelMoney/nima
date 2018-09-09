@@ -47,7 +47,19 @@ const setup = (app) => {
       envelop: false,
     },
     ShippingOption: {
-      path : "shipping",
+      path : "shipping/option",
+      envelop: false,
+    },
+    ShippingZone: {
+      path : "shipping/zone",
+      envelop: false,
+    },
+    ShippingRate: {
+      path : "shipping/rate",
+      envelop: false,
+    },
+    ShippingMethod: {
+      path : "shipping/method",
       envelop: false,
     },
     Order : {
