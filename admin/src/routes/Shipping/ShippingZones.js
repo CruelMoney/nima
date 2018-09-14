@@ -4,6 +4,41 @@ import Modal from 'react-responsive-modal';
 import {continents, countries as countriesJSON} from 'countries-list';
 import removeAt from 'sugar/array/removeAt'
 import insertAt from 'sugar/array/insert'
+import CountriesSummary from './CountriesSummary';
+
+
+const Zone = ({...props, name, countries, shippingRates}) => {
+  
+  return (
+    <div>
+      <div className="row">
+        <h4>{name}</h4>
+        <CountriesSummary countries={countries} />
+        { 
+          shippingRates.map( rate => {
+            return(
+            <div className="shipping-rate">
+              <span>
+                <h5>{rate.name}</h5>
+                <p>{rate.description}</p>
+                {rate.minimumSpend > 0 ? 
+                  <p>
+                    Available for {rate.minimumSpend} Kr. and up
+                  </p>
+                  : null}
+              </span>
+              <span>
+                {rate.rateAmount} Kr.
+              </span>
+            </div>)
+          }) 
+        }
+      </div>
+     
+    </div>
+  )
+}
+
 
 class ShippingZones extends PureComponent {
 
@@ -14,31 +49,75 @@ class ShippingZones extends PureComponent {
   toggleModal = (open, m) => {
     this.setState({
       modal: open,
-      activeMethod: m
+      activeZone: m
     });
   }
 
+
+  deleteItem = async (values, modal) => {
+    const {deleteItem} = this.props;
+    try {
+      await deleteItem(values);
+      this.setState({
+        modal: modal,
+      });
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  saveShippingRate = async (values) => {
+    const {saveItem} = this.props;
+    try {
+      return await saveItem(values);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+
+  saveShippingZone = async (values) => {
+    const {saveItem, fetchShippingZones} = this.props;
+    try {
+      await saveItem(values);
+      fetchShippingZones({page:1,perPage:100});
+      this.setState({
+        modal: false,
+      });
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+
   render() {
-    const {modal, activeMethod} = this.state;
-    const {shippingZones, saveItem, shippingMethods} = this.props;
+    const {modal, activeZone} = this.state;
+    const {shippingZones, shippingMethods} = this.props;
     return (
       <div className="card padding">
         <h2>Shipping zones</h2>
-        <div className="flex-items">
+        <p>
+        Each shipping zone consists of a set of countries, and the available shipping rates for those countries.
+        </p>
+        <div className="flex-items halfs">
           {shippingZones.map(m => (
-             <button 
-             onClick={_ => this.toggleModal(true, m)} 
-             className="add transparent item">
-              <h4>{m.name}</h4>
-              <p>{m.description}</p>
-              <p>{m.deliveryDescription}</p>
-            </button>
+            <div key={m._id}>
+              <button 
+              onClick={_ => this.toggleModal(true, m)} 
+              className="transparent item">
+              <Zone {...m} />
+              </button>
+            </div>
+           
           ))}
+          <div>
           <button 
           onClick={_ => this.toggleModal(true)} 
-          className="add transparent">
+          className="add item transparent center">
             <span>+</span>
           </button>
+          </div>
+        
         </div>
         <Modal 
           classNames={{
@@ -50,9 +129,11 @@ class ShippingZones extends PureComponent {
           center>
           <ShippingZoneDetail 
             items={shippingZones}
-            saveItem={saveItem}
-            method={activeMethod}
+            saveShippingRate={this.saveShippingRate}
+            saveShippingZone={this.saveShippingZone}
+            deleteItem={this.deleteItem}
             shippingMethods={shippingMethods}
+            zone={activeZone}
           />
         </Modal>
       </div>
@@ -67,15 +148,62 @@ export default ShippingZones;
 
 class ShippingZoneDetail extends PureComponent{
 
+  valueGetters = { }
 
   updateOrCreate = async ({values, setSubmitting}) => {
-    const { saveItem } = this.props;
+    const { saveShippingZone, saveShippingRate } = this.props;
     try {
-      await saveItem({method: values});
+      const countries = JSON.stringify(this.getCountries());
+
+
+      // first create shipping rates
+      let newRates = await Promise.all(
+        values.shippingRates.map(r => ({
+          rate: r
+        }))
+        .map(async r => await saveShippingRate(r))
+      );
+      
+      const rateIDs = [
+        ...newRates.filter(r => !!r), 
+      ].map(r => r._id);
+
+      await saveShippingZone({zone: {
+        ...values, 
+        countries,
+        shippingRates: rateIDs
+      }});
     } catch (error) {
       console.log(error);
     }
     setSubmitting(false);
+  }
+
+  delete = async ({setSubmitting}) => {
+    const { zone, deleteItem} = this.props;
+    try {
+      await deleteItem({zone});
+    } catch (error) {
+      console.log(error);
+    }
+    setSubmitting(false);
+  }
+
+  deleteShippingRate = async ({rate}) => {
+    const { deleteItem} = this.props;
+    try {
+      await deleteItem({rate}, true);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  registerValueGetter = (key, fun) => {
+    this.valueGetters[key] = fun;
+  }
+
+  getCountries = () => {
+    return this.valueGetters.countries();
   }
 
 
@@ -84,9 +212,15 @@ class ShippingZoneDetail extends PureComponent{
     zone = zone ? zone : {
       id: null,
       name: '', 
-      shippingRates: [],
-      countries: {},
-      continents: {},
+      shippingRates: [{
+        name: "",
+        shippingMethod: '',
+        deliveryDescription: "",
+        description: "",
+        minimumSpend: 0,
+        rateAmount: 0
+      }],
+      countries: [],
     };
 
     return (
@@ -120,8 +254,12 @@ class ShippingZoneDetail extends PureComponent{
               </label>
               {errors.name && touched.name && errors.name}
               
-              <Countries values={values} setValues={setValues}/>
+              <Countries 
+                initialValues={zone.countries}
+                registerValueGetter={this.registerValueGetter}
+                />
               <ShippingRates 
+              deleteShippingRate={this.deleteShippingRate}
               values={values} 
               setValues={setValues}
               shippingMethods={shippingMethods}
@@ -168,18 +306,32 @@ function resizeAllGridItems(){
 
 
 class Countries extends PureComponent{
-  state={
-    search: "",
-    countries: Object.keys(countriesJSON).map(c => ({
-      ...countriesJSON[c],
-      id: c,
-      selected: false
-    }))
+  constructor(props){
+    super(props);
+    const { initialValues } = props;
+    console.log(initialValues)
+    this.state={
+      search: "",
+      countries: Object.keys(countriesJSON).map(c => ({
+        ...countriesJSON[c],
+        id: c,
+        selected: initialValues.some(v => v.id === c)
+      }))
+    }
+  
   }
 
+  
   componentDidMount(){
+    const {registerValueGetter} = this.props;
     resizeAllGridItems();
     window.addEventListener("resize", resizeAllGridItems);
+    registerValueGetter('countries', _ => {
+      return this.state.countries.filter(c => c.selected).map(c => ({
+        id: c.id,
+        name: c.name
+      }))
+    });
   }
 
   componentWillUnmount(){
@@ -237,24 +389,34 @@ class Countries extends PureComponent{
     countries : state.countries.map(c => c.continent === continent ? {...c, selected : checked} : c)
   }))};
 
+  continentShouldShow = (continent) => {
+    const {search, countries} = this.state;
+    return countries.some(c => c.continent === continent ? c.name.toLowerCase().indexOf(search.toLowerCase()) !== -1 : false)
+  }
+
   render(){ 
     const { search, countries } = this.state;
     const {values, setValues} = this.props;
-
+    
     return (
       <div className="continents-wrapper">
-        <h2>
+      <div className="row">
+        <h2 style={{marginRight: '1em'}}>
           Countries
-        </h2>
-
+          </h2>
+          <CountriesSummary countries={countries.filter(c => c.selected)} />
         <div className="search">
           <input type="text" placeholder="Search" onChange={this.search}/>
         </div>
+      </div>
+      
       <div className="continents">
 
 
       <ol className="masonry">
-        {Object.keys(continents).map(con => {
+        {Object.keys(continents)
+        .filter(this.continentShouldShow)
+        .map(con => {
           return(
             <li className="masonry-item" key={con}>
               <div className="content">
@@ -270,7 +432,7 @@ class Countries extends PureComponent{
                   <h3>{continents[con]}</h3>
               </label>
              
-              <ol>
+              <ol className="countries">
                 {countries
                 .filter(c => c.continent === con)
                 .filter(c => c.name.toLowerCase().indexOf(search.toLowerCase()) !== -1)
@@ -312,7 +474,7 @@ class ShippingRates extends PureComponent{
       ...values,
       shippingRates : [...values.shippingRates, {
         name: "",
-        shippingMethod: null,
+        shippingMethod: '',
         deliveryDescription: "",
         description: "",
         minimumSpend: 0,
@@ -343,13 +505,15 @@ class ShippingRates extends PureComponent{
   }
 
 
-  removeRate = (idx) => {
-    const { values, setValues } = this.props;
+  removeRate = (idx, rate) => {
+    const { values, setValues, deleteShippingRate } = this.props;
 
     setValues({
       ...values,
       shippingRates : removeAt(values.shippingRates, idx)
     });
+
+    deleteShippingRate({rate});
   }
 
 
@@ -358,7 +522,7 @@ class ShippingRates extends PureComponent{
     const { values, setValues, shippingMethods } = this.props;
 
     return (
-      <div>
+      <div className="margin-bottom">
         <h2>
           Available shipping rates
         </h2>
@@ -373,7 +537,7 @@ class ShippingRates extends PureComponent{
                   {...s}
                   shippingMethods={shippingMethods}
                   setShippingMethod={methodID => this.setShippingMethod(idx, methodID)}
-                  removeRate={this.removeRate}
+                  removeRate={idx => this.removeRate(idx, s)}
                   entity={{
                     idx,
                     key: `shippingRates[${idx}]`
@@ -389,7 +553,7 @@ class ShippingRates extends PureComponent{
       <hr/>
 
         <button  type="button" className="transparent" onClick={this.addNew}>
-        +
+          Add new rate
         </button>
 
       </div>
@@ -438,11 +602,11 @@ class ShippingRate extends PureComponent{
         Shipping method
         
         <select 
-          defaultValue
+          value={shippingMethod}
           id={entity.key+'.shippingMethod'}
           onChange={this.onShippingMethodSelected}
         >
-        <option disabled  value />
+        <option disabled value="" />
           { 
             shippingMethods.map(m => (
               <option 

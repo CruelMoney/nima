@@ -405,6 +405,10 @@ template {
 .nima-form label{
   font-weight: 600;
 }
+.nima-form input,
+.nima-form select{
+  margin-top: 0.4em;
+}
 
 .buttons{
   display: flex;

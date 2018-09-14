@@ -26,8 +26,6 @@ class ShippingMethods extends PureComponent {
     } catch (error) {
       console.log(error)
     }
-
-  
   }
 
   render() {
@@ -37,12 +35,12 @@ class ShippingMethods extends PureComponent {
     return (
       <div className="card padding">
         <h2>Shipping methods</h2>
-        <div className="flex-items">
+        <div className="flex-items fourths">
           {shippingMethods.map((m, idx) => (
             <div key={m._id || ('method-'+idx)}>
               <button 
               onClick={_ => this.toggleModal(true, m)} 
-              className="add transparent item">
+              className="transparent item">
                 <h4>{m.name}</h4>
                 <p>{m.description}</p>
                 <p>{m.deliveryDescription}</p>
@@ -52,7 +50,7 @@ class ShippingMethods extends PureComponent {
           <div>
             <button 
             onClick={_ => this.toggleModal(true)} 
-            className="add transparent">
+            className="add transparent center item">
               <span>+</span>
             </button>
           </div>

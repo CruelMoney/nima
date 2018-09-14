@@ -115,3 +115,20 @@ button.warning:hover, .button-look.warning:hover{
 .tooltip:hover .tooltiptext {
   display: block;
 }
+
+select{
+  background: transparent;
+  border-radius: 0px;
+  -webkit-appearance: none;
+  border: 1px solid #ddd;
+
+}
+
+input,
+select{
+  height: 3em;
+  text-indent: 0.3em;
+}
+.center{
+  text-align: center !important;
+}

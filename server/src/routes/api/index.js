@@ -53,10 +53,12 @@ const setup = (app) => {
     ShippingZone: {
       path : "shipping/zone",
       envelop: false,
+      populate : "shippingRates"
     },
     ShippingRate: {
       path : "shipping/rate",
       envelop: false,
+      populate : "shippingMethod"
     },
     ShippingMethod: {
       path : "shipping/method",

@@ -3,8 +3,24 @@ import React, { Component } from 'react';
 let domain = process.env.REACT_APP_PUBLIC_URL;
 domain = !!domain ? domain : 'https://nimacph.dk';
 
+const parseZone = zone => {
+  return {
+    ...zone,
+    countries: JSON.parse(zone.countries)
+  }
+}
+
+const parsers = {
+  'shippingZones' : parseZone
+}
+
+const parseItem = (key, item) => {
+  return (key in parsers) ? parsers[key](item) : item; 
+}
+
 export default (WrappedComponent) => {
   return class ShippingProvider extends Component {
+    
     state={
       shippingMethods:[],
       shippingZones:[],
@@ -14,7 +30,8 @@ export default (WrappedComponent) => {
     }
 
     addItem = async ({item, key}) => {
-     this.setState(state=>({
+      item = parseItem(key, item);
+      this.setState(state=>({
       [key] : [...state[key].filter(i => i._id !== item._id), item]
      }));
     }
@@ -30,7 +47,7 @@ export default (WrappedComponent) => {
     }
 
     saveItem = async (values) => {
-      return await this.fetch(this.getApiObject(values));
+      return await this.save(this.getApiObject(values));
     }
 
     deleteItem = async (values) => {
@@ -84,10 +101,12 @@ export default (WrappedComponent) => {
         });
         let data = await fetch(domain+`${endpoint}?page=${page}&perPage=${perPage}&sort=${sort}`);
         data = await data.json();
+        
         const {results, ...rest} = data;
+        const values = results.map(i => parseItem(key, i));
         this.setState({
           ...rest,
-          [key]: results,
+          [key]: values,
           error: null,
           loading: false
         });
@@ -127,7 +146,7 @@ export default (WrappedComponent) => {
       this.fetchShippingRates({page:1,perPage:100});
     }
 
-    saveItem = async ({item, endpoint, key}) => {
+    save = async ({item, endpoint, key}) => {
       try {
         const {
           _id,
@@ -148,6 +167,8 @@ export default (WrappedComponent) => {
         });
         data = await data.json();
         this.addItem({ item: data, key});
+        
+        return data;
       } catch (error) {
         this.setState({
           loading: false,
@@ -162,6 +183,7 @@ export default (WrappedComponent) => {
         <WrappedComponent 
           {...this.props}
           {...this.state}
+          fetchShippingZones={this.fetchShippingZones}
           saveItem={this.saveItem}
           deleteItem={this.deleteItem}
           />
