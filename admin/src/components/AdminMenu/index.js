@@ -5,6 +5,7 @@ import InventoryIcon from '../../assets/icons/Inventory';
 import OrdersIcon from '../../assets/icons/Orders';
 import CustomersIcon from '../../assets/icons/Customers';
 import DiscountsIcon from '../../assets/icons/Discounts';
+import ShippingIcon from '../../assets/icons/Shipping';
 
 export default class AdminMenu extends Component {
   render() {
@@ -38,6 +39,12 @@ export default class AdminMenu extends Component {
           <NavLink to={'/admin/discounts'}>
           <span className="icon"><DiscountsIcon /></span>
             Discounts
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to={'/admin/shipping'}>
+          <span className="icon"><ShippingIcon /></span>
+            Shipping
           </NavLink>
         </li>
       </ul>

@@ -62,8 +62,8 @@ class Products extends Component {
     const {products, totalPages, loading} = this.props;
     const pageSize = products.length >= 10 ? 10 : products.length;
     return (
-      <div>
-        <h1>
+      <div className="card">
+        <h1 className="padding">
           Products
         </h1>
         <DataTable

@@ -6,6 +6,7 @@ import Orders from './routes/Orders';
 import Products from './routes/Products';
 import Customers from './routes/Customers';
 import Discounts from './routes/Discounts';
+import Shipping from './routes/Shipping';
 
 class App extends Component {
   render() {
@@ -16,6 +17,7 @@ class App extends Component {
           <Route path="/admin/inventory" component={(Products)}/>
           <Route path="/admin/customers" component={(Customers)}/>
           <Route path="/admin/discounts" component={(Discounts)}/>
+          <Route path="/admin/shipping" component={(Shipping)}/>
         </Layout>
       </BrowserRouter>
     );

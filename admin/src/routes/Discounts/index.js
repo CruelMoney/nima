@@ -64,8 +64,8 @@ class Discounts extends Component {
     let {data, totalPages, loading} = this.props;
     data = data.filter(d => !d.isAutoCreated);
     return (
-      <div>
-        <h1>
+      <div className="card">
+        <h1 className="padding">
           Discounts
         </h1>
         <DataTable

@@ -68,8 +68,8 @@ class Orders extends Component {
   render() {
     const {orders, totalPages, loading} = this.props;
     return (
-      <div>
-        <h1>
+      <div className="card">
+       <h1 className="padding">
           Orders
         </h1>
         <DataTable

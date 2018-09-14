@@ -47,8 +47,8 @@ class Customers extends Component {
   render() {
     const {data, totalPages, loading} = this.props;
     return (
-      <div>
-        <h1>
+      <div className="card">
+        <h1 className="padding">
           Customers
         </h1>
         <DataTable

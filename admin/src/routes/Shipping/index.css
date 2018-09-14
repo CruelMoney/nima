@@ -1,0 +1,146 @@
+.flex-items{
+  display: flex;
+  flex-flow: wrap;
+  margin: 1em 0;
+}
+.row{
+  display: flex;
+  flex-flow: wrap;
+}
+
+.space-between{
+  justify-content: space-between;
+}
+
+.flex-items > * {
+  flex: 1;
+  padding: 0 0.5em;
+  max-width: 34%;
+}
+
+.flex-items > *:first-child {
+  padding-left: 0;
+}
+.flex-items > *:last-child {
+  padding-right: 0;
+}
+
+
+.flex-items .item p{
+  margin: 0;
+}
+
+button.add{
+  padding: 0;
+  font-weight: 200;
+  border-width: 3px;
+  width: 100%;
+  height: 100%;
+  filter: grayscale(0.8);
+  padding-bottom: 0.1em;
+  box-sizing: border-box;
+}
+button.add:hover{
+  filter: none;
+}
+
+button span {
+  font-size: 6em;
+}
+
+ol{
+  padding: 0;
+}
+
+.continents-wrapper{
+  background: #F2F4FA;
+  position: relative;
+  padding-top: 1em;
+}
+
+.continents{
+  height: 400px;
+  overflow: scroll;
+  width: 900px;
+  max-width: 80vw;
+  padding-top: 1em;
+
+  height: 200px;
+  position: relative;
+}
+
+.continents-wrapper:before{
+  content: "";
+  position: absolute;
+  left: 0%;
+  top: 0;
+  width: 3em;
+  height: 100%;
+  background: #F2F4FA;
+  transform: translateX(-100%);
+}
+.continents-wrapper:after{
+  content: "";
+  position: absolute;
+  right: 0px;
+  top: 0;
+  width: 3em;
+  height: 100%;
+  background: #F2F4FA;
+  transform: translateX(100%);
+}
+
+.continents input{
+  width: auto;
+  margin-right: 1em;
+  height: 1.4em;
+}
+.continents label{
+display: flex;
+font-weight: 500;
+}
+
+.masonry { 
+  display: grid;
+  grid-gap: 2em;
+  grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
+  grid-auto-rows: 1em;
+}
+.masonry > li{
+  margin-bottom: 2em;
+}
+
+.search{
+  text-align: right;
+  position: absolute;
+  top: 1em;
+  right: 0;
+  z-index: 1;
+}
+
+.search input{
+  height: 2em;
+  text-indent: 0.5em;
+  border-radius: 1em;
+  border: 2px #ddd solid;
+  outline: none !important;
+}
+
+.input[type="checkbox"].half-checked{
+  position: relative;
+}
+
+.input[type="checkbox"].half-checked:after{
+  content: "-";
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+
+
+
+hr{
+  opacity: 0.3;
+  margin: 2em 0;
+}

@@ -214,6 +214,7 @@ textarea {
   touch-action: manipulation;
 }
 
+
 table {
   border-collapse: collapse;
 }
@@ -388,4 +389,31 @@ template {
   border-radius: 2em;
   display: inline-block;
   text-transform: capitalize;
+}
+
+.nima-form{
+  display: flex;
+  flex-direction: column;
+}
+
+.nima-form > *{
+  margin: 0.5em 0;
+}
+.nima-form input{
+  width: 100%;
+}
+.nima-form label{
+  font-weight: 600;
+}
+
+.buttons{
+  display: flex;
+  margin: 0 -0.2em;
+}
+.buttons > *{
+  flex: 1;
+  margin: 0 0.2em;
+}
+label select{
+  width: 100%;
 }
