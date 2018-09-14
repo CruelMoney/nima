@@ -50,8 +50,11 @@ const getAvailableCountries = async (req, res) => {
 
     if (err) return res.apiError('database error', err);
 
-    const countries = zones.reduce((acc, z) =>[...acc, ...JSON.parse(z.countries)], [])
-
+    const countries = zones.reduce((acc, z) =>[
+      ...acc, 
+      ...JSON.parse(z.countries).map(c => ({...c, zone: z._id})) // add zoneid to country
+    ], []);
+    
     res.apiResponse({
       results: countries
     })

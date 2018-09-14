@@ -52,7 +52,7 @@
   border-width: 3px;
 }
 .checkout-flow .delivery-option.active,
-.checkout-flow .delivery-option:hover{
+.checkout-flow .delivery-option:not(:disabled):hover{
   border: 3px solid #8D0E20;
   background: transparent;
   color: #111111;

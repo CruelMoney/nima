@@ -102,3 +102,24 @@ export function getCoupon({coupon_code}) {
       throw error
     })
 }
+
+export function getAvailableCountries() {
+  return fetch('/api/shipping/countries',{
+      method: 'GET',
+      credentials: 'include',
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
+    })
+    .then(result => result.json())
+    .then(data => {
+      if(!!data.error){
+        throw data.error;
+      }else{
+        return data;
+      }
+    })
+    .catch((error)=>{
+      throw error
+    })
+}

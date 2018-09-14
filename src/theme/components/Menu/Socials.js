@@ -32,10 +32,10 @@ class Socials extends Component {
           className="absolute dropdown"
         >
             {
-              renderSocials.map(s => {
+              renderSocials.map((s, idx) => {
                 if(!s[1]) return null
                 return (
-                  <a href={s[1]} target="_blank" rel="noopener noreferrer">
+                  <a key={"social-"+idx} href={s[1]} target="_blank" rel="noopener noreferrer">
                     {getIcon(s[0])}
                   </a>
               )})

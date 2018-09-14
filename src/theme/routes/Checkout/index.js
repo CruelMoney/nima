@@ -19,23 +19,33 @@ import './index.css';
 
 
 class Checkout extends Component {
-  state={
-    step: 1,
-    error: null,
-    shipping: {
-      price: 0,
-      name: "Levering"
-    },
-    order: {},
-    paymentSuceeded: false
+  constructor(props){
+    super(props);
+    this.state={
+      step: 1,
+      error: null,
+      shipping: {
+        rateAmount: 0,
+        name: "Levering"
+      },
+      order: {
+        items: props.cart.items
+      },
+      paymentSuceeded: false,
+      availableCountries: []
+    }
+    
   }
+  
 
-  componentDidMount(){
+  componentDidMount = async () => {
     ReactGA.pageview('/checkout#step1');
     ReactPixel.track('InitiateCheckout');
+    const data = await actions.getAvailableCountries();
+    this.setState({
+      availableCountries: data.results
+    });
   }
-
-  
   
   continueStep = (values) => {
     let error = null;
@@ -92,7 +102,7 @@ class Checkout extends Component {
   }
 
   render() {
-    const { step, shipping, error, order, paymentSuceeded, coupon} =  this.state;
+    const { step, shipping, error, order, paymentSuceeded, coupon, availableCountries} =  this.state;
     const { beginLoading, endLoading, cart, configuration } = this.props;
     const { items } = cart;
     const keys = configuration && !!configuration.APIs ? configuration.APIs.key : { };
@@ -121,9 +131,15 @@ class Checkout extends Component {
             </div>
             <hr className="my-6" />
 
-             <Information active={step === 1} onSubmit={this.continueStep} />
-            <Shipping 
+             <Information 
+              active={step === 1} 
+              onSubmit={this.continueStep} 
+              availableCountries={availableCountries}
+              />
+            
+             <Shipping
               order={order}
+              items={items}
               active={step === 2} 
               stepBack={this.stepBack} 
               onSubmit={this.continueShippingStep} 

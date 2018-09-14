@@ -60,7 +60,7 @@ class Bag extends Component {
                   {shipping.name}
                 </p>
                 <p className="inline float-right text-right">
-                  {shipping.price === 0 ? 'FREE' : shipping.price + " DKK"}
+                  {shipping.rateAmount === 0 ? 'FREE' : shipping.rateAmount + " DKK"}
                 </p>
               </div>
               <hr/>
@@ -69,7 +69,7 @@ class Bag extends Component {
                   Total (inkl. moms)
                 </p>
                 <p className="inline float-right text-right">
-                  {this.calculateTotal(shipping.price, coupon)} DKK
+                  {this.calculateTotal(shipping.rateAmount, coupon)} DKK
                 </p>
               </div>
           </React.Fragment>

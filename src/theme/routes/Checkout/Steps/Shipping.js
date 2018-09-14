@@ -2,19 +2,23 @@ import React, { Component } from 'react';
 import Form from 'react-validation/build/form';
 import SubmitButton from '../../../components/SubmitButton';
 import {fetcher} from 'cude-cms';
-
+import * as priceCalc from '../priceCalculator';
 
 class Shipping extends Component {
-  state = {
-    shipping: null,
-    error: null,
-    fetching:false,
-    servicePoints:[]
+
+  constructor(props){
+    super(props);
+    this.state = {
+      shipping: null,
+      error: null,
+      fetching:false,
+      servicePoints:[]
+    }
   }
+
 
   fetchDeliveryPoints = (e) => {
     e.preventDefault();
-
     this.setState({
       fetching: true
     });
@@ -53,7 +57,7 @@ class Shipping extends Component {
   }
 
   continue = () => {
-    if(!this.state.shipping || !!this.state.error){
+    if(!this.state.shipping || !!this.state.error || !this.isAvailable(this.state.shipping)){
       this.setState({
         error: "Vælg venligst afsendelsesmetode."
       })
@@ -85,10 +89,20 @@ class Shipping extends Component {
     this.props.onChange && this.props.onChange({shipping: shipping});
   }
 
+  isAvailable = (option) => {
+    const { items } = this.props;
+    const orderPrice = priceCalc.getTotalPrice({items: items, initial: 0});
+    return option.minimumSpend < orderPrice;
+  }
+
   render() {
     const { error, shipping, fetching, servicePoints} = this.state; 
-    const { active, data } = this.props;
-    const deliveryOptions = !!data.results ? data.results : [];
+    const { active, data, order, items } = this.props;
+    const zones = !!data.results ? data.results : [];
+    let zone = zones.find(z => z._id === order.zoneID);
+    zone = zone ? zone : { shippingRates : [] }
+    let { shippingRates } = zone;
+    const orderPrice = priceCalc.getTotalPrice({items: items, initial: 0});
 
     return (
       <Form
@@ -96,12 +110,17 @@ class Shipping extends Component {
         ref={c => { this.form = c }}
       >     
             {
-              deliveryOptions.map(option => {
+              shippingRates.map(option => {
                 
-                if(option.pickupPoint){
+                const disabled = option.minimumSpend > orderPrice;
+                const priceDif = option.minimumSpend - orderPrice;
+                const description = disabled ? (`Brug ${priceDif} DKK mere for at bruge denne forsendelse.`) : option.description;
+                
+                if(option.shippingMethod.pickupPoint){
                   return(
-                    <React.Fragment>
+                    <React.Fragment key={option._id}>
                     <button 
+                    disabled={disabled}
                     className={`${shipping && shipping.name===option.name ? "active" : ""} ${fetching ? "loading" : ""} delivery-option service-point-chooser text-left my-2`}
                     onClick={(e)=>{this.fetchDeliveryPoints(e)}}
                     >
@@ -113,11 +132,11 @@ class Shipping extends Component {
                             </span>
                           </h4>
                           <h4>
-                            {option.price === 0 ? "GRATIS" : option.price + ' DKK'}
+                            {option.rateAmount === 0 ? "GRATIS" : option.rateAmount + ' DKK'}
                           </h4>
                         </header>
                         <p className="mb-0  text-sm font-normal">
-                        {option.description}
+                        {description}
                         </p>
                       </div>
                     </button>
@@ -159,6 +178,7 @@ class Shipping extends Component {
 
                return(
                 <button 
+                disabled={disabled}
                 key={'delivery-'+option.name} 
                 className={`${shipping && shipping.name===option.name ? "active" : ""} delivery-option text-left my-2`}
                 onClick={(e)=>{this.setShipping(e, option)}}
@@ -171,11 +191,11 @@ class Shipping extends Component {
                       </span>
                     </h4>
                     <h4>
-                      {option.price === 0 ? "GRATIS" : option.price + ' DKK'}
+                      {option.rateAmount === 0 ? "GRATIS" : option.rateAmount + ' DKK'}
                     </h4>
                   </header>
                   <p className="mb-0  text-sm font-normal">
-                    {option.description}
+                    {description}
                   </p>
                 </div>
               </button>
@@ -216,4 +236,4 @@ class Shipping extends Component {
   }
 }
 
-export default fetcher(Shipping, '/api/shipping', false, <div>Loading...</div>);
+export default fetcher(Shipping, '/api/shipping/zone', false, <div>Loading...</div>);
