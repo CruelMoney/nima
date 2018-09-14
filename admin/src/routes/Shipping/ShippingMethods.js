@@ -102,6 +102,18 @@ class ShippingMethodDetail extends PureComponent{
     setSubmitting(false);
   }
 
+  validate = (values) => {
+    let errors = {};
+
+    Object.keys(values).forEach(k => {
+      if(!values[k]){
+        errors[k] = "Required";
+      }
+    });
+
+    return errors;
+  }
+
   render(){
     let { method } = this.props;
     method = method ? method : {
@@ -118,17 +130,7 @@ class ShippingMethodDetail extends PureComponent{
         <h1>Add shipping method</h1>
         <Formik
           initialValues={method}
-          validate={values => {
-            let errors = {};
-            // if (!values.name) {
-            //   errors.name = 'Required';
-            // } else if (
-            //   !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-            // ) {
-            //   errors.email = 'Invalid email address';
-            // }
-            return errors;
-          }}
+          validate={this.validate}
           onSubmit={(values, { setSubmitting }) => {
             this.updateOrCreate({
               values, setSubmitting
@@ -140,22 +142,35 @@ class ShippingMethodDetail extends PureComponent{
               <label htmlFor="name">
                 Name
                 <Field type="text" name="name" />
+                <span className="error">
+                  {errors.name && touched.name && errors.name}
+                </span>
               </label>
-              {errors.name && touched.name && errors.name}
+            
+             
 
               <label htmlFor="description">
                 Description
                 <Field type="text" name="description" />
+                <span className="error">
+                  {errors.description && touched.description && errors.description}
+                </span>
               </label>
 
               <label htmlFor="deliveryDescription">
                 Delivery details
                 <Field type="text" name="deliveryDescription" />
+                <span className="error">
+                  {errors.deliveryDescription && touched.deliveryDescription && errors.deliveryDescription}
+                </span>
               </label>
 
               <label htmlFor="pacsoftCode">
                 PacsoftCode
                 <Field type="text" name="pacsoftCode" />
+                <span className="error">
+                  {errors.pacsoftCode && touched.pacsoftCode && errors.pacsoftCode}
+                </span>
               </label>
 
               <label htmlFor="pickupPoint">
