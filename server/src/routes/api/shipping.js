@@ -1,5 +1,8 @@
 
 const shipping = require('../../logic/shipping');
+const keystone = require('keystone');
+const ShippingZone = keystone.list('ShippingZone');
+
 
 const get = async (req, res) => {
   const id = req.params.id;
@@ -39,8 +42,26 @@ const getAll = async (req, res) => {
   }
 }
 
+
+const getAvailableCountries = async (req, res) => {
+  ShippingZone.model
+  .find()
+  .exec(function(err, zones) {
+
+    if (err) return res.apiError('database error', err);
+
+    const countries = zones.reduce((acc, z) =>[...acc, ...JSON.parse(z.countries)], [])
+
+    res.apiResponse({
+      results: countries
+    })
+  });
+}
+
+
 export {
   get,
   post,
-  getAll
+  getAll,
+  getAvailableCountries
 }

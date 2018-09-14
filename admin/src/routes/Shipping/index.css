@@ -7,6 +7,14 @@
   display: flex;
   flex-flow: wrap;
 }
+.column{
+  display: flex;
+  flex-direction: column;
+}
+
+.column > *{
+  margin-bottom: 1em;
+}
 
 .space-between{
   justify-content: space-between;
@@ -41,7 +49,9 @@
 }
 
 
-
+.item h3{
+  width: 100%;
+}
 button.item{
   padding: 0;
   font-weight: 200;
@@ -53,6 +63,7 @@ button.item{
   box-sizing: border-box;
   text-align: left;
   padding: 1em;
+outline: none;
 }
 button.item:hover{
   filter: none;
@@ -161,13 +172,17 @@ hr{
 
 .countries-summary{
   margin: 0;
-  line-height: 2.2em;
   width: 500px;
-  white-space:nowrap;
+  max-width: 100%;
+  white-space: nowrap;
+  -ms-flex-wrap: nowrap;
   flex-wrap: nowrap;
-
   position: relative;
   overflow: hidden;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 1.2em;
+  margin-top: 0.7em;
 }
 
 .countries-summary li{
@@ -183,10 +198,13 @@ hr{
   top: 0;
   background: linear-gradient(left, transparent , transparent 10%, transparent 80%, #F2F4FA);
 }
-
+.item .countries-summary{
+  margin-top: 0;
+}
 .item .countries-summary:after{
   background: linear-gradient(left, transparent , transparent 10%, transparent 80%, white);
 }
+
 
 .item .shipping-rate{
   display: flex;

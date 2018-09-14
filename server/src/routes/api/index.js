@@ -23,6 +23,7 @@ const setup = (app) => {
   app.post('/api/admin/refund', order.refund);
 
   app.get('/api/shipment/:id', shipping.get);
+  app.get('/api/shipping/countries', shipping.getAvailableCountries);
   // app.get('/api/shipping', shipping.getAll);
   // app.post('/api/shipping', shipping.post);
 

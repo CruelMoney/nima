@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { Formik, Form, Field, FastField } from 'formik';
 import Modal from 'react-responsive-modal';
 import {continents, countries as countriesJSON} from 'countries-list';
@@ -12,12 +12,18 @@ const Zone = ({...props, name, countries, shippingRates}) => {
   return (
     <div>
       <div className="row">
-        <h4>{name}</h4>
-        <CountriesSummary countries={countries} />
+        <h3>{name}
+        <span>
+          <CountriesSummary countries={countries} />
+        </span>
+        </h3>
+        
         { 
           shippingRates.map( rate => {
             return(
-            <div className="shipping-rate">
+            <div 
+            key={rate._id}
+            className="shipping-rate">
               <span>
                 <h5>{rate.name}</h5>
                 <p>{rate.description}</p>
@@ -77,10 +83,10 @@ class ShippingZones extends PureComponent {
 
 
   saveShippingZone = async (values) => {
-    const {saveItem, fetchShippingZones} = this.props;
+    const {saveItem, fetchAll} = this.props;
     try {
       await saveItem(values);
-      fetchShippingZones({page:1,perPage:100});
+      fetchAll();
       this.setState({
         modal: false,
       });
@@ -92,7 +98,7 @@ class ShippingZones extends PureComponent {
 
   render() {
     const {modal, activeZone} = this.state;
-    const {shippingZones, shippingMethods} = this.props;
+    const {shippingZones, shippingMethods, availableCountries} = this.props;
     return (
       <div className="card padding">
         <h2>Shipping zones</h2>
@@ -100,7 +106,10 @@ class ShippingZones extends PureComponent {
         Each shipping zone consists of a set of countries, and the available shipping rates for those countries.
         </p>
         <div className="flex-items halfs">
-          {shippingZones.map(m => (
+        <div className="column">
+          {shippingZones.map((m, idx) => {
+            if(idx % 2 !== 0) return null;
+            return (
             <div key={m._id}>
               <button 
               onClick={_ => this.toggleModal(true, m)} 
@@ -109,7 +118,21 @@ class ShippingZones extends PureComponent {
               </button>
             </div>
            
-          ))}
+          )})}
+        </div>
+        <div className="column">
+          {shippingZones.map((m, idx) => {
+            if(idx % 2 === 0) return null;
+            return (
+            <div key={m._id}>
+              <button 
+              onClick={_ => this.toggleModal(true, m)} 
+              className="transparent item">
+              <Zone {...m} />
+              </button>
+            </div>
+           
+          )})}
           <div>
           <button 
           onClick={_ => this.toggleModal(true)} 
@@ -117,7 +140,7 @@ class ShippingZones extends PureComponent {
             <span>+</span>
           </button>
           </div>
-        
+        </div>
         </div>
         <Modal 
           classNames={{
@@ -133,6 +156,7 @@ class ShippingZones extends PureComponent {
             saveShippingZone={this.saveShippingZone}
             deleteItem={this.deleteItem}
             shippingMethods={shippingMethods}
+            availableCountries={availableCountries}
             zone={activeZone}
           />
         </Modal>
@@ -206,9 +230,51 @@ class ShippingZoneDetail extends PureComponent{
     return this.valueGetters.countries();
   }
 
+  validateShippingRate = (rate) => {
+    let errors = {};
+    if(!rate.name){
+      errors.name = "Required";
+    }
+    if(!rate.shippingMethod){
+      errors.shippingMethod = "Required";
+    }
+    if(!rate.deliveryDescription){
+      errors.deliveryDescription = "Required";
+    }
+    if(!rate.description){
+      errors.description = "Required";
+    }
+    if(Object.keys(errors).length === 0) return false;
+    return errors;
+  }
+
+  validate = (values) => {
+    let errors = {
+      shippingRates:[]
+    };
+
+    if(!values.name){
+      errors.name = "Required"
+    }
+    if(values.shippingRates.length === 0){
+      errors.rates = "Make at least one shipping rate"
+    }
+    values.shippingRates.forEach((r, idx) => {
+      errors.shippingRates[idx] = this.validateShippingRate(r);
+    });
+    if(errors.shippingRates.filter(e => e).length === 0){
+      delete errors.shippingRates;
+    }
+    if(this.getCountries().length === 0){
+      errors.countries = "Select at least one country"
+    }
+
+    return errors;
+  }
+
 
   render(){
-    let { zone, shippingMethods } = this.props;
+    let { zone, shippingMethods, availableCountries } = this.props;
     zone = zone ? zone : {
       id: null,
       name: '', 
@@ -228,17 +294,7 @@ class ShippingZoneDetail extends PureComponent{
         <h1>Add shipping zone</h1>
         <Formik
           initialValues={zone}
-          validate={values => {
-            let errors = {};
-            // if (!values.name) {
-            //   errors.name = 'Required';
-            // } else if (
-            //   !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-            // ) {
-            //   errors.email = 'Invalid email address';
-            // }
-            return errors;
-          }}
+          validate={this.validate}
           onSubmit={(values, { setSubmitting }) => {
             this.updateOrCreate({
               values, setSubmitting
@@ -252,18 +308,26 @@ class ShippingZoneDetail extends PureComponent{
                 Name
                 <Field type="text" name="name" />
               </label>
+              <span className="error">
               {errors.name && touched.name && errors.name}
+              </span>
+             
               
               <Countries 
                 initialValues={zone.countries}
                 registerValueGetter={this.registerValueGetter}
+                usedCountries={availableCountries}
+                errors={errors}
                 />
+ 
               <ShippingRates 
+              shippingMethods={shippingMethods}
               deleteShippingRate={this.deleteShippingRate}
               values={values} 
               setValues={setValues}
-              shippingMethods={shippingMethods}
+              errors={errors}
               />
+         
 
                 <div className="buttons">
                 <button 
@@ -309,16 +373,16 @@ class Countries extends PureComponent{
   constructor(props){
     super(props);
     const { initialValues } = props;
-    console.log(initialValues)
     this.state={
+      touched: false,
       search: "",
       countries: Object.keys(countriesJSON).map(c => ({
         ...countriesJSON[c],
         id: c,
+        unavailable: !this.countryAvailable(c),
         selected: initialValues.some(v => v.id === c)
       }))
-    }
-  
+    }  
   }
 
   
@@ -327,9 +391,13 @@ class Countries extends PureComponent{
     resizeAllGridItems();
     window.addEventListener("resize", resizeAllGridItems);
     registerValueGetter('countries', _ => {
+      this.setState({
+        touched: false
+      });
       return this.state.countries.filter(c => c.selected).map(c => ({
         id: c.id,
-        name: c.name
+        name: c.name,
+        emoji: c.emoji
       }))
     });
   }
@@ -348,6 +416,7 @@ class Countries extends PureComponent{
     const checked = e.target.checked;
     this.setState(state => ({
     ...state,
+    touched: true,
     countries: state.countries.map(c => c.id === id ? {...c, selected: checked} : c)
   }))};
 
@@ -358,11 +427,9 @@ class Countries extends PureComponent{
   continentIsSome = (continent) => {
     const { countries } = this.state;
     return countries.some(c => c.continent === continent ? c.selected : false);
-
-
   } 
+
   setContinentState = (r, continent) => {
-    
     const all = this.continentIsToggled(continent);
     if(all && r){
       r.indeterminate = false;
@@ -386,7 +453,8 @@ class Countries extends PureComponent{
     const checked = e.target.checked;
     this.setState(state => ({
     ...state,
-    countries : state.countries.map(c => c.continent === continent ? {...c, selected : checked} : c)
+    touched: true,
+    countries : state.countries.map(c => c.continent === continent ? {...c, selected : checked && !c.unavailable} : c)
   }))};
 
   continentShouldShow = (continent) => {
@@ -394,11 +462,21 @@ class Countries extends PureComponent{
     return countries.some(c => c.continent === continent ? c.name.toLowerCase().indexOf(search.toLowerCase()) !== -1 : false)
   }
 
+  countryAvailable = (id) => {
+    const {usedCountries, initialValues} = this.props;
+    const isInThis = initialValues.some(v => v.id === id);
+    if(isInThis) return true;
+    const isUsed = usedCountries.some(c => c.id === id);
+    if(isUsed) return false;
+    return true;
+  }
+
   render(){ 
-    const { search, countries } = this.state;
-    const {values, setValues} = this.props;
+    const { search, countries, touched } = this.state;
+    const {errors} = this.props;
     
     return (
+      <Fragment>
       <div className="continents-wrapper">
       <div className="row">
         <h2 style={{marginRight: '1em'}}>
@@ -439,17 +517,26 @@ class Countries extends PureComponent{
                 .map(c => {
                   return(
                     <li key={c.id}>
-                      <label htmlFor={`countries.${c.id}`}> 
+                      <label 
+                        htmlFor={`countries.${c.id}`}
+                        style={{opacity: c.unavailable ? 0.5 : 1}}
+                      > 
                         <input 
                           name={`countries.${c.id}`}
                           id={`countries.${c.id}`}
                           component="input" 
                           type="checkbox"
-                          checked={c.selected}
+                          disabled={c.unavailable}
+                          checked={c.selected && !c.unavailable}
                           onChange={e => this.toggleCountry(e, c.id)}
                           />
                           <span>{c.emoji}</span> 
                           <span>{c.name}</span> 
+                          {c.unavailable ? 
+                            <span style={{fontWeight:300, marginLeft: "0.1em"}}>
+                             (already in use)
+                            </span>
+                          : null }
                       </label>
                     </li>
                   )
@@ -461,6 +548,10 @@ class Countries extends PureComponent{
       </ol>
       </div>
       </div>
+      <span className="error">
+        {errors.countries && !touched && errors.countries}
+      </span>
+      </ Fragment>
   )}
 }
 
@@ -519,14 +610,16 @@ class ShippingRates extends PureComponent{
 
 
   render(){ 
-    const { values, setValues, shippingMethods } = this.props;
+    const { values, shippingMethods, errors } = this.props;
 
     return (
       <div className="margin-bottom">
         <h2>
           Available shipping rates
         </h2>
-      
+        <span className="error">
+          {errors.rates  && errors.rates}
+        </span>
       <ol className="shipping-rates">
         
         {values.shippingRates.map((s, idx) => {
@@ -538,6 +631,7 @@ class ShippingRates extends PureComponent{
                   shippingMethods={shippingMethods}
                   setShippingMethod={methodID => this.setShippingMethod(idx, methodID)}
                   removeRate={idx => this.removeRate(idx, s)}
+                  errors={errors}
                   entity={{
                     idx,
                     key: `shippingRates[${idx}]`
@@ -578,7 +672,8 @@ class ShippingRate extends PureComponent{
       rateAmount,
       entity,
       shippingMethods,
-      removeRate
+      removeRate,
+      errors
     } = this.props;
 
     return( 
@@ -596,7 +691,7 @@ class ShippingRate extends PureComponent{
       </button>
     </div>
   
-      <div className="flex-items">
+      <div className="flex-items thirds">
       
       <label htmlFor={entity.key+'.shippingMethod'}> 
         Shipping method
@@ -608,7 +703,7 @@ class ShippingRate extends PureComponent{
         >
         <option disabled value="" />
           { 
-            shippingMethods.map(m => (
+           shippingMethods.map(m => (
               <option 
               key={m._id}
               value={m._id}>{m.name}
@@ -616,6 +711,9 @@ class ShippingRate extends PureComponent{
             ))
           }
         </select>
+        <span className="error">
+          {errors.shippingRates && errors.shippingRates[entity.idx] && errors.shippingRates[entity.idx] && errors.shippingRates[entity.idx].shippingMethod  && errors.shippingRates[entity.idx].shippingMethod}
+        </span>
       </label>
 
       <label htmlFor={entity.key+'.minimumSpend'}> 
@@ -642,7 +740,7 @@ class ShippingRate extends PureComponent{
         </label>
 
       </div>
-      <div className="flex-items">
+      <div className="flex-items thirds">
 
           <label htmlFor={entity.key+'.name'}> 
             Name
@@ -652,7 +750,11 @@ class ShippingRate extends PureComponent{
             component="input" 
             placeholder="Express shipping"
             />
+            <span className="error">
+              {errors.shippingRates && errors.shippingRates[entity.idx] && errors.shippingRates[entity.idx].name  && errors.shippingRates[entity.idx].name}
+            </span>
           </label>
+
 
           <label htmlFor={entity.key+'.deliveryDescription'}> 
             Delivery description
@@ -662,6 +764,9 @@ class ShippingRate extends PureComponent{
               component="input" 
               placeholder="Delivered within 3 working days"
               />
+              <span className="error">
+                {errors.shippingRates && errors.shippingRates[entity.idx] && errors.shippingRates[entity.idx].deliveryDescription  && errors.shippingRates[entity.idx].deliveryDescription}
+              </span>
         </label>
 
         <label htmlFor={entity.key+'.description'}> 
@@ -672,6 +777,9 @@ class ShippingRate extends PureComponent{
             component="input" 
             placeholder="To door delivery with Post Nord"
             />
+            <span className="error">
+              {errors.shippingRates && errors.shippingRates[entity.idx] && errors.shippingRates[entity.idx].description  && errors.shippingRates[entity.idx].description}
+            </span>
         </label>
 
       </div>

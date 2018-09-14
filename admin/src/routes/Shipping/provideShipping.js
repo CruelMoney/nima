@@ -93,6 +93,15 @@ export default (WrappedComponent) => {
         key: 'shippingRates'
       });
     }
+
+    fetchAvailableCountries = async () => {
+      await this.fetch({
+        page: 1, 
+        perPage: 10,
+        endpoint: "/api/shipping/countries",
+        key: 'availableCountries'
+      });
+    }
     
     fetch = async ({endpoint, key, page, perPage, sort}) => {
       try {
@@ -140,10 +149,15 @@ export default (WrappedComponent) => {
       }
     }
 
-    componentWillMount(){
+    fetchAll = () => {
       this.fetchShippingMethods({page:1,perPage:100});
       this.fetchShippingZones({page:1,perPage:100});
       this.fetchShippingRates({page:1,perPage:100});
+      this.fetchAvailableCountries();
+    }
+
+    componentWillMount = () => {
+      this.fetchAll();
     }
 
     save = async ({item, endpoint, key}) => {
@@ -183,7 +197,7 @@ export default (WrappedComponent) => {
         <WrappedComponent 
           {...this.props}
           {...this.state}
-          fetchShippingZones={this.fetchShippingZones}
+          fetchAll={this.fetchAll}
           saveItem={this.saveItem}
           deleteItem={this.deleteItem}
           />
