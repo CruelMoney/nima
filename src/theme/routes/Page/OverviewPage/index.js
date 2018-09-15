@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { fetcher } from 'cude-cms'
 import PageThumb from './pageThumbnail';
+import Instagram from '../../../components/Instagram';
 import './index.css'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
@@ -30,7 +31,11 @@ class Overview extends Component {
             })
           }
         </div>
+        <Instagram />
       </div>
+
+       
+
       </div>
     );
   }

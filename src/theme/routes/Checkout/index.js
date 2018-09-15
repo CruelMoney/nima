@@ -116,7 +116,7 @@ class Checkout extends Component {
       <div className="checkout-page">
       <div className="container mx-auto  mt-16">
         <hr/>
-        <div className="mt-10 mb-16 flex flex-col lg:flex-row">
+        <div className="mt-10 mb-10 flex flex-col lg:flex-row">
 
      
           <article className="lg:w-1/2 w-full checkout-flow mb-12">
