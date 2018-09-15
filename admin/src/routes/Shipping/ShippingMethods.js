@@ -15,6 +15,19 @@ class ShippingMethods extends PureComponent {
     });
   }
 
+  saveItem = async (values) => {
+    const {saveItem} = this.props;
+    try {
+      await saveItem(values);
+      this.setState({
+        modal: false,
+      });
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+
   deleteItem = async (values) => {
     const {deleteItem} = this.props;
 
@@ -30,7 +43,7 @@ class ShippingMethods extends PureComponent {
 
   render() {
     const {modal, activeMethod} = this.state;
-    const {shippingMethods, saveItem} = this.props;
+    const {shippingMethods} = this.props;
     
     return (
       <div className="card padding">
@@ -65,7 +78,7 @@ class ShippingMethods extends PureComponent {
           center>
           <ShippingMethodDetail 
             items={shippingMethods}
-            saveItem={saveItem}
+            saveItem={this.saveItem}
             deleteItem={this.deleteItem}
             method={activeMethod}
           />
@@ -106,11 +119,11 @@ class ShippingMethodDetail extends PureComponent{
     let errors = {};
 
     Object.keys(values).forEach(k => {
-      if(!values[k]){
+      if(!values[k] && k !== 'pickupPoint' && k !== 'id'){
         errors[k] = "Required";
       }
     });
-
+    console.log(errors)
     return errors;
   }
 

@@ -60,13 +60,13 @@ class Shipping extends Component {
     if(!this.state.shipping || !!this.state.error || !this.isAvailable(this.state.shipping)){
       this.setState({
         error: "Vælg venligst afsendelsesmetode."
-      })
+      });
     }else{
       const order = {
         shipping: this.state.shipping
        }
       if(this.state.shipping.pickupPoint){
-        const {visitingAddress} = this.state.shipping;
+        const { visitingAddress } = this.state.shipping;
         order.address = visitingAddress.name + " " + visitingAddress.streetName + " " + visitingAddress.streetNumber
         order.city = visitingAddress.city
         order.zip = visitingAddress.postalCode

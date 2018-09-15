@@ -26,8 +26,13 @@ const orderToShipping = (order) => {
   const {
     items,
     orderID,
-    delivery
+    delivery,
+    pacsoftCode
   } = order;
+
+
+
+  console.log({order})
 
   return {
     "pdfConfig": {
@@ -76,7 +81,7 @@ const orderToShipping = (order) => {
         "custNo": "220000787"
       }],
       "service": {
-        "id": delivery.type.pacsoftCode, // Collect eller til dør
+        "id": pacsoftCode, // Collect eller til dør
         "addons": [{
           "id": "NOTEMAIL", // Email notification
           "custNo": "220000787"
@@ -106,6 +111,7 @@ const getCacheElseFetch = async (url) => {
 
 const getOrderShipment =  async (order) => {
   const shipment = orderToShipping(order);
+
   try {
     const result = await fetch(domain+'/shipments?inlinePdf=true', {
       method: 'POST',

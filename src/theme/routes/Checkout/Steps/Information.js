@@ -98,6 +98,7 @@ class Information extends Component {
               <Input validations={[vl.required]} name="zip" type="zip" placeholder="Postnummer" className="w-1/2 ml-2"/>
             </div>
             <div className="flex my-4">
+            <div className={`w-full select-wrapper ${!!countryID ? "selected" : ""}`}> 
               <select 
               onChange={this.selectCountry}
               value={countryID} >
@@ -112,6 +113,7 @@ class Information extends Component {
                 ))}
               </select>
               <span className="error">{errors.country && errors.country}</span>
+            </div>
             </div>
             <hr className="my-6 mobile-hide" />
 

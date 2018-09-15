@@ -697,18 +697,21 @@ class ShippingRate extends PureComponent{
         Shipping method
         
         <select 
-          value={shippingMethod}
+          value={shippingMethod ? shippingMethod._id : ''}
           id={entity.key+'.shippingMethod'}
           onChange={this.onShippingMethodSelected}
         >
         <option disabled value="" />
           { 
-           shippingMethods.map(m => (
+           shippingMethods.map(m => {
+            if (!m) return null; 
+            return (
               <option 
               key={m._id}
               value={m._id}>{m.name}
               </option>
-            ))
+            )
+          })
           }
         </select>
         <span className="error">

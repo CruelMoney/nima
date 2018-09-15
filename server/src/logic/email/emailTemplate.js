@@ -94,7 +94,7 @@ const _interpolateEmail = (html, order, items, shipping) => {
   html = html.replace("{{delivery_type}}", shipping.name)
   html = html.replace("{{expected_delivery}}", shipping.deliveryDescription)
   html = html.replace("{{order_number}}", orderID)
-  html = html.replace("{{order_items}}", _orderToHtml(order, items, shipping.price))
+  html = html.replace("{{order_items}}", _orderToHtml(order, items, shipping.rateAmount))
 
   return html;
 }

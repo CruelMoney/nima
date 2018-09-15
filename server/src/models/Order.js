@@ -33,7 +33,7 @@ Order.add(
   {orderID: {type: Number,  noedit:true, hidden: true } },
   {heading: 'Shipping' }, 
   {delivery: {
-    type: { type: Types.Relationship, ref: 'ShippingOption', many: false, required: true, initial: true  }, 
+    type: { type: Types.Relationship, ref: 'ShippingRate', many: false, required: true, initial: true  }, 
     firstName: {type: String, required: true, initial: true },
     lastName: {type: String, required: true, initial: true },
     address: { type: String, required: true, initial: true },

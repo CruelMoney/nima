@@ -4,7 +4,7 @@ var Order = keystone.list('Order');
 var Product = keystone.list('Product');
 var Coupon = keystone.list('Coupon');
 var Campaign = keystone.list('Campaign');
-var ShippingOption = keystone.list('ShippingOption');
+var ShippingRate = keystone.list('ShippingRate');
 const {stripe} = require('../../logic/payments');
 const emailService = require('../../logic/email');
 const shipping = require('../../logic/shipping');
@@ -109,13 +109,18 @@ const post = async (req, res) => {
         toBeSaved.push(coupon);
     }
 
-    const DBShipping = await ShippingOption.model.findOne({ _id: shipping._id });
+    const DBShipping = await ShippingRate.model.findOne({ _id: shipping._id });
     if( DBShipping === null){
       throw new Error('Error getting shipping.');
     }
-    // add shippingPrice to totalPrice
-    dbPrice += DBShipping.price;
+
+    // Check for minimum spend
+    if(dbPrice < DBShipping.minimumSpend){
+      return res.apiError(`Brug ${DBShipping.minimumSpend - dbPrice} DKK mere for at bruge denne forsendelse`);
+    };
   
+    // add shippingPrice to totalPrice
+    dbPrice += DBShipping.rateAmount;  
 
     // compare dbprice to requested price
     if(dbPrice !== total_price){
@@ -275,12 +280,19 @@ const confirmOrder = async (req, res) => {
     if( order === null){
       throw new Error('Error getting order.');
     }
-    const dbOrder = await Order.model.findOne({ _id: order._id }).populate('delivery.type');
+    const dbOrder = await Order.model.findOne({ _id: order._id }).populate({
+      path: 'delivery.type',
+      populate: {
+        path: 'shippingMethod'
+      }
+    });
     if( dbOrder === null){
       throw new Error('Error getting order from database.');
     }
+    const pacsoftCode = dbOrder.delivery.type.pacsoftCode || dbOrder.delivery.type.shippingMethod.pacsoftCode;
+    
     if(!dbOrder.shippingID){
-      const shipment = await shipping.getOrderShipment(dbOrder);
+      const shipment = await shipping.getOrderShipment({...dbOrder.toObject(), pacsoftCode});
       dbOrder.set({ 
         shippingID: shipment.id,
         shippingLabel: shipment.label,
@@ -299,7 +311,7 @@ const confirmOrder = async (req, res) => {
     //   type: "SHIPPING_CONFIRMATION",
     //   order: order,
     // });
-    return res.apiResponse(dbOrder);
+     return res.apiResponse(dbOrder);
 
   } catch (error) {
     console.log(error)

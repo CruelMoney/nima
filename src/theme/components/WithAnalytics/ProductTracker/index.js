@@ -90,7 +90,7 @@ const purchase = (order) => {
       id: order._id,
       revenue: order.total_price,
       tax: order.total_price*0.2,
-      shipping: order.shipping.price,
+      shipping: order.shipping.rateAmount,
       coupon: !!order.coupon_code ? order.coupon_code : null,
       step: 3
     }

@@ -71,7 +71,7 @@ class Payment extends Component {
     const totalPrice = priceCalc.getTotalPrice({
       items,
       coupon: coupon,
-      initial: orderValues.shipping.price
+      initial: orderValues.shipping.rateAmount
     });
 
     this.props.stripe.createToken({name})

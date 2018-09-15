@@ -200,6 +200,7 @@ main{
 
 input, 
 button,
+select,
 .button-look,
 .input-box{
   outline: none !important;
@@ -210,6 +211,7 @@ button,
   letter-spacing: 1px;
   width: 100%;
   line-height: 1em;
+  background: white;
 }
 .button-look{
   text-align: center;
@@ -316,4 +318,29 @@ button{
   .page-wrapper.show-newsletter{
     transform: translateY(-60vh);
   }
+}
+
+.select-wrapper{
+  position: relative;
+  cursor: pointer;
+}
+.select-wrapper select{
+  cursor: pointer;
+  color: #808080;
+}
+.select-wrapper.selected select{
+  color: #111;
+}
+.select-wrapper:after{
+  content:"";
+  width: 0.5em;
+  height: 0.5em;
+  border-bottom: 3px solid #111;
+  border-right: 3px solid #111;
+  transform:  rotate(45deg) translate(0%, -50%);
+  transform-origin: center;
+  position: absolute;
+  right: 1.5em; 
+  top: 45%;
+  pointer-events: none;
 }
