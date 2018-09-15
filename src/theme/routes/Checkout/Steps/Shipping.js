@@ -65,7 +65,8 @@ class Shipping extends Component {
       const order = {
         shipping: this.state.shipping
        }
-      if(this.state.shipping.pickupPoint){
+       console.log(this.state.shipping)
+      if(this.state.shipping.shippingMethod.pickupPoint){
         const { visitingAddress } = this.state.shipping;
         order.address = visitingAddress.name + " " + visitingAddress.streetName + " " + visitingAddress.streetNumber
         order.city = visitingAddress.city
