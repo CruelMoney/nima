@@ -8,6 +8,7 @@ import * as coupon from './coupon';
 import * as newsletter from './newsletter';
 import * as shipping from './shipping';
 import * as order from './order';
+import * as instagram from './instagram';
 
 const setup = (app) => {
   app.all('/api*', keystone.middleware.api);
@@ -26,6 +27,8 @@ const setup = (app) => {
   app.get('/api/shipping/countries', shipping.getAvailableCountries);
   // app.get('/api/shipping', shipping.getAll);
   // app.post('/api/shipping', shipping.post);
+
+  app.get('/api/instagram', instagram.get);
 
   restful.expose({
     BasePage : {
