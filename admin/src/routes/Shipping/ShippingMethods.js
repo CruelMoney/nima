@@ -123,7 +123,6 @@ class ShippingMethodDetail extends PureComponent{
         errors[k] = "Required";
       }
     });
-    console.log(errors)
     return errors;
   }
 
