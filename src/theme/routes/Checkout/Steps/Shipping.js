@@ -26,8 +26,10 @@ class Shipping extends Component {
     const {
       city,
       zip,
-      address
+      address,
+      countryCode
     } = this.props.order;
+
     return fetch('/api/deliveryPoints', {
       method: 'POST',
       credentials: 'include',
@@ -37,7 +39,8 @@ class Shipping extends Component {
       body: JSON.stringify({
         zip:zip,
         city:city,
-        street:address
+        street:address,
+        countryCode
       })
     }).then(res => {
       this.setState({
@@ -65,8 +68,7 @@ class Shipping extends Component {
       const order = {
         shipping: this.state.shipping
        }
-       console.log(this.state.shipping)
-      if(this.state.shipping.shippingMethod.pickupPoint){
+      if(this.state.shipping.shippingMethod && this.state.shipping.shippingMethod.pickupPoint){
         const { visitingAddress } = this.state.shipping;
         order.address = visitingAddress.name + " " + visitingAddress.streetName + " " + visitingAddress.streetNumber
         order.city = visitingAddress.city
@@ -111,8 +113,10 @@ class Shipping extends Component {
         ref={c => { this.form = c }}
       >     
             {
-              shippingRates.map(option => {
+              shippingRates && shippingRates.map(option => {
                 
+                if(!option.shippingMethod) return null;
+
                 const disabled = option.minimumSpend > orderPrice;
                 const priceDif = option.minimumSpend - orderPrice;
                 const description = disabled ? (`Brug ${priceDif} DKK mere for at bruge denne forsendelse.`) : option.description;

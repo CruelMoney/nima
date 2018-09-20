@@ -14,7 +14,7 @@ class Information extends Component {
   }
 
   continue = () => {
-    const {country, zoneID} = this.state;
+    const {country, zoneID, countryID} = this.state;
     const conuntryValid = this.validateCountry();
     this.form.validateAll();
     if(conuntryValid){
@@ -22,6 +22,7 @@ class Information extends Component {
       this.props.onSubmit && this.props.onSubmit({
         ...values,
         country,
+        countryCode: countryID,
         zoneID,
         newsletter_subscribe : values.newsletter_subscribe === "true"
       });

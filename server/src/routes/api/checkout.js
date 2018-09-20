@@ -322,8 +322,8 @@ const confirmOrder = async (req, res) => {
 
 
 const deliveryPoints = async (req, res) =>  {
-  const {zip, city, street} = req.body;
-  return shipping.getDeliveryPoints({zip, city, street})
+  const {zip, city, street, countryCode} = req.body;
+  return shipping.getDeliveryPoints({zip, city, street, countryCode})
     .then(data => {
       return res.apiResponse(data)
     })

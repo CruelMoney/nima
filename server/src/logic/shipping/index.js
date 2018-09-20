@@ -212,12 +212,12 @@ const getShippingStatus = async ({parcelID}) => {
     .catch(error => error);
 }
 
-const getDeliveryPoints = ({zip, city, street}) => {
+const getDeliveryPoints = ({zip, city, street, countryCode}) => {
   const requesturl =  
     postNordDomain +
     '/rest/businesslocation/v1/servicepoint/findNearestByAddress.json?'+
     'apikey=' + postNordKey +
-    '&countryCode=DK'+
+    '&countryCode='+encodeURI(countryCode) +
     '&postalCode='+encodeURI(zip) +
     '&city='+encodeURI(city) +
     '&streetName='+encodeURI(street);
