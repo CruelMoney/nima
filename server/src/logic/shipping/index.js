@@ -31,9 +31,6 @@ const orderToShipping = (order) => {
   } = order;
 
 
-
-  console.log({order})
-
   return {
     "pdfConfig": {
       "target4XOffset": 0,
@@ -73,7 +70,7 @@ const orderToShipping = (order) => {
         "zipcode": delivery.zip,
         "name":  `${delivery.firstName} ${delivery.lastName}`,
         "address1": delivery.address,
-        "country": "DK",
+        "country": delivery.countryCode,
         "city": delivery.city
       },
       "senderPartners": [{

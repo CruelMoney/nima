@@ -167,7 +167,8 @@ const post = async (req, res) => {
         address: rest.address,
         city: rest.city,
         zip: rest.zip,
-        country: rest.country
+        country: rest.country,
+        countryCode: rest.countryCode
       }, 
       usedCouponCode: coupon_code
     });
