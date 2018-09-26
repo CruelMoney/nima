@@ -8,10 +8,10 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 class Overview extends Component {
   render() {
-    const { data } = this.props;
+    const { data, canAccessKeystone } = this.props;
     const { children } = data;
 
-
+    console.log(this.props)
     return (
       <div className="overview-page mb-16 mt-16">
 
@@ -21,6 +21,9 @@ class Overview extends Component {
         <div className="flex flex-wrap overview">
           {
             children && children.map((page, idx) => {
+              if(!page.public && !canAccessKeystone ){
+                return null;
+              }
               return(
                   <div 
                   key={`overview-item-${idx}`}

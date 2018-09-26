@@ -33,6 +33,7 @@ BasePage.add(
 		thumbnail: { type: Types.Relationship, ref: 'FileUpload', many: false, createInline: true },
 		tags: { type: Types.Relationship, ref: 'Tag', many: true, createInline: true },
 		order: {type: Types.Number },
+		public : { type: Types.Boolean, default: true },
 	}
 );
 BasePage.register();
@@ -60,7 +61,6 @@ Product.add({
 	options: 				{ type: Types.Text },
 	variants: 			{ type: Types.Text },
 	SKU: 						{ type: String, required: true, initial:true },
-	isTestProduct : { type: Types.Boolean, default: false },
 	// stock format:
 	// {
 	//   sizes: {

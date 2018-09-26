@@ -2798,9 +2798,9 @@ cude-animations@^1.5.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/cude-animations/-/cude-animations-1.5.0.tgz#90329e032643461658a5c306bccff7e378c4b0ce"
 
-cude-cms@^0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/cude-cms/-/cude-cms-0.3.1.tgz#4b650477ca298fd92bdf8bcd79f7cd8b757060dc"
+cude-cms@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/cude-cms/-/cude-cms-0.3.2.tgz#81923e0a514888cc7a2862abb7d81dee14448997"
   dependencies:
     autoprefixer "^7.2.1"
     autotrack "^2.4.1"

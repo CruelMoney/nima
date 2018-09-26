@@ -91,7 +91,6 @@ class Index extends Component {
   render() {
     const { history, location, transparentLoading, loadingText, showLoading, showNewsletterActive} = this.props;
     const currentKey = location.pathname.split('/')[1] || 'home';
-
     return (
       <Fragment>
       <div className={`
