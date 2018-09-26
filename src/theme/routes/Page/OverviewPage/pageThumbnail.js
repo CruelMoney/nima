@@ -25,9 +25,18 @@ class PageThumb extends Component {
         </div>
         <h4 className="page-thumb">
           {page.title}
-          <span>
-            {page.price} DKK
-          </span>
+          <span className="price">
+          { 
+            page.salePrice ? 
+            <strong>
+              <span className="strikeout">{ page.price } DKK</span> <span className="sale-price">{ page.salePrice } DKK</span>
+            </strong>
+            :
+            <strong>
+              { page.price } DKK
+            </strong>
+          }
+        </span>
         </h4>
       </Link>
     );

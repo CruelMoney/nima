@@ -109,10 +109,18 @@ class ProductAdder extends Component {
         <p>
           {product.description}
         </p>
-        <p>
-          <strong>
-          Pris: { price } DKK
-          </strong>
+        <p className="price">
+          { 
+            product.salePrice ? 
+            <strong>
+              Pris: <span className="strikeout">{ price } DKK</span> <span className="sale-price">{ product.salePrice } DKK</span>
+            </strong>
+            :
+            <strong>
+              Pris: { price } DKK
+            </strong>
+          }
+          
         </p>
         <ul className="alternate-actions">
           <li>

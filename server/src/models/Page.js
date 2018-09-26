@@ -54,11 +54,13 @@ var Product = new keystone.List('Product', {
 	defaultColumns: "title, tags, price",
 });
 Product.add({
-	price: { type: Types.Money, format: '0.0,00 DKK'},
-	stock: { type: Types.Text },
-	options: { type: Types.Text },
-	variants: { type: Types.Text },
-	SKU: { type: String, required: true, initial:true },
+	price: 					{ type: Types.Money, format: '0.0,00 DKK'},
+	salePrice: 			{ type: Types.Money, format: '0.0,00 DKK'},
+	stock: 					{ type: Types.Text },
+	options: 				{ type: Types.Text },
+	variants: 			{ type: Types.Text },
+	SKU: 						{ type: String, required: true, initial:true },
+	isTestProduct : { type: Types.Boolean, default: false },
 	// stock format:
 	// {
 	//   sizes: {
