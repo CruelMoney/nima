@@ -27,8 +27,6 @@ const post = async (req, res) => {
     ...rest
   } = req.body;
 
-  console.log(JSON.stringify(req.body))
-
   let dbPrice = 0;
 
   try {
@@ -71,7 +69,8 @@ const post = async (req, res) => {
           const newStock = variants.map(v =>{
             if(v.sku === item.variation.sku){
               // add price to totalPrice
-              dbPrice += v.price * item.quantity;
+              const price = dbItem.salePrice || v.price;
+              dbPrice += price * item.quantity;
               return {...v, inventory : v.inventory - item.quantity}
             }else{
               return v;
@@ -149,7 +148,7 @@ const post = async (req, res) => {
         description: i.title, 
         variation: i.variation,
         quantity: i.quantity,
-        price: i.variation.price,
+        price: i.salePrice || i.variation.price,
         link: process.env.PUBLIC_URL + '/' + i.slug,
         SKU: i.variation.sku
       }
