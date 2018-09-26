@@ -94,10 +94,15 @@ class ProductAdder extends Component {
     return isPossible;
   }
 
+  isSoldOut = () => {
+    const { product } = this.props;
+    return product.variants.every(o => Number(o.inventory) <= 0);
+  }
+
   render() {
     const { product, editMode, publicURL } = this.props;
     const { productAdded, chosenVariation } = this.state;
-    const soldOut = product.stock.every(o => o.stock <= 0);
+    const soldOut = this.isSoldOut();
     const url = publicURL + "/" + product.slug;
     const price = !chosenVariation ? product.price : chosenVariation.price;
     const options = Object.values(product.options);
@@ -120,7 +125,6 @@ class ProductAdder extends Component {
               Pris: { price } DKK
             </strong>
           }
-          
         </p>
         <ul className="alternate-actions">
           <li>

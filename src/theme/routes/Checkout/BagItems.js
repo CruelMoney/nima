@@ -54,7 +54,7 @@ class BagItems extends Component {
                           </p>
                         </div>
                         <p className="text-right w-1/5 md:w-2/5 mb-0">
-                        {item.quantity > 1 ? item.quantity + "x" : ""} {item.variation.price} DKK
+                        {item.quantity > 1 ? item.quantity + "x" : ""} {item.salePrice || item.variation.price} DKK
                         </p>
                       </Link>
                     </div>

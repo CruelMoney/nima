@@ -1,6 +1,6 @@
 
 const getTotalPrice = ({items, initial, coupon}) => {
-  const price = items.reduce((acc, i)=>acc+parseFloat(i.variation.price), 0);
+  const price = items.reduce((acc, i)=>acc+parseFloat(i.salePrice || i.variation.price), 0);
   return addCoupon({price, coupon}) + initial;
 }
 

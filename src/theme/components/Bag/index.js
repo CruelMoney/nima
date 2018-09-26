@@ -32,10 +32,11 @@ class Bag extends Component{
     },250)
   }
 
+  getProductPrice = p => p.salePrice || p.variation.price;
+
   render(){
     const { items } = this.props.cart
     let itemsView = {}
-console.log(items)
     // Mapping items to render multiple items on same line
     for (const item of items) {
       const key = item.variation.sku;
@@ -69,7 +70,7 @@ console.log(items)
                         {i.quantity > 1 ? i.quantity + "x" : ""} {i.title} 
                         </p>
                         <p className="inline float-right text-right">
-                        {i.quantity > 1 ? i.quantity + "x" : ""} {i.variation.price} DKK
+                        {i.quantity > 1 ? i.quantity + "x" : ""} {this.getProductPrice(i)} DKK
                         </p>
                       </Link>
                     )
@@ -90,7 +91,7 @@ console.log(items)
                     Total
                   </p>
                   <p className="inline float-right text-right">
-                    {items.reduce((acc, i)=>acc+parseFloat(i.variation.price), 0)} DKK
+                    {items.reduce((acc, i)=>acc+parseFloat(this.getProductPrice(i)), 0)} DKK
                   </p>
                 </div> 
                 <div className="flex justify-center w-full mt-4">
