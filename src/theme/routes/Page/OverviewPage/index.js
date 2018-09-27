@@ -11,7 +11,6 @@ class Overview extends Component {
     const { data, canAccessKeystone } = this.props;
     const { children } = data;
 
-    console.log(this.props)
     return (
       <div className="overview-page mb-16 mt-16">
 
