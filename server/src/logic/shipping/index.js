@@ -79,11 +79,22 @@ const orderToShipping = (order) => {
       }],
       "service": {
         "id": pacsoftCode, // Collect eller til dør
-        "addons": [{
+        "addons": [
+        {
           "id": "NOTEMAIL", // Email notification
           "custNo": "220000787"
+        },
+        {
+          "id": "NOTSMS", // SMS notification
+          "misc": order.phone,
+          "custNo": "220000787"
         }]
-      }
+      },
+      "options":[
+        {
+          "id": "ENOT", // Pre notification email with tracking
+        }
+      ]
     }
   }  
 } 
