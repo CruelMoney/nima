@@ -33,7 +33,7 @@ BasePage.add(
 		thumbnail: { type: Types.Relationship, ref: 'FileUpload', many: false, createInline: true },
 		tags: { type: Types.Relationship, ref: 'Tag', many: true, createInline: true },
 		order: {type: Types.Number },
-		public : { type: Types.Boolean, default: true },
+		public : { type: Types.Boolean, initial:true, readonly: false, noedit:false  },
 	}
 );
 BasePage.register();
