@@ -32,7 +32,7 @@ class Page extends Component {
       type = "article";
     }
 
-    let title = `nimacph. ${page.title || ""}`;
+    let title = `${page.title || ""} nimacph.`;
 
     return (
       <React.Fragment>

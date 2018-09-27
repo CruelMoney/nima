@@ -17,7 +17,7 @@ class Post extends Component {
           </h1>
           <DBWysiwyg 
             className="content-wrapper"
-            dbKey={`${page.slug}-wysiwyg-content`}
+            dbKey={`${page._id}-wysiwyg-content`}
             wrapperClassName="wysiwyg"
             editorClassName="content-wrapper"
             toolbarClassName="wysiwyg-toolbar"
