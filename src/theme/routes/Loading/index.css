@@ -1,43 +1,41 @@
-.loading-bg{
-  opacity: 0;
-  background: white;  
-  transform: translateY(-100vh);
-  z-index: 2;
+.loading-bg {
+	opacity: 0;
+	background: white;
+	transform: translateY(-100vh);
+	z-index: 2;
 }
 
-.loading-bg.transparent{
-  background: rgba(255, 255, 255, 0.8);
+.loading-bg.transparent {
+	background: rgba(255, 255, 255, 0.8);
 }
 
-
-#loading-screen{
-  pointer-events:  none;
-  z-index: 2;
+#loading-screen {
+	pointer-events: none;
+	z-index: 3;
 }
-#loading-screen #loading-screen-content{
-  z-index: 3;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%) translateY(0%);
-}
-
-#loading-logo-wrapper{
-  z-index: 3;
-  opacity: 0;
-  transform: translateY(100vh);
-  overflow: hidden;
+#loading-screen #loading-screen-content {
+	z-index: 3;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%) translateY(0%);
 }
 
-#loading-screen-content, 
+#loading-logo-wrapper {
+	z-index: 3;
+	opacity: 0;
+	transform: translateY(100vh);
+	overflow: hidden;
+}
+
+#loading-screen-content,
 #loading-logo-wrapper,
-#loading-bg{
-  will-change: transform;
+#loading-bg {
+	will-change: transform;
 }
 
-#loading-screen .loading-text{
-  font-family: "PierSans-Bold";
-  font-size: 1.375em;
-  letter-spacing: 1.83px;
-  margin-bottom: 5.6em;
+#loading-screen .loading-text {
+	font-family: "PierSans-Bold";
+	font-size: 1.375em;
+	letter-spacing: 1.83px;
+	margin-bottom: 5.6em;
 }
-
