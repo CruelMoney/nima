@@ -15,6 +15,7 @@ import ReactPixel from "react-facebook-pixel";
 import * as tracker from "../../components/WithAnalytics/ProductTracker";
 import "./index.css";
 import { NotificationDecider } from "../../components/Menu/Notification";
+import * as priceCalc from "./priceCalculator";
 
 class Checkout extends Component {
 	constructor(props) {
@@ -35,8 +36,25 @@ class Checkout extends Component {
 	}
 
 	componentDidMount = async () => {
+		const { cart } = this.props;
+
+		const order = priceCalc.itemsToOrder(cart.items);
 		ReactGA.pageview("/checkout#step1");
-		ReactPixel.track("InitiateCheckout");
+		ReactPixel.track("InitiateCheckout", {
+			content_ids: order.map(i => i.SKU),
+			contents: order.map(i => ({
+				id: i.SKU,
+				quantity: i.quantity,
+				item_price: i.price
+			})),
+			content_type: "product",
+			value: priceCalc.getTotalPrice({
+				items: order,
+				coupon: false,
+				initial: 0
+			}),
+			currency: "DKK"
+		});
 		const data = await actions.getAvailableCountries();
 		this.setState({
 			availableCountries: data.results

@@ -121,6 +121,7 @@ class ProductAdder extends Component {
 					item_price: price
 				}
 			],
+			value: price,
 			currency: "DKK"
 		});
 	}
