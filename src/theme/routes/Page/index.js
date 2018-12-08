@@ -44,18 +44,18 @@ class Page extends Component {
 			<React.Fragment>
 				<Helmet>
 					<title>{title}</title>
-					<meta name="og:title" content={title} />
-					<meta name="og:url" content={publicURL + location.pathname} />
-					<meta name="og:type" content={type} />
+					<meta property="og:title" content={title} />
+					<meta property="og:url" content={publicURL + location.pathname} />
+					<meta property="og:type" content={type} />
 					<meta
-						name="description"
+						property="description"
 						content={
 							page.description ||
 							"Nimacph er et lille, lokalt økologisk brand startet i København. Brandet blev lanceret i en røgfyldt lejlighed på Vesterbro 2018 af Nikolaj og Mads. To meget blege drenge med en stor kærlighed for verden, mellemøsten og de små ting. Vores produkter blev derfor et mix af skandinavirens enkelthed og arabisk skrift. "
 						}
 					/>
 					<meta
-						name="og:description"
+						property="og:description"
 						content={
 							page.description ||
 							"Nimacph er et lille, lokalt økologisk brand startet i København. Brandet blev lanceret i en røgfyldt lejlighed på Vesterbro 2018 af Nikolaj og Mads. To meget blege drenge med en stor kærlighed for verden, mellemøsten og de små ting. Vores produkter blev derfor et mix af skandinavirens enkelthed og arabisk skrift. "
@@ -63,7 +63,7 @@ class Page extends Component {
 					/>
 					{page.thumbnail && page.thumbnail.file ? (
 						<meta
-							name="og:image"
+							property="og:image"
 							content={
 								publicURL + "/uploads/files/" + page.thumbnail.file.filename
 							}
