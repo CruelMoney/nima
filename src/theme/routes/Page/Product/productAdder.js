@@ -7,6 +7,7 @@ import { FacebookShareButton } from "react-share";
 import intersect from "lodash.intersection";
 import difference from "lodash.difference";
 import { Helmet } from "react-helmet";
+import ReactPixel from "react-facebook-pixel";
 
 const getPossibleOptionCombinations = ({ variants }) => {
 	return variants
@@ -103,6 +104,26 @@ class ProductAdder extends Component {
 		const { product } = this.props;
 		return product.variants.every(o => Number(o.inventory) <= 0);
 	};
+
+	componentDidMount() {
+		const { product } = this.props;
+		const { chosenVariation } = this.state;
+		const price = !chosenVariation ? product.price : chosenVariation.price;
+
+		ReactPixel.track("ViewContent", {
+			content_ids: [product.SKU],
+			content_name: product.title,
+			content_type: "product",
+			contents: [
+				{
+					id: product.SKU,
+					quantity: 1,
+					item_price: price
+				}
+			],
+			currency: "DKK"
+		});
+	}
 
 	render() {
 		const { product, editMode, publicURL } = this.props;

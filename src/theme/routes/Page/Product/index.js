@@ -5,7 +5,6 @@ import ProductAdder from "./productAdder";
 import * as tracker from "../../../components/WithAnalytics/ProductTracker";
 import "./index.css";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import ReactPixel from 'react-facebook-pixel';
 
 // // these are relative to the viewport, i.e. the window
 // const top = viewportOffset.top;
@@ -89,8 +88,7 @@ class Product extends Component {
 	componentDidMount() {
 		const { page } = this.props;
 		tracker.addProduct({ product: page, quantity: 1 });
-    tracker.detailView();
-    ReactPixel.track('ViewContent');
+		tracker.detailView();
 	}
 
 	render() {
