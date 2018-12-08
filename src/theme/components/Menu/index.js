@@ -33,7 +33,7 @@ class Menu extends Component {
 			>
 				<div className="background" />
 
-				<Notification>GRATIS FORSENDELSE PÅ ORDRER OVER 1000 DKK</Notification>
+				<Notification>{menu && menu.bannerText}</Notification>
 
 				<div className="container mx-auto h-16 flex relative">
 					<span onClick={history.goBack} className="go-back-button">

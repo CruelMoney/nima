@@ -7,7 +7,8 @@ var Menu = new keystone.List('Menu', {
 	});
 Menu.add(
 	{
-    name: { type: String, required: true },
+	name: { type: String, required: true },
+	bannerText: { type: String, required: false },
     pages: { type: Types.Relationship, ref: 'BasePage', many: true }
 	}
 );
