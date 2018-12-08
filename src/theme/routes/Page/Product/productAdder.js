@@ -138,7 +138,7 @@ class ProductAdder extends Component {
 					<meta property="product:brand" content="Nima" />
 					<meta
 						property="product:availability"
-						content={this.isSoldOut ? "out of stock" : "in stock"}
+						content={soldOut ? "out of stock" : "in stock"}
 					/>
 					<meta property="product:condition" content="new" />
 					<meta property="product:price:amount" content={price} />
