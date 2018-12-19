@@ -111,7 +111,7 @@ class ProductAdder extends Component {
 		const price = !chosenVariation ? product.price : chosenVariation.price;
 
 		ReactPixel.track("ViewContent", {
-			content_ids: [product.SKU],
+			//	content_ids: [product.SKU],
 			content_name: product.title,
 			content_type: "product",
 			contents: [

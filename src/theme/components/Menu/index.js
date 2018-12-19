@@ -33,7 +33,10 @@ class Menu extends Component {
 			>
 				<div className="background" />
 
-				<Notification>{menu && menu.bannerText}</Notification>
+				{
+					(menu && menu.bannerText) &&	<Notification>{menu && menu.bannerText}</Notification>
+				}
+			
 
 				<div className="container mx-auto h-16 flex relative">
 					<span onClick={history.goBack} className="go-back-button">

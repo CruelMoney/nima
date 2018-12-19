@@ -79,7 +79,7 @@ export function checkout(order) {
 					currency: "DKK"
 				});
 				ReactPixel.track("Purchase", {
-					content_ids: order.items.map(i => i.SKU),
+					//	content_ids: order.items.map(i => i.SKU),
 					contents: order.items.map(i => ({
 						id: i.SKU,
 						quantity: i.quantity,
