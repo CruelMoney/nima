@@ -41,7 +41,7 @@ class Checkout extends Component {
 		const order = priceCalc.itemsToOrder(cart.items);
 		ReactGA.pageview("/checkout#step1");
 		ReactPixel.track("InitiateCheckout", {
-			//	content_ids: order.map(i => i.SKU),
+			content_ids: order.map(i => i.SKU),
 			contents: order.map(i => ({
 				id: i.SKU,
 				quantity: i.quantity,
