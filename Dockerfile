@@ -7,10 +7,10 @@ ADD . /app
 ENV NPM_CONFIG_PRODUCTION false
 ENV NODE_ENV production
 
-RUN yarn install
+RUN yarn install --ignore-engines
 
 WORKDIR /app/server
-RUN yarn install
+RUN yarn install --ignore-engines
 
 WORKDIR /app
 
@@ -24,7 +24,7 @@ RUN cp -R server/src/updates/ dist/build/updates/
 
 # Build admin
 WORKDIR /app/admin
-RUN yarn install
+RUN yarn install --ignore-engines
 RUN yarn build
 WORKDIR /app
 RUN mkdir -p dist/build/admin
@@ -32,7 +32,7 @@ RUN mv admin/build/* dist/build/admin
 
 # Go to dist and install packages
 WORKDIR /app/dist
-RUN yarn install --production
+RUN yarn install --production --ignore-engines
 
 WORKDIR /app
 ENTRYPOINT ["node", "dist/build/bundle.js"]
