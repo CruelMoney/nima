@@ -340,7 +340,6 @@ const confirmOrder = async (req, res) => {
 };
 
 const generate_payment_response = intent => {
-  console.log({ intent });
   // Note that if your API version is before 2019-02-11, 'requires_action'
   // appears as 'requires_source_action'.
   if (
