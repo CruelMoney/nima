@@ -86,36 +86,38 @@ class Payment extends Component {
         items: priceCalc.itemsToOrder(items)
       });
 
-      console.log({ order });
+      let {
+        paymentIntent,
+        requires_action,
+        payment_intent_client_secret
+      } = order;
 
       if (order.error) {
         throw order.error;
       }
 
-      if (order.requires_action) {
+      if (requires_action) {
         // Use Stripe.js to handle required card action
         const result = await stripe.handleCardAction(
-          order.payment_intent_client_secret
+          payment_intent_client_secret
         );
-        console.log({ result });
-
         if (result.error) {
           throw result.error;
-        } else {
-          // The card action has been handled
-          // The PaymentIntent can be confirmed again on the server
-          const order2 = await checkout({
-            ...orderValues,
-            coupon_code: !!coupon ? coupon.code : false,
-            total_price: totalPrice,
-            payment_intent_id: result.paymentIntent.id,
-            items: priceCalc.itemsToOrder(items)
-          });
-
-          if (order2.error) {
-            throw order2.error;
-          }
         }
+      }
+
+      // The card action has been handled
+      // The PaymentIntent can be confirmed again on the server
+      const order2 = await checkout({
+        ...orderValues,
+        coupon_code: !!coupon ? coupon.code : false,
+        total_price: totalPrice,
+        paymentIntent,
+        items: priceCalc.itemsToOrder(items)
+      });
+
+      if (order2.error) {
+        throw order2.error;
       }
 
       this.handleCheckout(false, startTime);
