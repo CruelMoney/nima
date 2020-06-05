@@ -25,7 +25,7 @@ const post = async (req, res) => {
     coupon_code,
     newsletter_subscribe,
     payment_method_id,
-    payment_intent_id,
+    paymentIntent,
     ...rest
   } = req.body;
 
@@ -149,12 +149,18 @@ const post = async (req, res) => {
         });
         // Send the response to the client
         return res.send(generate_payment_response(intent));
-      } else if (payment_intent_id) {
+      } else if (
+        paymentIntent &&
+        ["requires_action", "requires_confirmation"].includes(
+          paymentIntent.status
+        )
+      ) {
         console.log("Confirming payment intent");
-        await stripe.paymentIntents.confirm(payment_intent_id);
+        await stripe.paymentIntents.confirm(paymentIntent.id);
       }
     } catch (e) {
       // Display error on client
+      console.log({ error: e });
       return res.send({ error: e.message });
     }
 
@@ -176,7 +182,7 @@ const post = async (req, res) => {
     const order = new Order.model({
       items: JSON.stringify(orderItems),
       totalPrice: total_price,
-      stripeID: payment_intent_id,
+      stripeID: paymentIntent.id,
       email: email,
       phone: phone,
       delivery: {
@@ -191,6 +197,8 @@ const post = async (req, res) => {
       },
       usedCouponCode: coupon_code
     });
+
+    console.log("Creating new order: ", order.id);
 
     await order.save();
 
@@ -349,17 +357,20 @@ const generate_payment_response = intent => {
     // Tell the client to handle the action
     return {
       requires_action: true,
-      payment_intent_client_secret: intent.client_secret
+      payment_intent_client_secret: intent.client_secret,
+      paymentIntent: intent
     };
   } else if (intent.status === "succeeded") {
     // The payment didn’t need any additional actions and completed!
     // Handle post-payment fulfillment
     return {
-      success: true
+      success: true,
+      paymentIntent: intent
     };
   } else if (intent.status === "requires_capture") {
     return {
-      success: true
+      success: true,
+      paymentIntent: intent
     };
   } else {
     // Invalid status
