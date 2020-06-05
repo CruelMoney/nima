@@ -6,7 +6,7 @@ import LoadingPage from "./routes/Loading";
 import Checkout from "./routes/Checkout";
 import { connect } from "react-redux";
 import * as actions from "./actions/theme";
-import { withRouter, Route, Switch, Redirect } from "react-router-dom";
+import { withRouter, Route, Switch } from "react-router-dom";
 //import Loadable from 'react-loadable';
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import Page from "./routes/Page";
@@ -135,7 +135,7 @@ class Index extends Component {
 						>
 							<section className="transition-page my-active-enter">
 								<Switch location={location}>
-									<Redirect from="/" to="/shop" />
+									<Route exact path="/" component={withTracker(Landing)} />
 									<Route path="/checkout" component={Checkout} />
 									<Route component={withTracker(Page)} />
 								</Switch>
