@@ -36,7 +36,7 @@
     "redux-persist": "^5.4.0",
     "redux-thunk": "^2.2.0",
     "scrollto-element": "^1.0.4",
-    "validator": "^9.2.0"
+    "validator": "^13.7.0"
   },
   "scripts": {
     "start": "tailwind build ./src/index.tailwind.css -c ./tailwind.js -o ./src/index.css && react-scripts start",
